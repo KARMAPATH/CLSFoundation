@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cheshta Learning System Foundation | Empowering Safety & Education</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800;900&family=Open+Sans:wght@300;400;600&family=Jost:wght@400;500;600&family=Work+Sans:wght@400;500&family=Noto+Serif+Devanagari:wght@400;500&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cls: {
+                            navy: '#0A192F',     // Deep, secure, authoritative blue
+                            shield: '#112240',   // Lighter navy for cards
+                            orange: '#FF6B00',   // Urgent, energetic, action-oriented orange
+                            green: '#00C853',    // Safe, growth-focused green
+                            light: '#F3F4F6',    // Neutral background
+                            text: '#334155'      // Highly readable dark slate
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Open Sans', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'secure': '0 10px 30px -10px rgba(10, 25, 47, 0.2)',
+                        'glow': '0 0 20px rgba(255, 107, 0, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #FF6B00 0%, #00C853 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Psychological Marketing: Subtle pulse to draw attention to safety/urgency */
+        @keyframes subtlePulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 0, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 15px rgba(255, 107, 0, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 0, 0); }
+        }
+        .btn-pulse {
+            animation: subtlePulse 2.5s infinite;
+        }
+
+        .bg-pattern {
+            background-color: #0A192F;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .trust-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .trust-card:hover {
+            transform: translateY(-8px);
+            border-color: #FF6B00;
+        }
+
+        /* ---------- VIBE LAYER ---------- */
+
+        /* Scroll-reveal */
+        .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1.is-visible { transition-delay: 0.12s; }
+        .reveal-delay-2.is-visible { transition-delay: 0.24s; }
+        .reveal-delay-3.is-visible { transition-delay: 0.36s; }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+        }
+
+        /* Slow ambient blob float, used on hero + section background orbs */
+        @keyframes blobFloat {
+            0%, 100% { transform: translate(0,0) scale(1); }
+            33% { transform: translate(20px,-25px) scale(1.08); }
+            66% { transform: translate(-15px,15px) scale(0.94); }
+        }
+        .blob-float { animation: blobFloat 12s ease-in-out infinite; }
+        .blob-float-slow { animation: blobFloat 18s ease-in-out infinite reverse; }
+
+        /* Drifting grid pattern for extra depth in the hero */
+        @keyframes gridDrift {
+            from { background-position: 0 0; }
+            to { background-position: 40px 40px; }
+        }
+        .bg-pattern { animation: gridDrift 30s linear infinite; }
+
+        /* Shimmer sweep, used across mockups + the donate card */
+        @keyframes shimmerSweep {
+            0% { transform: translateX(-150%) skewX(-15deg); }
+            100% { transform: translateX(250%) skewX(-15deg); }
+        }
+        .shimmer-sweep::after {
+            content: '';
+            position: absolute; top: 0; left: 0;
+            width: 40%; height: 100%;
+            background: linear-gradient(115deg, transparent, rgba(255,255,255,0.35), transparent);
+            animation: shimmerSweep 3.5s ease-in-out infinite;
+            animation-delay: 1.2s;
+            pointer-events: none;
+        }
+
+        /* Gentle bob, used for floating labels / chips */
+        @keyframes softBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .soft-bob { animation: softBob 4.5s ease-in-out infinite; }
+
+        /* Marquee for the trust badge strip */
+        @keyframes marqueeScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .marquee-track {
+            animation: marqueeScroll 22s linear infinite;
+            width: max-content;
+        }
+        .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+
+        /* Glass surface used on floating cards + phone mockup */
+        .glass-surface {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255,255,255,0.14);
+        }
+
+        /* Perspective tilt for leadership + mockup cards */
+        .tilt-card { transform-style: preserve-3d; transition: transform 0.25s ease-out, box-shadow 0.25s ease-out; will-change: transform; }
+
+        /* Animated gradient border ring for the hero CTA */
+        @keyframes ringSpin { to { --angle: 360deg; } }
+        @property --angle { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+        .gradient-ring {
+            position: relative;
+        }
+        .gradient-ring::before {
+            content: '';
+            position: absolute; inset: -3px; border-radius: inherit; z-index: -1;
+            background: conic-gradient(from var(--angle), #FF6B00, #00C853, #FF6B00);
+            animation: ringSpin 4s linear infinite;
+        }
+
+        /* Phone mockup shell for Karmapath */
+        .phone-shell {
+            background: linear-gradient(160deg, #1a1a1a, #0a0a0a);
+            border-radius: 2.75rem;
+            padding: 14px;
+            box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06) inset;
+        }
+        .phone-notch {
+            width: 34%; height: 22px; background: #0a0a0a; border-radius: 0 0 14px 14px;
+            position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 20;
+        }
+
+        /* Card number style credit-card mockup for donate section */
+        .credit-card-mock {
+            background: linear-gradient(135deg, #10233f 0%, #0A192F 55%, #071324 100%);
+            position: relative; overflow: hidden;
+        }
+        .credit-card-mock::before {
+            content: ''; position: absolute; width: 220px; height: 220px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,107,0,0.25), transparent 70%);
+            top: -60px; right: -60px;
+        }
+
+        /* ---------- KARMAPATH BRAND KIT ---------- */
+        .kp-wordmark { font-family: 'Jost', sans-serif; text-transform: uppercase; font-weight: 400; letter-spacing: 0.16em; color: #6D28D9; }
+        .kp-sankalp { font-family: 'Jost', sans-serif; text-transform: uppercase; font-weight: 400; letter-spacing: 0.5em; color: #8A8A8A; }
+        .kp-heading { font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.14em; font-weight: 500; }
+        .kp-body { font-family: 'Work Sans', sans-serif; font-weight: 400; }
+        .kp-sanskrit { font-family: 'Noto Serif Devanagari', serif; }
+        .kp-bg-blush {
+            background: radial-gradient(ellipse 90% 70% at 50% 42%, #EAD8DD 0%, #F3E8E6 45%, #FAF6F4 75%, #FFFFFF 100%);
+        }
+        .kp-feather { stroke: #2B2B2B; }
+        .kp-chip {
+            font-family: 'Jost', sans-serif; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; font-size: 0.65rem;
+            background: #FFFFFF; border: 1px solid rgba(43,43,43,0.12); color: #2B2B2B; border-radius: 999px; padding: 0.4rem 0.9rem;
+        }
+        .kp-emotion { border: none; position: relative; overflow: hidden; }
+        .kp-emotion .kp-dot { box-shadow: 0 0 0 0 rgba(255,255,255,0); transition: box-shadow 0.3s ease, transform 0.2s ease; }
+        .kp-emotion.selected .kp-dot { box-shadow: 0 0 10px 2px rgba(255,255,255,0.5); }
+        .kp-emotion:not(.selected):hover { transform: translateY(-1px); }
+        .kp-ripple {
+            position: absolute; border-radius: 50%; background: rgba(255,255,255,0.5);
+            transform: scale(0); animation: kpRippleAnim 0.6s ease-out forwards; pointer-events: none;
+        }
+        @keyframes kpRippleAnim {
+            to { transform: scale(3.5); opacity: 0; }
+        }
+        #kp-enter:active { transform: scale(0.9); }
+
+        /* Impact stats strip */
+        .stat-cell { transition: background 0.3s ease; }
+        .stat-cell:hover { background: #FFF7F0; }
+
+        /* Ticker dash used near numbers to feel "live" */
+        .live-dot { display:inline-block; width:8px; height:8px; border-radius:50%; background:#00C853; box-shadow: 0 0 0 0 rgba(0,200,83,0.6); animation: liveDot 2s infinite; }
+        @keyframes liveDot {
+            0% { box-shadow: 0 0 0 0 rgba(0,200,83,0.6); }
+            70% { box-shadow: 0 0 0 8px rgba(0,200,83,0); }
+            100% { box-shadow: 0 0 0 0 rgba(0,200,83,0); }
+        }
+    </style>
+</head>
+<body class="font-sans text-cls-text bg-white antialiased selection:bg-cls-orange selection:text-white">
+
+    <nav class="fixed w-full z-50 bg-cls-navy/95 backdrop-blur-md border-b border-white/10 transition-all duration-300 py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand / Authority -->
+                <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center font-heading font-black text-2xl shadow-glow">
+                        <span class="text-cls-orange">C</span><span class="text-cls-navy">L</span><span class="text-cls-green">S</span>
+                    </div>
+                    <div class="hidden sm:block">
+                        <div class="text-white font-heading font-bold text-sm tracking-wide leading-tight uppercase">Cheshta Learning System</div>
+                        <div class="text-gray-400 font-sans font-semibold text-[10px] tracking-widest uppercase">Foundation &bull; Est. 2019</div>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#mission" class="text-gray-300 hover:text-white font-semibold text-sm tracking-wide transition-colors">The Mission</a>
+                    <a href="#solutions" class="text-gray-300 hover:text-white font-semibold text-sm tracking-wide transition-colors">Our Solutions</a>
+                    <a href="#proof" class="text-gray-300 hover:text-white font-semibold text-sm tracking-wide transition-colors">Impact & Proof</a>
+                    <a href="#karmapath" class="text-gray-300 hover:text-white font-semibold text-sm tracking-wide transition-colors">Karmapath</a>
+                    <a href="#programs" class="text-gray-300 hover:text-white font-semibold text-sm tracking-wide transition-colors">Programs</a>
+                    <a href="#authority" class="text-gray-300 hover:text-white font-semibold text-sm tracking-wide transition-colors">Leadership</a>
+                    <a href="#donate" class="bg-cls-orange text-white px-6 py-2.5 rounded-md font-heading font-bold text-sm tracking-wide hover:bg-orange-600 transition-all btn-pulse flex items-center gap-2">
+                        <i class="fas fa-shield-alt"></i> Protect a Child
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Nav -->
+        <div id="mobile-menu" class="hidden md:hidden bg-cls-navy border-t border-white/10 absolute w-full left-0 top-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 shadow-2xl">
+                <a href="#mission" class="block px-3 py-3 text-base font-semibold text-white border-b border-white/5">The Mission</a>
+                <a href="#solutions" class="block px-3 py-3 text-base font-semibold text-white border-b border-white/5">Our Solutions</a>
+                <a href="#proof" class="block px-3 py-3 text-base font-semibold text-white border-b border-white/5">Impact & Proof</a>
+                <a href="#karmapath" class="block px-3 py-3 text-base font-semibold text-white border-b border-white/5">Karmapath</a>
+                <a href="#programs" class="block px-3 py-3 text-base font-semibold text-white border-b border-white/5">Programs</a>
+                <a href="#authority" class="block px-3 py-3 text-base font-semibold text-white border-b border-white/5">Leadership</a>
+                <a href="#donate" class="block mt-4 px-3 py-3 text-center text-base font-bold text-white bg-cls-orange rounded-md">Protect a Child Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative pt-32 pb-24 lg:pt-48 lg:pb-32 bg-pattern overflow-hidden">
+        <!-- Abstract secure graphic elements -->
+        <div id="orb-orange" class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-cls-orange/10 blur-3xl blob-float"></div>
+        <div id="orb-green" class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 rounded-full bg-cls-green/10 blur-3xl blob-float-slow"></div>
+        <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full bg-white/5 blur-3xl blob-float pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
+            <!-- Trust Indicator -->
+            <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full glass-surface mb-8 soft-bob">
+                <i class="fas fa-certificate text-cls-orange"></i>
+                <span class="text-white/80 text-xs font-bold tracking-widest uppercase">Recognized by the Hon'ble Prime Minister of India</span>
+            </div>
+
+            <h1 class="reveal reveal-delay-1 font-heading text-5xl md:text-7xl font-black text-white mb-6 leading-tight tracking-tight">
+                A World Free of Fear<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cls-orange to-yellow-400">For Every Child.</span>
+            </h1>
+            
+            <p class="reveal reveal-delay-2 mt-4 text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto font-light leading-relaxed mb-10">
+                <strong class="text-white font-semibold">"Women are not the problem, they are the solution."</strong><br>
+                We forge confident, invincible generations by providing critical self-defense, physical training, and holistic education to the most vulnerable in our society.
+            </p>
+
+            <div class="reveal reveal-delay-3 flex flex-col sm:flex-row gap-5 justify-center items-center">
+                <a href="#donate" class="gradient-ring w-full sm:w-auto bg-cls-orange text-white px-8 py-4 rounded-md text-lg font-heading font-bold shadow-glow hover:bg-orange-600 hover:scale-[1.03] transition-all flex items-center justify-center gap-3">
+                    <i class="fas fa-lock"></i> Secure Their Future
+                </a>
+                <a href="#mission" class="w-full sm:w-auto bg-transparent border-2 border-white/30 text-white hover:border-white hover:bg-white/5 px-8 py-4 rounded-md text-lg font-heading font-bold transition-all flex items-center justify-center gap-3">
+                    See The Reality <i class="fas fa-arrow-down"></i>
+                </a>
+            </div>
+            
+            <!-- Authority Logos/Badges — auto-scrolling marquee for extra presence -->
+            <div class="reveal mt-16 pt-8 border-t border-white/10 marquee-wrap overflow-hidden">
+                <div class="marquee-track flex items-center gap-16 grayscale hover:grayscale-0 transition-all duration-500">
+                    <div class="flex items-center gap-2 text-white font-bold whitespace-nowrap"><i class="fas fa-landmark text-2xl text-cls-orange"></i> HR Reg: HR/019/2019/02017</div>
+                    <div class="flex items-center gap-2 text-white font-bold whitespace-nowrap"><i class="fas fa-users-shield text-2xl text-cls-green"></i> Women Empowerment</div>
+                    <div class="flex items-center gap-2 text-white font-bold whitespace-nowrap"><i class="fas fa-child text-2xl text-cls-orange"></i> Child Development</div>
+                    <div class="flex items-center gap-2 text-white font-bold whitespace-nowrap"><i class="fas fa-medal text-2xl text-cls-green"></i> PM Recognized &bull; 2019</div>
+                    <!-- duplicate set for seamless loop -->
+                    <div class="flex items-center gap-2 text-white font-bold whitespace-nowrap"><i class="fas fa-landmark text-2xl text-cls-orange"></i> HR Reg: HR/019/2019/02017</div>
+                    <div class="flex items-center gap-2 text-white font-bold whitespace-nowrap"><i class="fas fa-users-shield text-2xl text-cls-green"></i> Women Empowerment</div>
+                    <div class="flex items-center gap-2 text-white font-bold whitespace-nowrap"><i class="fas fa-child text-2xl text-cls-orange"></i> Child Development</div>
+                    <div class="flex items-center gap-2 text-white font-bold whitespace-nowrap"><i class="fas fa-medal text-2xl text-cls-green"></i> PM Recognized &bull; 2019</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="impact-stats" class="relative -mt-10 z-20 pb-4">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal bg-white rounded-2xl shadow-secure border border-gray-100 grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-100 overflow-hidden">
+                <div class="stat-cell p-6 md:p-8 text-center">
+                    <i class="fas fa-calendar-check text-cls-orange text-2xl mb-3"></i>
+                    <p class="font-heading font-black text-3xl md:text-4xl text-cls-navy">
+                        <span class="stat-counter" data-target="6" data-suffix="+">0</span>
+                    </p>
+                    <p class="text-gray-500 text-xs md:text-sm font-semibold uppercase tracking-wide mt-1">Years Active <span class="block text-gray-400 font-normal normal-case">Registered 2019</span></p>
+                </div>
+                <div class="stat-cell p-6 md:p-8 text-center">
+                    <i class="fas fa-layer-group text-cls-orange text-2xl mb-3"></i>
+                    <p class="font-heading font-black text-3xl md:text-4xl text-cls-navy">
+                        <span class="stat-counter" data-target="5">0</span>
+                    </p>
+                    <p class="text-gray-500 text-xs md:text-sm font-semibold uppercase tracking-wide mt-1">Core Programs <span class="block text-gray-400 font-normal normal-case">Defence, Yoga &amp; more</span></p>
+                </div>
+                <div class="stat-cell p-6 md:p-8 text-center">
+                    <i class="fas fa-map-marker-alt text-cls-orange text-2xl mb-3"></i>
+                    <p class="font-heading font-black text-3xl md:text-4xl text-cls-navy">
+                        <span class="stat-counter" data-target="3" data-suffix="+">0</span>
+                    </p>
+                    <p class="text-gray-500 text-xs md:text-sm font-semibold uppercase tracking-wide mt-1">Communities Served <span class="block text-gray-400 font-normal normal-case">Across Faridabad</span></p>
+                </div>
+                <div class="stat-cell p-6 md:p-8 text-center">
+                    <i class="fas fa-hand-holding-heart text-cls-orange text-2xl mb-3"></i>
+                    <p class="font-heading font-black text-3xl md:text-4xl text-cls-navy">
+                        <span class="stat-counter" data-target="100" data-suffix="%">0</span>
+                    </p>
+                    <p class="text-gray-500 text-xs md:text-sm font-semibold uppercase tracking-wide mt-1">Free of Cost <span class="block text-gray-400 font-normal normal-case">Every single class</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="mission" class="py-24 bg-cls-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-cls-orange to-cls-green transform translate-x-4 translate-y-4 rounded-xl opacity-20 blur-[2px]"></div>
+                    <img src="https://placehold.co/800x1000/0A192F/ffffff?text=Empowered+Girl+Child" alt="Empowered Girl Child" class="relative rounded-xl shadow-2xl w-full h-auto object-cover border-4 border-white z-10">
+                    
+                    <!-- Floating Data Card -->
+                    <div class="absolute -bottom-8 -right-8 bg-white/95 backdrop-blur p-6 rounded-xl shadow-secure z-20 max-w-xs border-l-4 border-cls-orange soft-bob">
+                        <p class="font-heading font-black text-4xl text-cls-navy mb-1 flex items-center gap-2">0% <span class="live-dot"></span></p>
+                        <p class="text-sm font-semibold text-gray-600 leading-tight">Tolerance for fear, harassment, or occupational sexism.</p>
+                    </div>
+                </div>
+
+                <div class="reveal reveal-delay-1">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 text-red-700 font-bold text-xs uppercase tracking-widest mb-6">
+                        <i class="fas fa-exclamation-triangle"></i> The Reality
+                    </div>
+                    <h2 class="font-heading text-4xl font-black text-cls-navy mb-6 leading-tight">Vulnerability is a choice we refuse to accept.</h2>
+                    
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        In today's world, a woman has the fundamental right to feel empowered and strong everywhere she goes. Yet, the personal security of women and children remains under constant threat. 
+                    </p>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        Cheshta Learning System (CLS) Foundation was born from a refusal to accept this reality. We believe that to eradicate <strong>Occupational Sexism</strong> and general vulnerability, we must build a fortress of confidence from a young age.
+                    </p>
+                    
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mt-8 hover:shadow-secure hover:border-cls-orange/40 transition-all duration-300">
+                        <h4 class="font-heading font-bold text-cls-navy flex items-center gap-2 mb-3">
+                            <i class="fas fa-gavel text-cls-orange"></i> Legal Empowerment
+                        </h4>
+                        <p class="text-sm text-gray-600">
+                            Beyond physical training, we conduct comprehensive workshops on <strong>Section 4 of The Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013</strong>. We arm our youth with knowledge, making them aware of the magnitude of ignored problems to prevent assault.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="proof" class="py-24 bg-orange-50/50 border-t border-orange-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-orange-100 text-cls-orange mb-4 shadow-sm">
+                    <i class="fas fa-star text-xl"></i>
+                </div>
+                <h3 class="text-cls-orange font-bold tracking-widest uppercase text-sm mb-3">Undeniable Proof of Impact</h3>
+                <h2 class="font-heading text-4xl font-black text-cls-navy mb-6">Acknowledged at the Highest Level.</h2>
+                <p class="text-lg text-gray-600">Our methods aren't just theory. They are recognized by national leadership as critical to building a stronger, safer India.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- The Story/Copy -->
+                <div class="reveal order-2 lg:order-1">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border-t-4 border-cls-orange mb-8 relative">
+                        <div class="absolute -top-4 -left-4 w-8 h-8 bg-cls-orange text-white rounded-full flex items-center justify-center shadow-lg">
+                            <i class="fas fa-quote-left text-xs"></i>
+                        </div>
+                        <h4 class="font-heading font-bold text-xl text-cls-navy mb-2">From the PM's Desk</h4>
+                        <p class="text-gray-700 leading-relaxed">
+                            On 8 August 2019, our student <strong>Prerita</strong> received a personal birthday greeting and letter of appreciation from the office of the 14th Prime Minister of India, <strong>Shri Narendra Modi</strong>.
+                        </p>
+                    </div>
+                    
+                    <h4 class="font-heading font-bold text-2xl text-cls-navy mb-4 flex items-center gap-3">
+                        <i class="fas fa-seedling text-cls-green bg-green-100 p-2 rounded-full"></i> A Culture of Consistency: Prerita's Story
+                    </h4>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        The letter commended Prerita's dedication and her role in <strong>motivating and encouraging her fellow students</strong> to enroll themselves in CLS's free self-defense classes and other outdoor activities.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        It is this exact culture of discipline and peer-to-peer empowerment that CLS builds in every neighborhood we work in &mdash; and that earned recognition at the highest level of government.
+                    </p>
+                </div>
+
+                <!-- The Visual Proof -->
+                <div class="reveal reveal-delay-1 order-1 lg:order-2 relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-cls-orange to-yellow-400 rounded-3xl transform rotate-3 scale-105 opacity-20 blob-float"></div>
+
+                    <!-- Rotating verified stamp -->
+                    <div class="hidden md:flex absolute -top-8 -left-8 z-20 w-24 h-24 rounded-full bg-white shadow-secure items-center justify-center border-2 border-dashed border-cls-orange">
+                        <div class="soft-bob text-center leading-none">
+                            <i class="fas fa-stamp text-cls-orange text-lg"></i>
+                            <p class="text-[8px] font-black uppercase tracking-widest text-cls-navy mt-1">Govt.<br>Verified</p>
+                        </div>
+                    </div>
+
+                    <div class="relative shimmer-sweep bg-white p-4 rounded-3xl shadow-xl border border-orange-100 z-10 transform -rotate-1 hover:rotate-0 hover:-translate-y-1 transition-transform duration-300">
+                        <!-- Custom Mockup Graphic -->
+                        <div class="relative bg-gray-50 rounded-xl overflow-hidden border border-gray-200 shadow-inner">
+                            <!-- Mock Browser/Window Header -->
+                            <div class="absolute top-0 left-0 w-full h-8 bg-gray-200 flex items-center px-3 gap-2 border-b border-gray-300 z-10">
+                                <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                                <span class="ml-2 text-[10px] text-gray-500 font-mono">clsfoundation.org/recognition</span>
+                            </div>
+                            <img src="https://picsum.photos/seed/prerita/800/1000" alt="Prerita holding her appreciation letter from the Prime Minister's Office" class="w-full h-auto mt-8 object-contain max-h-96 mx-auto">
+                        </div>
+                        <div class="flex items-center justify-between px-4 pt-4 pb-2">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1"><i class="fas fa-check-circle text-cls-orange"></i> Documented Proof</span>
+                            <span class="text-xs font-bold text-cls-orange bg-orange-100 px-3 py-1 rounded-full">Verified 2019</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="karmapath" class="py-24 relative overflow-hidden kp-bg-blush border-t border-gray-100">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+            <!-- Brand lockup: feather mark (crest) above wordmark, exactly as specified -->
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <div class="reveal mb-6 flex justify-center soft-bob">
+                    <!-- Official Karmapath feather mark (mor pankh), charcoal ink, crest placement -->
+                    <img src="https://picsum.photos/seed/karmapath-feather/200/200" alt="Karmapath feather mark" class="h-24 md:h-28 w-auto select-none" draggable="false">
+                </div>
+
+                <!-- Exact wordmark lockup: KARMAPATH / SANKALP -->
+                <div class="reveal mb-6">
+                    <p class="kp-wordmark text-2xl md:text-3xl">Karmapath</p>
+                    <p class="kp-sankalp text-[11px] md:text-xs mt-1 pl-[0.5em]">Sankalp</p>
+                </div>
+
+                <h2 class="reveal kp-heading text-cls-navy text-xl md:text-2xl mb-5">Assume the Role of Arjuna</h2>
+                <p class="reveal kp-body text-gray-600 text-base md:text-lg leading-relaxed">
+                    A companion for the modern mind, built from the timeless dialogue between Arjuna and Krishna on the field of battle.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+
+                <!-- Left: copy -->
+                <div class="reveal order-2 lg:order-1">
+                    <div class="bg-white/70 backdrop-blur-xl p-8 md:p-10 rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.08)] border border-white/60 mb-8 text-left">
+                        <p class="kp-body text-lg text-gray-700 mb-6 leading-relaxed">
+                            While CLS Foundation physically equips our youth with self-defense and legal awareness, <strong>Karmapath</strong> is our initiative for psychological and spiritual self-defense.
+                        </p>
+                        <p class="kp-body text-lg text-gray-700 mb-6 leading-relaxed">
+                            In a fast-paced, chaotic world, stress and emotional turbulence are constant threats. Karmapath translates the wisdom of the <strong>Bhagavad Gita</strong> into a companion for busy lifestyles &mdash; <span class="kp-sanskrit text-[#6D28D9]">श्रीमद्भगवद्गीता</span> made legible for daily life.
+                        </p>
+                        <div class="bg-[#EAD8DD]/40 border-l-4 border-[#6D28D9] p-6 rounded-r-lg mt-8">
+                            <p class="kp-body text-[#6D28D9] italic text-lg leading-relaxed">
+                                "You deserve absolute clarity and peace. May this codex be a mirror to your inner wisdom."
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Vocabulary chips, used verbatim -->
+                    <div class="reveal flex flex-wrap gap-2 mb-8">
+                        <span class="kp-chip">Sankalp</span>
+                        <span class="kp-chip">Let the Universe Guide You</span>
+                        <span class="kp-chip">Observe Your Mind. Read When You Feel:</span>
+                    </div>
+
+                    <p class="kp-heading text-gray-400 text-[11px] mb-5">Experience the platform on our dedicated portal</p>
+
+                    <a href="https://karmapath.github.io/Sankalp/" target="_blank" rel="noopener noreferrer" class="gradient-ring inline-flex items-center gap-3 bg-[#6D28D9] text-white px-10 py-5 rounded-full kp-heading text-base shadow-[0_10px_30px_rgba(109,40,217,0.3)] hover:bg-[#5b21b6] hover:-translate-y-1 hover:shadow-[0_15px_40px_rgba(109,40,217,0.4)] transition-all duration-300">
+                        Explore the Path <i class="fas fa-external-link-alt text-sm"></i>
+                    </a>
+                </div>
+
+                <!-- Right: Phone mockup, matching the real Sankalp portal -->
+                <div class="reveal reveal-delay-1 order-1 lg:order-2 flex justify-center">
+                    <div class="tilt-card phone-shell w-[300px] relative soft-bob">
+                        <div class="phone-notch"></div>
+                        <div id="kp-screen" class="bg-gradient-to-b from-[#120a1f] to-[#1c1030] rounded-[2.25rem] overflow-hidden relative transition-[background-color] duration-700" style="aspect-ratio: 9/19;">
+
+                            <!-- Emotion-tinted ambient wash, shifts to selected accent at low opacity per brand rule -->
+                            <div id="kp-wash" class="absolute inset-0 pointer-events-none transition-opacity duration-700 opacity-0" style="background: radial-gradient(circle at 50% 30%, currentColor, transparent 65%);"></div>
+
+                            <div class="relative flex justify-between items-center px-6 pt-4 text-white/70 text-[10px] font-semibold">
+                                <span>9:41</span>
+                                <span class="flex items-center gap-1"><i class="fas fa-signal"></i><i class="fas fa-wifi"></i><i class="fas fa-battery-three-quarters"></i></span>
+                            </div>
+
+                            <div class="relative text-center pt-5 pb-4 px-6">
+                                <p class="text-2xl mb-1">&#127761;</p>
+                                <p class="kp-heading text-[#B79CFF] text-[10px]">Karmapath</p>
+                                <p class="text-white kp-body font-medium text-sm mt-2">Observe your mind.</p>
+                                <p class="text-white/50 kp-body text-[11px]">What is clouding the sky?</p>
+                            </div>
+
+                            <!-- 8-dot emotion grid: the one sanctioned exception for combining all emotion colors -->
+                            <div class="relative grid grid-cols-2 gap-2 px-4">
+                                <button type="button" class="kp-emotion glass-surface rounded-xl px-3 py-2.5 flex items-center justify-between cursor-pointer group hover:bg-white/15 active:scale-95 transition-all w-full text-left" data-color="#64748B" data-mood="Held Breath &mdash; flat overcast, restless-to-still">
+                                    <span class="text-white/90 text-[11px] kp-body">Anxiety</span>
+                                    <span class="kp-dot w-2.5 h-2.5 rounded-full group-hover:scale-125 transition-transform" style="background:#64748B"></span>
+                                </button>
+                                <button type="button" class="kp-emotion glass-surface rounded-xl px-3 py-2.5 flex items-center justify-between cursor-pointer group hover:bg-white/15 active:scale-95 transition-all w-full text-left" data-color="#2563EB" data-mood="Quiet Rain-Window &mdash; cool, flat, unhurried">
+                                    <span class="text-white/90 text-[11px] kp-body">Sadness</span>
+                                    <span class="kp-dot w-2.5 h-2.5 rounded-full group-hover:scale-125 transition-transform" style="background:#2563EB"></span>
+                                </button>
+                                <button type="button" class="kp-emotion glass-surface rounded-xl px-3 py-2.5 flex items-center justify-between cursor-pointer group hover:bg-white/15 active:scale-95 transition-all w-full text-left" data-color="#DC2626" data-mood="Smoldering Ember &mdash; high-contrast, cooling down">
+                                    <span class="text-white/90 text-[11px] kp-body">Anger</span>
+                                    <span class="kp-dot w-2.5 h-2.5 rounded-full group-hover:scale-125 transition-transform" style="background:#DC2626"></span>
+                                </button>
+                                <button type="button" class="kp-emotion glass-surface rounded-xl px-3 py-2.5 flex items-center justify-between cursor-pointer group hover:bg-white/15 active:scale-95 transition-all w-full text-left" data-color="#8B5CF6" data-mood="Dusk Solitude &mdash; cool, vast, quiet">
+                                    <span class="text-white/90 text-[11px] kp-body">Loneliness</span>
+                                    <span class="kp-dot w-2.5 h-2.5 rounded-full group-hover:scale-125 transition-transform" style="background:#8B5CF6"></span>
+                                </button>
+                                <button type="button" class="kp-emotion glass-surface rounded-xl px-3 py-2.5 flex items-center justify-between cursor-pointer group hover:bg-white/15 active:scale-95 transition-all w-full text-left" data-color="#EAB308" data-mood="Golden-Hour Inertia &mdash; hazy, drowsy, lifting">
+                                    <span class="text-white/90 text-[11px] kp-body">Laziness</span>
+                                    <span class="kp-dot w-2.5 h-2.5 rounded-full group-hover:scale-125 transition-transform" style="background:#EAB308"></span>
+                                </button>
+                                <button type="button" class="kp-emotion selected rounded-xl px-3 py-2.5 flex items-center justify-between cursor-pointer group ring-1 ring-white/30 active:scale-95 transition-all w-full text-left" style="background:#F97316" data-color="#F97316" data-mood="Candlelit Refuge &mdash; warm, low, enclosing">
+                                    <span class="text-white text-[11px] kp-body font-medium">Protection</span>
+                                    <span class="kp-dot w-2.5 h-2.5 rounded-full bg-white/80 group-hover:scale-125 transition-transform"></span>
+                                </button>
+                                <button type="button" class="kp-emotion glass-surface rounded-xl px-3 py-2.5 flex items-center justify-between cursor-pointer group hover:bg-white/15 active:scale-95 transition-all w-full text-left" data-color="#059669" data-mood="Sunlit Clarity &mdash; bright, crisp, unforced">
+                                    <span class="text-white/90 text-[11px] kp-body">Happiness</span>
+                                    <span class="kp-dot w-2.5 h-2.5 rounded-full group-hover:scale-125 transition-transform" style="background:#059669"></span>
+                                </button>
+                                <button type="button" class="kp-emotion glass-surface rounded-xl px-3 py-2.5 flex items-center justify-between cursor-pointer group hover:bg-white/15 active:scale-95 transition-all w-full text-left" data-color="#F472B6" data-mood="Morning Hush &mdash; warm-neutral, hushed">
+                                    <span class="text-white/90 text-[11px] kp-body">Peace</span>
+                                    <span class="kp-dot w-2.5 h-2.5 rounded-full group-hover:scale-125 transition-transform" style="background:#F472B6"></span>
+                                </button>
+                            </div>
+
+                            <div class="relative mx-4 mt-4 glass-surface rounded-xl p-3.5 text-center overflow-hidden">
+                                <p class="kp-heading text-white/50 text-[8px] mb-1">Let the Universe Guide You</p>
+                                <p id="kp-mood" class="text-white/85 kp-body text-[10px] leading-relaxed transition-opacity duration-300">Candlelit Refuge &mdash; warm, low, enclosing</p>
+                            </div>
+
+                            <div class="relative flex justify-center mt-4">
+                                <a href="https://karmapath.github.io/Sankalp/" target="_blank" rel="noopener noreferrer" id="kp-enter" class="kp-heading text-[9px] text-white bg-white/10 border border-white/20 rounded-full px-4 py-2 hover:bg-white/20 hover:border-white/40 active:scale-90 transition-all cursor-pointer inline-block">Enter the Sanctuary</a>
+                            </div>
+
+                            <div class="relative flex justify-between items-center px-6 mt-4 text-[8px] text-white/30 kp-heading">
+                                <span>Karmapath</span>
+                                <span>Sent with light and intention.</span>
+                            </div>
+
+                            <div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-24 h-1 rounded-full bg-white/30"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+<section id="programs" class="py-24 bg-white border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center max-w-3xl mx-auto mb-16">
+                <h3 class="text-cls-orange font-bold tracking-widest uppercase text-sm mb-3">On the Ground</h3>
+                <h2 class="font-heading text-4xl font-black text-cls-navy mb-6">Programs &amp; Impact</h2>
+                <p class="text-lg text-gray-600">Real classes, in real parks, across Faridabad and Delhi NCR &mdash; free of cost, every time.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <!-- Self Defence -->
+                <div class="reveal tilt-card bg-white rounded-xl shadow-secure overflow-hidden border border-gray-100 group hover:shadow-2xl">
+                    <div class="h-44 overflow-hidden bg-gray-200">
+                        <img src="https://picsum.photos/seed/selfdefence-faridabad/600/400" alt="Self defence class for children in Faridabad" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-heading font-bold text-lg text-cls-navy mb-2">Self Defence Classes</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Free, ongoing classes held across NIT-4, Rose Garden, and Sainik Colony in Faridabad, Haryana &mdash; open to any child who wants to build focus, confidence, and agility.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Yoga -->
+                <div class="reveal reveal-delay-1 tilt-card bg-white rounded-xl shadow-secure overflow-hidden border border-gray-100 group hover:shadow-2xl">
+                    <div class="h-44 overflow-hidden bg-gray-200">
+                        <img src="https://picsum.photos/seed/yoga-children/600/400" alt="Yoga class for children" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-heading font-bold text-lg text-cls-navy mb-2">Yoga Classes</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Breathing, posture, and stillness practice alongside the physical training &mdash; building the same calm focus that Karmapath brings to the mind.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Plantation Drive -->
+                <div class="reveal reveal-delay-2 tilt-card bg-white rounded-xl shadow-secure overflow-hidden border border-gray-100 group hover:shadow-2xl">
+                    <div class="h-44 overflow-hidden bg-gray-200">
+                        <img src="https://picsum.photos/seed/plantation-drive/600/400" alt="CLS Foundation plantation drive" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-heading font-bold text-lg text-cls-navy mb-2">Plantation Drive</h4>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Tree-planting events that turned climate awareness into a hands-on, fun outing for the children in our programs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional initiatives, as chips -->
+            <div class="reveal flex flex-wrap justify-center gap-3">
+                <span class="kp-chip" style="font-family: 'Montserrat', sans-serif; letter-spacing: 0.05em;"><i class="fas fa-palette text-cls-orange mr-1"></i> Gandhi Jayanti Painting Competition</span>
+                <span class="kp-chip" style="font-family: 'Montserrat', sans-serif; letter-spacing: 0.05em;"><i class="fas fa-pencil-ruler text-cls-orange mr-1"></i> Drawing Competition, India Gate</span>
+                <span class="kp-chip" style="font-family: 'Montserrat', sans-serif; letter-spacing: 0.05em;"><i class="fas fa-briefcase text-cls-orange mr-1"></i> Corporate Training Sessions</span>
+                <span class="kp-chip" style="font-family: 'Montserrat', sans-serif; letter-spacing: 0.05em;"><i class="fas fa-shield-alt text-cls-orange mr-1"></i> Recognized by Faridabad Police</span>
+                <span class="kp-chip" style="font-family: 'Montserrat', sans-serif; letter-spacing: 0.05em;"><i class="fas fa-newspaper text-cls-orange mr-1"></i> Featured in Local News</span>
+            </div>
+        </div>
+    </section>
+
+<section id="authority" class="py-24 bg-cls-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center max-w-3xl mx-auto mb-20">
+                <h3 class="text-cls-navy font-bold tracking-widest uppercase text-sm mb-3">Operational Command</h3>
+                <h2 class="font-heading text-4xl font-black text-cls-navy mb-6">Led by Discipline. Driven by Compassion.</h2>
+                <p class="text-lg text-gray-600">The structural integrity of CLS Foundation is maintained by a core team of veterans, visionaries, and corporate leaders.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                
+                <!-- Founder -->
+                <div class="reveal tilt-card bg-white rounded-xl shadow-secure overflow-hidden border-t-4 border-cls-orange group hover:shadow-2xl">
+                    <div class="h-48 overflow-hidden bg-gray-200">
+                        <img src="https://picsum.photos/seed/kamal-kumar/400/400" alt="Mr. Kamal Kumar" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-heading font-bold text-lg text-cls-navy">Mr. Kamal Kumar</h4>
+                        <p class="text-cls-orange font-bold text-xs uppercase tracking-wider mb-4">Founder & Visionary</p>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            The source of inspiration for CLS. Deeply concerned with girl child safety, he campaigns in backward areas to spread awareness and secure the future of vulnerable children.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Founding Member -->
+                <div class="reveal reveal-delay-1 tilt-card bg-white rounded-xl shadow-secure overflow-hidden border-t-4 border-cls-green group hover:shadow-2xl">
+                    <div class="h-48 overflow-hidden bg-gray-200">
+                        <img src="https://picsum.photos/seed/vimal-saluja/400/400" alt="Mrs. Vimal Saluja" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-heading font-bold text-lg text-cls-navy">Mrs. Vimal Saluja</h4>
+                        <p class="text-cls-green font-bold text-xs uppercase tracking-wider mb-4">Founding Member</p>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            20 years in the corporate sector, working toward girl-child rights. She believes girls are the very foundation of a nation's growth.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Military Veteran -->
+                <div class="reveal reveal-delay-2 tilt-card bg-white rounded-xl shadow-secure overflow-hidden border-t-4 border-gray-800 group hover:shadow-2xl">
+                    <div class="h-48 overflow-hidden bg-gray-200 relative">
+                        <div class="absolute top-2 right-2 bg-gray-900 text-white text-xs font-bold px-2 py-1 rounded">Army Veteran</div>
+                        <img src="https://picsum.photos/seed/rakesh-bhalla/400/400" alt="Lt. Col. Rakesh Bhalla" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-heading font-bold text-lg text-cls-navy">Lt. Col. Rakesh Bhalla</h4>
+                        <p class="text-gray-800 font-bold text-xs uppercase tracking-wider mb-4">(Retd.) Member</p>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            NDA 55th course alumni, commissioned in the Armoured Corps (1979). 21 years of operational and instructional military discipline, now serving CLS.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="donate" class="py-24 bg-cls-navy relative overflow-hidden border-t-8 border-cls-orange">
+        <!-- Safety Lock Background Graphic -->
+        <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+            <i class="fas fa-shield-alt" style="font-size: 40rem;"></i>
+        </div>
+        <div class="absolute top-10 left-10 w-72 h-72 rounded-full bg-cls-orange/10 blur-3xl blob-float pointer-events-none"></div>
+        <div class="absolute bottom-10 right-10 w-72 h-72 rounded-full bg-cls-green/10 blur-3xl blob-float-slow pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="reveal font-heading text-4xl md:text-6xl font-black text-white mb-6">Inaction is a Compromise on Safety.</h2>
+            <p class="reveal reveal-delay-1 text-xl text-gray-300 mb-10 leading-relaxed font-light">
+                We have the curriculum. We have the military-grade discipline. We have the government's recognition. <strong class="text-white">What we need is your commitment.</strong><br><br>
+                Every donation translates directly into self-defense classes, physical training, and a protective environment for children who would otherwise remain vulnerable.
+            </p>
+
+            <!-- Mock donation card -->
+            <div class="reveal reveal-delay-2 credit-card-mock shimmer-sweep rounded-2xl p-6 mb-6 max-w-md mx-auto border border-white/10 shadow-2xl text-left">
+                <div class="flex justify-between items-start mb-8 relative z-10">
+                    <div class="w-11 h-8 rounded bg-gradient-to-br from-yellow-300 to-yellow-500 opacity-90"></div>
+                    <i class="fas fa-shield-alt text-white/40 text-xl"></i>
+                </div>
+                <p class="text-white/80 font-mono tracking-[0.2em] text-lg mb-6 relative z-10">•••• &nbsp; •••• &nbsp; •••• &nbsp; 2019</p>
+                <div class="flex justify-between items-end relative z-10">
+                    <div>
+                        <p class="text-white/40 text-[9px] uppercase tracking-widest mb-1">Cardholder</p>
+                        <p class="text-white text-xs font-bold uppercase tracking-wide">A Protector of CLS</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-white/40 text-[9px] uppercase tracking-widest mb-1">Impact</p>
+                        <p class="text-cls-green text-xs font-bold uppercase tracking-wide">100% Direct</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="reveal reveal-delay-2 bg-white/10 p-8 rounded-2xl backdrop-blur-md border border-white/20 mb-10 max-w-2xl mx-auto">
+                <div class="flex items-center justify-center gap-4 mb-6 text-white">
+                    <i class="fas fa-lock text-3xl text-cls-green"></i>
+                    <h3 class="text-2xl font-bold font-heading">Secure a Child Today</h3>
+                </div>
+                <button onclick="document.getElementById('mock-payment').classList.remove('hidden')" class="gradient-ring w-full bg-gradient-to-r from-cls-orange to-red-600 text-white px-8 py-5 rounded-lg text-xl font-heading font-black shadow-glow hover:scale-105 transition-transform flex items-center justify-center gap-3 uppercase tracking-wider btn-pulse">
+                    Donate & Transform A Life
+                </button>
+                <p class="text-gray-400 text-xs mt-4"><i class="fas fa-check-circle text-cls-green"></i> Secure 256-bit encrypted transaction. Registered NGO: HR/019/2019/02017.</p>
+            </div>
+            
+            <!-- Hidden Mock Payment Message -->
+            <div id="mock-payment" class="hidden text-cls-green font-bold text-lg bg-cls-green/10 p-4 rounded border border-cls-green mt-4">
+                <i class="fas fa-shield-check"></i> Redirecting to secure payment gateway... (Mockup)
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#050C17] pt-16 pb-8 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                
+                <!-- Brand Info -->
+                <div class="col-span-1 lg:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-10 h-10 bg-white rounded flex items-center justify-center font-heading font-black text-xl">
+                            <span class="text-cls-orange">C</span><span class="text-cls-navy">L</span><span class="text-cls-green">S</span>
+                        </div>
+                        <div class="text-white font-heading font-bold text-sm uppercase leading-tight">Cheshta Learning<br>System</div>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6 font-semibold">
+                        "Women are not the problem, they are the solution." Empowering the vulnerable to become invincible.
+                    </p>
+                </div>
+
+                <!-- Navigation -->
+                <div>
+                    <h4 class="text-white font-heading font-bold mb-6 uppercase tracking-widest text-xs">Command Center</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#mission" class="text-gray-500 hover:text-cls-orange font-semibold text-sm transition-colors">The Reality (Mission)</a></li>
+                        <li><a href="#solutions" class="text-gray-500 hover:text-cls-orange font-semibold text-sm transition-colors">Tactical Solutions</a></li>
+                        <li><a href="#proof" class="text-gray-500 hover:text-cls-orange font-semibold text-sm transition-colors">National Recognition</a></li>
+                        <li><a href="#karmapath" class="text-gray-500 hover:text-cls-orange font-semibold text-sm transition-colors">Karmapath Program</a></li>
+                        <li><a href="#authority" class="text-gray-500 hover:text-cls-orange font-semibold text-sm transition-colors">Leadership Team</a></li>
+                    </ul>
+                </div>
+
+                <!-- Legal/Trust -->
+                <div>
+                    <h4 class="text-white font-heading font-bold mb-6 uppercase tracking-widest text-xs">Official Registration</h4>
+                    <ul class="space-y-2 text-sm text-gray-500 font-mono text-xs">
+                        <li class="pb-2 border-b border-white/10">Haryana Reg & Reg of Societies Act, 2012</li>
+                        <li class="pt-2"><strong class="text-gray-400">Reg No:</strong> HR/019/2019/02017</li>
+                        <li><strong class="text-gray-400">Reg Year:</strong> 2019</li>
+                        <li><strong class="text-gray-400">UID:</strong> 2000140692</li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-heading font-bold mb-6 uppercase tracking-widest text-xs">Secure Comm Link</h4>
+                    <ul class="space-y-4 text-sm text-gray-500">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-cls-orange mt-1"></i>
+                            <span class="font-semibold">B-92 New Colony Railway Road<br>Near Hari Mandir NIT<br>Faridabad, Haryana - 121001</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-cls-green"></i>
+                            <a href="mailto:info@clsfoundation.org" class="hover:text-white font-bold transition-colors">info@clsfoundation.org</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-600 text-xs font-bold uppercase tracking-wider">
+                    &copy; 2024 Cheshta Learning System Foundation. All Rights Secured.
+                </p>
+                <div class="flex space-x-4">
+                    <!-- Placeholder Socials -->
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-500 hover:bg-cls-orange hover:text-white transition-all"><i class="fab fa-facebook-f text-sm"></i></a>
+                    <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-gray-500 hover:bg-cls-orange hover:text-white transition-all"><i class="fab fa-twitter text-sm"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = btn.querySelector('i');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            if(menu.classList.contains('hidden')){
+                icon.classList.replace('fa-times', 'fa-bars');
+            } else {
+                icon.classList.replace('fa-bars', 'fa-times');
+            }
+        });
+
+        // Close menu on link click
+        menu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                icon.classList.replace('fa-times', 'fa-bars');
+            });
+        });
+
+        // Dynamic Nav Background on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('shadow-secure', 'py-2');
+                nav.classList.remove('py-3');
+            } else {
+                nav.classList.remove('shadow-secure', 'py-2');
+                nav.classList.add('py-3');
+            }
+        });
+
+        // Scroll-reveal: fade + rise elements into view as the user scrolls
+        const revealEls = document.querySelectorAll('.reveal');
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+            revealEls.forEach(el => revealObserver.observe(el));
+        } else {
+            revealEls.forEach(el => el.classList.add('is-visible'));
+        }
+
+        // Subtle 3D tilt for leadership + phone mockup cards
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const rotateX = ((y / rect.height) - 0.5) * -8;
+                const rotateY = ((x / rect.width) - 0.5) * 8;
+                card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0)';
+            });
+        });
+
+        // Gentle parallax drift on the hero orbs, following the cursor
+        const orbOrange = document.getElementById('orb-orange');
+        const orbGreen = document.getElementById('orb-green');
+        window.addEventListener('mousemove', (e) => {
+            const xPct = (e.clientX / window.innerWidth) - 0.5;
+            const yPct = (e.clientY / window.innerHeight) - 0.5;
+            if (orbOrange) orbOrange.style.transform = `translate(${xPct * 30}px, ${yPct * 30}px)`;
+            if (orbGreen) orbGreen.style.transform = `translate(${xPct * -30}px, ${yPct * -30}px)`;
+        });
+
+        // --- Karmapath phone mockup interactivity ---
+        const kpEmotionBtns = document.querySelectorAll('.kp-emotion');
+        const kpWash = document.getElementById('kp-wash');
+        const kpMood = document.getElementById('kp-mood');
+
+        function kpSpawnRipple(btn, evt) {
+            const rect = btn.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            const size = Math.max(rect.width, rect.height);
+            const x = (evt.clientX ?? rect.left + rect.width / 2) - rect.left - size / 2;
+            const y = (evt.clientY ?? rect.top + rect.height / 2) - rect.top - size / 2;
+            ripple.className = 'kp-ripple';
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            btn.appendChild(ripple);
+            ripple.addEventListener('animationend', () => ripple.remove());
+        }
+
+        kpEmotionBtns.forEach(btn => {
+            btn.addEventListener('click', (evt) => {
+                const color = btn.getAttribute('data-color');
+                const mood = btn.getAttribute('data-mood');
+
+                // tap ripple feedback
+                kpSpawnRipple(btn, evt);
+
+                // reset all buttons to their neutral glass state
+                kpEmotionBtns.forEach(b => {
+                    b.classList.remove('selected');
+                    b.style.background = '';
+                    b.classList.add('glass-surface');
+                });
+
+                // promote the tapped one to the "selected" solid-color state
+                btn.classList.add('selected');
+                btn.classList.remove('glass-surface');
+                btn.style.background = color;
+
+                // shift the ambient screen wash + mood caption to match, per brand rule
+                // (emotion accent tint at low opacity on emotion-specific assets)
+                if (kpWash) {
+                    kpWash.style.color = color;
+                    kpWash.style.opacity = '0.18';
+                }
+                if (kpMood) {
+                    kpMood.style.opacity = '0';
+                    setTimeout(() => {
+                        kpMood.textContent = mood;
+                        kpMood.style.opacity = '1';
+                    }, 220);
+                }
+            });
+        });
+
+        // "Enter the Sanctuary" tap ripple, same tactile language as the emotion grid
+        const kpEnterBtn = document.getElementById('kp-enter');
+        if (kpEnterBtn) {
+            kpEnterBtn.style.position = 'relative';
+            kpEnterBtn.style.overflow = 'hidden';
+            kpEnterBtn.addEventListener('click', (evt) => kpSpawnRipple(kpEnterBtn, evt));
+        }
+
+        // --- Animated impact-stat counters ---
+        function animateCounter(el) {
+            const target = parseFloat(el.getAttribute('data-target'));
+            const suffix = el.getAttribute('data-suffix') || '';
+            const duration = 1400;
+            const start = performance.now();
+
+            function tick(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                // ease-out for a satisfying settle rather than a linear tick
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const value = Math.round(target * eased);
+                el.textContent = value + suffix;
+                if (progress < 1) {
+                    requestAnimationFrame(tick);
+                } else {
+                    el.textContent = target + suffix;
+                }
+            }
+            requestAnimationFrame(tick);
+        }
+
+        const statCounters = document.querySelectorAll('.stat-counter');
+        if (statCounters.length && 'IntersectionObserver' in window) {
+            const statObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        statObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            statCounters.forEach(el => statObserver.observe(el));
+        } else {
+            statCounters.forEach(el => {
+                el.textContent = el.getAttribute('data-target') + (el.getAttribute('data-suffix') || '');
+            });
+        }
+    </script>
+</body>
+</html>
