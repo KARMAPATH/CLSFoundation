@@ -605,8 +605,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         const NOTIF_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHOSwcUmk1s9DWWNzjVdMeoukh5Dt2iHfb4IqI5YLiNUWwkqr0aN8f_YB-QLoTgEQidw/exec";
 
         // --- SCHEDULED NOTIFICATIONS (powered by a Google Sheet — see setup notes) ---
-        // Works whenever this page/PWA is open (foreground or backgrounded tab).
-        // It does NOT wake up a fully closed app — that needs a separate push-server setup.
         const NOTIF_CHECK_INTERVAL_MS = 20000; // check every 20 seconds
         let notifPollHandle = null;
 
@@ -750,7 +748,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                 { ref: "BG 18.66", sanskrit: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥", roman: "sarva-dharmān parityajya mām ekaṁ śharaṇaṁ vraja\nahaṁ tvāṁ sarva-pāpebhyo mokṣhayiṣhyāmi mā śhuchaḥ", translation: "Abandon all varieties of religion and just surrender unto Me. I shall deliver you from all sinful reactions. Do not fear." },
                 { ref: "BG 9.31", sanskrit: "क्षिप्रं भवति धर्मात्मा शश्वच्छान्तिं निगच्छति।\nकौन्तेय प्रतिजानीहि न मे भक्तः प्रणश्यति॥", roman: "kṣhipraṁ bhavati dharmātmā śhaśhvach-chhāntiṁ nigachchhati\nkaunteya pratijānīhi na me bhaktaḥ praṇaśhyati", translation: "He quickly becomes righteous and attains lasting peace. O son of Kunti, declare it boldly that My devotee never perishes." },
                 { ref: "BG 9.22", sanskrit: "अनन्याश्चिन्तयन्तो मां ये जनाः पर्युपासते।\nतेषां नित्याभियुक्तानां योगक्षेमं वहाम्यहम्॥", roman: "ananyāśh chintayanto māṁ ye janāḥ paryupāsate\nteṣhāṁ nityābhiyuktānāṁ yoga-kṣhemaṁ vahāmy aham", translation: "But those who always worship Me with exclusive devotion, meditating on My transcendental form—to them I carry what they lack, and I preserve what they have." },
-                { ref: "BG 11.33", sanskrit: "तस्मात्त्वमुत्तिष्ठ यशो लभस्व\nजित्वा शत्रून्भुङ्क्ष्व राज्यं समृद्धम्।\nमयैवैते निहताः पूर्वमेव\nनिमित्तमात्रं भव सव्यसाचिन्॥", roman: "tasmāt tvam uttiṣhṭha yaśho labhasva\njitvā śhatrūn bhuṅkṣhva rājyaṁ samṛiddham\nmayaivaite nihatāḥ pūrvam eva\nnimitta-mātraṁ bhava savya-sāchin", translation: "Therefore get up. Prepare to fight and win glory. Conquer your enemies and enjoy a flourishing kingdom. They are already put to death by My arrangement, and you, O Savyasaci, can be but an instrument in the fight." },
+                { ref: "BG 11.33", sanskrit: "तस्मात्त्वमुत्तिष्ठ यशो लभस्व\nजित्वा शत्रून्भुङ्क्ष्व राज्यं समृद्धम्।\nमयैवैते निहताः पूर्वमेव\nनिमित्तमात्रं भव सव्यसाचिन्॥", roman: "tasmāt tvam uttiṣhṭha yaśho labhasva\njitvā śhatrūn bhuṅkṣhva rājyaṁ samṛiddham\nmayaivaite nihatāḥ pūrvam eva\nimitta-mātraṁ bhava savya-sāchin", translation: "Therefore get up. Prepare to fight and win glory. Conquer your enemies and enjoy a flourishing kingdom. They are already put to death by My arrangement, and you, O Savyasaci, can be but an instrument in the fight." },
                 { ref: "BG 8.5", sanskrit: "अन्तकाले च मामेव स्मरन्मुक्त्वा कलेवरम्।\nयः प्रयाति स मद्भावं याति नास्त्यत्र संशयः॥", roman: "anta-kāle cha mām eva smaran muktvā kalevaram\nyaḥ prayāti sa mad-bhāvaṁ yāti nāsty atra sanśhayaḥ", translation: "And whoever, at the end of his life, quits his body remembering Me alone at once attains My nature. Of this there is no doubt." },
                 { ref: "BG 12.7", sanskrit: "तेषामहं समुद्धर्ता मृत्युसंसारसागरात्।\nभवामि न चिरात्पार्थ मय्यावेशितचेतसाम्॥", roman: "teṣhām ahaṁ samuddhartā mṛityu-sansāra-sāgarāt\nbhavāmi na chirāt pārtha mayy āveśhita-chetasām", translation: "But those who worship Me, giving up all their activities unto Me and being devoted to Me without deviation, engaged in devotional service and always meditating upon Me... for them I am the swift deliverer from the ocean of birth and death." },
                 { ref: "BG 7.14", sanskrit: "दैवी ह्येषा गुणमयी मम माया दुरत्यया।\nमामेव ये प्रपद्यन्ते मायामेतां तरन्ति ते॥", roman: "daivī hy eṣhā guṇa-mayī mama māyā duratyayā\nmām eva ye prapadyante māyām etāṁ taranti te", translation: "This divine energy of Mine, consisting of the three modes of material nature, is difficult to overcome. But those who have surrendered unto Me can easily cross beyond it." },
@@ -816,11 +814,9 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         }
 
         // --- DYNAMIC AUDIO INJECTION ---
-        // Automatically assigns an audio file path to EVERY shloka in the database
         Object.keys(shlokaDB).forEach(mood => {
             shlokaDB[mood].forEach(shloka => {
                 if(!shloka.audio) {
-                    // Converts "BG 2.47" to "audio/bg_2_47.mp3"
                     const cleanRef = shloka.ref.toLowerCase().replace('bg ', 'bg_').replace('.', '_');
                     shloka.audio = `audio/${cleanRef}.mp3`;
                 }
@@ -870,6 +866,21 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                     
                     showToast("Path Unlocked.");
                     updateGreetingUI();
+                    
+                    // SHOW RANDOM WELCOME NOTIFICATION ON LOGIN
+                    if (notifPermissionGranted()) {
+                        const welcomeMsg = typeof WELCOME_MESSAGES !== 'undefined' ? pickRandom(WELCOME_MESSAGES) : "Welcome to Karmapath. The path awaits.";
+                        setTimeout(() => {
+                            if ('serviceWorker' in navigator && navigator.serviceWorker.ready) {
+                                navigator.serviceWorker.ready.then(reg => {
+                                    reg.showNotification("Karmapath 🪷", { body: welcomeMsg, icon: 'karmapath-favicon-32.png', vibrate: [200, 100, 200] });
+                                });
+                            } else {
+                                new Notification("Karmapath 🪷", { body: welcomeMsg, icon: 'karmapath-favicon-32.png' });
+                            }
+                        }, 1000); 
+                    }
+
                     setTimeout(() => navigate('onboarding'), 1500);
                 } else {
                     showToast(result.message || "Invalid or used code.");
@@ -986,11 +997,9 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                 pauseIcon.classList.remove('hidden');
                 btnText.innerText = "Pause";
                 
-                // Try playing the MP3 file first
                 const playPromise = audioPlayer.play();
                 if (playPromise !== undefined) {
                     playPromise.catch(error => {
-                        // If file doesn't exist (e.g. 404), fallback to Text-to-Speech
                         console.log("Audio file not found, falling back to inner voice synthesis.");
                         speakShloka();
                     });
@@ -1004,13 +1013,11 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
                 
-                // Speak Sanskrit first (using Hindi voice if available)
                 const utteranceSanskrit = new SpeechSynthesisUtterance(currentShlokaObj.sanskrit);
                 utteranceSanskrit.lang = 'hi-IN'; 
                 utteranceSanskrit.rate = 0.8;
                 utteranceSanskrit.pitch = 0.9;
                 
-                // Then speak the English translation
                 const utteranceEnglish = new SpeechSynthesisUtterance(currentShlokaObj.translation);
                 utteranceEnglish.lang = 'en-US';
                 utteranceEnglish.rate = 0.9;
@@ -1144,7 +1151,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             });
         }
 
-        // --- COSMIC UI FX ---
         function showToast(message, duration = 3000) {
             const toast = document.getElementById('toast');
             toast.innerText = message;
@@ -1188,7 +1194,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             textEl.innerText = "Full Moon Sync";
         }
 
-        // --- AUDIO ENGINE ---
         let bgAudio;
         function initAudio() { 
             if (!bgAudio) {
@@ -1209,7 +1214,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         }
         function stopAudio() {
             if (bgAudio && isPlaying) {
-                // Smooth fade out effect
                 let vol = bgAudio.volume;
                 const fadeInterval = setInterval(() => {
                     if (vol > 0.05) {
@@ -1218,7 +1222,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                     } else {
                         clearInterval(fadeInterval);
                         bgAudio.pause();
-                        bgAudio.volume = 0.4; // Reset volume for next play
+                        bgAudio.volume = 0.4; 
                         isPlaying = false;
                     }
                 }, 50);
@@ -1228,7 +1232,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             document.getElementById('breathe-text').style.opacity = '0';
         }
 
-        // --- CANVAS EXPORT ---
         function wrapText(context, text, x, y, maxWidth, lineHeight) {
             let words = text.split(' '), line = '';
             for(let n = 0; n < words.length; n++) {
@@ -1260,11 +1263,9 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             ctx.fillStyle = "#6D28D9"; ctx.font = "200 30px Inter"; ctx.letterSpacing = "15px"; ctx.fillText("KARMAPATH", 540, 1750);
             ctx.fillStyle = "rgba(138, 138, 138, 0.9)"; ctx.font = "300 18px Inter"; ctx.letterSpacing = "12px"; ctx.fillText("SANKALP", 540, 1785);
             
-            // Generate blob and trigger native share sheet
             canvas.toBlob(async (blob) => {
                 if (navigator.share && navigator.canShare) {
                     const file = new File([blob], 'karmapath-wisdom.png', { type: 'image/png' });
-                    // Check if the system supports sharing files
                     if (navigator.canShare({ files: [file] })) {
                         try {
                             await navigator.share({
@@ -1272,15 +1273,13 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                                 text: `"${currentShlokaObj.translation}" - ${currentShlokaObj.ref}`,
                                 files: [file]
                             });
-                            return; // Successfully shared natively, stop here
+                            return; 
                         } catch (err) {
-                            // If user just closed the share sheet, do nothing. Otherwise, fallback.
                             if (err.name === 'AbortError') return; 
                         }
                     }
                 }
                 
-                // Fallback: If native sharing is unsupported, show the manual save modal
                 document.getElementById('export-image').src = canvas.toDataURL('image/png');
                 const modal = document.getElementById('story-modal');
                 modal.classList.remove('hidden'); void modal.offsetWidth; modal.style.opacity = '1';
@@ -1291,149 +1290,61 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             modal.style.opacity = '0'; setTimeout(() => { modal.classList.add('hidden'); }, 500);
         }
 
-        // --- INITIALIZATION WITH LIVE VERIFICATION ---
-        // --- WELCOME & MICRO-COPY VARIETY ---
         function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
         const WELCOME_MESSAGES = [
-            "Krishna is waiting in the stillness. Welcome back.",
-            "The Gita has no closing time. Welcome, seeker.",
-            "Arjuna once stood where you stand now — uncertain, yet ready.",
-            "Every verse you've read lives in you. Welcome back.",
-            "The dialogue between doubt and dharma continues today.",
-            "Krishna's counsel doesn't expire. Come, listen again.",
-            "You return to the field of Kurukshetra — your own mind.",
-            "The charioteer is ready when you are.",
-            "Wisdom repeats itself until we're ready to hear it.",
-            "The Gita was written for exactly this moment.",
-            "Welcome back to the conversation that never truly ends.",
-            "Somewhere in these verses, today's answer is waiting.",
-            "You've returned to the source. Welcome.",
-            "The battlefield within welcomes you back.",
-            "Krishna speaks in silence too. Welcome back to it.",
-            "Another day, another verse worth carrying with you.",
-            "The path doesn't move. You do. Welcome back to it.",
-            "Dharma doesn't rush. Neither should you. Welcome back.",
-            "You've made space for wisdom today. That's enough.",
-            "The teacher is patient. Welcome back, student.",
-            "Welcome back, seeker.",
-            "The path remembers you.",
-            "One more step on the path today.",
-            "You showed up. That's the whole practice.",
-            "Welcome home, to yourself.",
-            "The journey continues, quietly.",
-            "Today's a good day to walk the path again.",
-            "You're exactly where you need to be. Welcome back.",
-            "Small steps, steady path. Welcome back.",
-            "The path doesn't judge how long you were away.",
-            "Welcome back — the path was here the whole time.",
-            "Every return counts. Welcome back.",
-            "You found your way back. That matters.",
-            "The path is patient. So is this place.",
-            "Welcome back to your own becoming.",
-            "You've circled back to yourself. Welcome.",
-            "The road within is always open.",
-            "Welcome, wanderer. Rest here a while.",
-            "You're not lost. You're exactly here. Welcome.",
-            "The path is short today. Just this moment.",
-            "A quiet moment is waiting for you.",
-            "Come sit with your thoughts for a while.",
-            "Stillness welcomes you back.",
-            "Breathe. You've arrived.",
-            "The noise can wait. Welcome to the quiet.",
-            "This is your pause button. Welcome back.",
-            "A little stillness goes a long way. Welcome back.",
-            "Welcome to the calm between your thoughts.",
-            "The mind settles the moment you arrive.",
-            "You've made it to the quiet part of your day.",
-            "One breath, one verse, one moment. Welcome.",
-            "The world can wait a few minutes. Welcome back.",
-            "Stillness doesn't ask for much. Just you.",
-            "Welcome back to the space between thoughts.",
-            "You've found the pause you were looking for.",
-            "Peace doesn't announce itself loudly. Welcome to it.",
-            "A calm mind starts with a single visit. Welcome back.",
-            "Here's your moment of quiet. Welcome.",
-            "The stillness missed you.",
-            "Welcome back — let the noise settle.",
-            "You're doing better than you think. Welcome back.",
-            "Every visit here is a small act of self-care.",
-            "Growth doesn't always look like progress. Welcome back.",
-            "You chose yourself today. Welcome.",
-            "This is what showing up for yourself looks like.",
-            "One more day, one more chance to grow. Welcome back.",
-            "You're building something, one visit at a time.",
-            "Welcome back — your sankalpa is still growing.",
-            "You didn't have to come back. You did anyway.",
-            "This small habit is bigger than it feels. Welcome back.",
-            "You're allowed to need this. Welcome back.",
-            "Consistency looks like this. Welcome back.",
-            "Welcome back — your effort is quietly adding up.",
-            "You keep returning. That's the practice.",
-            "Today's visit counts, even if it's brief. Welcome.",
-            "You're closer than you were yesterday. Welcome back.",
-            "This is progress, even if it's quiet. Welcome back.",
-            "Welcome back — you're still on your own side.",
-            "Showing up is the whole game. Welcome back.",
-            "You're allowed to grow slowly. Welcome back.",
-            "Good to see you again.",
-            "Welcome back — we kept your seat.",
-            "Hello again, seeker.",
-            "Glad you're here today.",
-            "Welcome back. The mind could use the company.",
-            "Another day, another chance to check in with yourself.",
-            "You're here. That's a good start.",
-            "Welcome back — no reason needed.",
-            "Hey — good to have you back.",
-            "Welcome back. Take your time.",
-            "The door's always open. Welcome back.",
-            "Good timing. Welcome back.",
-            "Welcome back, whenever you're ready.",
-            "This space missed you a little.",
-            "Welcome back — start wherever feels right.",
-            "You're always welcome here.",
-            "Welcome back. No rush, no pressure.",
-            "It's good to have you back again.",
-            "Welcome back — let's see how today feels.",
+            "Krishna is waiting in the stillness. Welcome back.", "The Gita has no closing time. Welcome, seeker.", "Arjuna once stood where you stand now — uncertain, yet ready.",
+            "Every verse you've read lives in you. Welcome back.", "The dialogue between doubt and dharma continues today.", "Krishna's counsel doesn't expire. Come, listen again.",
+            "You return to the field of Kurukshetra — your own mind.", "The charioteer is ready when you are.", "Wisdom repeats itself until we're ready to hear it.",
+            "The Gita was written for exactly this moment.", "Welcome back to the conversation that never truly ends.", "Somewhere in these verses, today's answer is waiting.",
+            "You've returned to the source. Welcome.", "The battlefield within welcomes you back.", "Krishna speaks in silence too. Welcome back to it.",
+            "Another day, another verse worth carrying with you.", "The path doesn't move. You do. Welcome back to it.", "Dharma doesn't rush. Neither should you. Welcome back.",
+            "You've made space for wisdom today. That's enough.", "The teacher is patient. Welcome back, student.", "Welcome back, seeker.",
+            "The path remembers you.", "One more step on the path today.", "You showed up. That's the whole practice.",
+            "Welcome home, to yourself.", "The journey continues, quietly.", "Today's a good day to walk the path again.",
+            "You're exactly where you need to be. Welcome back.", "Small steps, steady path. Welcome back.", "The path doesn't judge how long you were away.",
+            "Welcome back — the path was here the whole time.", "Every return counts. Welcome back.", "You found your way back. That matters.",
+            "The path is patient. So is this place.", "Welcome back to your own becoming.", "You've circled back to yourself. Welcome.",
+            "The road within is always open.", "Welcome, wanderer. Rest here a while.", "You're not lost. You're exactly here. Welcome.",
+            "The path is short today. Just this moment.", "A quiet moment is waiting for you.", "Come sit with your thoughts for a while.",
+            "Stillness welcomes you back.", "Breathe. You've arrived.", "The noise can wait. Welcome to the quiet.",
+            "This is your pause button. Welcome back.", "A little stillness goes a long way. Welcome back.", "Welcome to the calm between your thoughts.",
+            "The mind settles the moment you arrive.", "You've made it to the quiet part of your day.", "One breath, one verse, one moment. Welcome.",
+            "The world can wait a few minutes. Welcome back.", "Stillness doesn't ask for much. Just you.", "Welcome back to the space between thoughts.",
+            "You've found the pause you were looking for.", "Peace doesn't announce itself loudly. Welcome to it.", "A calm mind starts with a single visit. Welcome back.",
+            "Here's your moment of quiet. Welcome.", "The stillness missed you.", "Welcome back — let the noise settle.",
+            "You're doing better than you think. Welcome back.", "Every visit here is a small act of self-care.", "Growth doesn't always look like progress. Welcome back.",
+            "You chose yourself today. Welcome.", "This is what showing up for yourself looks like.", "One more day, one more chance to grow. Welcome back.",
+            "You're building something, one visit at a time.", "Welcome back — your sankalpa is still growing.", "You didn't have to come back. You did anyway.",
+            "This small habit is bigger than it feels. Welcome back.", "You're allowed to need this. Welcome back.", "Consistency looks like this. Welcome back.",
+            "Welcome back — your effort is quietly adding up.", "You keep returning. That's the practice.", "Today's visit counts, even if it's brief. Welcome.",
+            "You're closer than you were yesterday. Welcome back.", "This is progress, even if it's quiet. Welcome back.", "Welcome back — you're still on your own side.",
+            "Showing up is the whole game. Welcome back.", "You're allowed to grow slowly. Welcome back.", "Good to see you again.",
+            "Welcome back — we kept your seat.", "Hello again, seeker.", "Glad you're here today.",
+            "Welcome back. The mind could use the company.", "Another day, another chance to check in with yourself.", "You're here. That's a good start.",
+            "Welcome back — no reason needed.", "Hey — good to have you back.", "Welcome back. Take your time.",
+            "The door's always open. Welcome back.", "Good timing. Welcome back.", "Welcome back, whenever you're ready.",
+            "This space missed you a little.", "Welcome back — start wherever feels right.", "You're always welcome here.",
+            "Welcome back. No rush, no pressure.", "It's good to have you back again.", "Welcome back — let's see how today feels.",
             "Here again. That's worth noticing. Welcome back."
         ];
 
         const THOUGHT_RELEASED_MESSAGES = [
-            "Thought released into the void.",
-            "Sent with light and intention.",
-            "Let go. It's no longer yours to carry.",
-            "Released. The mind is a little lighter now.",
-            "Your words have been set free.",
-            "That thought is no longer waiting on you.",
-            "Given to the silence.",
-            "Carried away, gently.",
-            "You said it. Now let it rest.",
-            "Set down, so you can walk on.",
-            "The void listens without judgment.",
-            "That's one less thing to hold onto.",
-            "Released, like a breath you didn't know you were holding.",
-            "It's out of your hands now.",
-            "Written, released, done.",
-            "The weight of it is lighter now.",
-            "Let it drift. You did your part.",
-            "Spoken into stillness.",
-            "That thought has found its way out.",
-            "You don't have to carry that alone anymore.",
-            "Given over to the quiet.",
-            "It's said. Let that be enough.",
-            "Freed from your mind, if only for now.",
-            "The page holds it so you don't have to.",
-            "Released — may it come back only as peace.",
-            "That's been let go, gently and fully.",
-            "Your mind just made a little more room.",
-            "Sent onward, with light and intention.",
-            "It's released. Breathe a little easier now.",
-            "Given to the silence between your thoughts."
+            "Thought released into the void.", "Sent with light and intention.", "Let go. It's no longer yours to carry.",
+            "Released. The mind is a little lighter now.", "Your words have been set free.", "That thought is no longer waiting on you.",
+            "Given to the silence.", "Carried away, gently.", "You said it. Now let it rest.",
+            "Set down, so you can walk on.", "The void listens without judgment.", "That's one less thing to hold onto.",
+            "Released, like a breath you didn't know you were holding.", "It's out of your hands now.", "Written, released, done.",
+            "The weight of it is lighter now.", "Let it drift. You did your part.", "Spoken into stillness.",
+            "That thought has found its way out.", "You don't have to carry that alone anymore.", "Given over to the quiet.",
+            "It's said. Let that be enough.", "Freed from your mind, if only for now.", "The page holds it so you don't have to.",
+            "Released — may it come back only as peace.", "That's been let go, gently and fully.", "Your mind just made a little more room.",
+            "Sent onward, with light and intention.", "It's released. Breathe a little easier now.", "Given to the silence between your thoughts."
         ];
 
         function notifyOrToast(title, body, toastDuration = 3000) {
             if (notifPermissionGranted()) {
-                try { new Notification(title, { body: body, icon: 'karmapath-icon-192.png' }); return; } catch (e) { /* fall through to toast */ }
+                try { new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' }); return; } catch (e) { }
             }
             showToast(body, toastDuration);
         }
@@ -1478,5 +1389,142 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             }
         };
     </script>
+
+    <!-- 8 AM & 10 PM LOCAL STORAGE & SW NOTIFICATION LOGIC START -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            if ("Notification" in window && Notification.permission === "default") {
+                setTimeout(() => {
+                    Notification.requestPermission().then(permission => {
+                        console.log("Notification Permission:", permission);
+                        if (typeof updateNotifBellUI === 'function') updateNotifBellUI();
+                    });
+                }, 3000);
+            }
+
+            // 100 Good Morning Quotes (50 original + 50 new mindfulness/Gita inspired)
+            const gmQuotes = [
+                "Wake up and make today amazing!", "A new day brings new strength.", "Embrace the morning light.", "Today is a blank canvas, paint it well.", "Rise up and attack the day with enthusiasm.",
+                "Your future is created by what you do today.", "Every morning is a fresh start.", "Make today so awesome yesterday gets jealous.", "The sun is up, the sky is blue, it's beautiful and so are you.", "Start the day with a grateful heart.",
+                "Opportunities are like sunrises. If you wait too long, you miss them.", "Let your soul expand today.", "Morning comes whether you set the alarm or not.", "Believe you can and you're halfway there.", "Breathe in the morning air and smile.",
+                "Today will be a good day.", "Be the light in someone's dark today.", "Step out of your comfort zone.", "Great things never come from comfort zones.", "Wake up with determination, go to bed with satisfaction.",
+                "It's a beautiful day to go after your dreams.", "Don't look back, you're not going that way.", "Let today be the day you give up who you've been for who you can become.", "Every sunrise is a poem written on the earth.", "You have within you right now, everything you need.",
+                "Morning is an important time of day, because how you spend your morning can often tell you what kind of day you are going to have.", "Write it on your heart that every day is the best day in the year.", "I get up every morning and it's going to be a great day.", "Smile at strangers today.", "Leave a little sparkle wherever you go.",
+                "Focus on the good.", "Find joy in the ordinary.", "Be fearless in the pursuit of what sets your soul on fire.", "Today is your day.", "Let your smile change the world.",
+                "Do something today that your future self will thank you for.", "Success is not final, failure is not fatal.", "Keep going.", "You are capable of amazing things.", "A little progress each day adds up to big results.",
+                "Doubt kills more dreams than failure ever will.", "Don't stop until you're proud.", "Every day is a second chance.", "Make it happen.", "Dream big, work hard, stay focused.",
+                "Surround yourself with positivity.", "Your only limit is your mind.", "Be the energy you want to attract.", "Good morning! Make it count.", "Conquer from within.",
+                "The sun asks for nothing, yet gives life to everything.", "A calm mind is your ultimate weapon today.", "You have the power to choose your reactions.", "Breathe in peace, exhale doubt.", "Wake up, witness the world, but remain unattached.",
+                "Let clarity be your compass this morning.", "Every sunrise offers a chance to reset your karma.", "Do your duty today without seeking the reward.", "Patience in the morning brings peace by evening.", "Your inner light is brighter than the morning sun.",
+                "Silence the inner critic and step forward.", "Let your actions today be an offering to the universe.", "Hold your focus amidst the morning chaos.", "Today is a new chapter in your dharma.", "You are not your thoughts; you are the observer. Good morning.",
+                "Awaken your mind before you awaken your body.", "Seek balance in everything you do today.", "A steady mind conquers the steepest mountains.", "Let gratitude be your first thought today.", "The energy you radiate is the energy you receive.",
+                "Be present. The past is memory, the future is imagination.", "Walk your path with purpose today.", "Your potential is limitless when the mind is still.", "Find joy in the simple act of breathing this morning.", "Do not let the world rush your spirit.",
+                "Your peace is your responsibility today.", "Begin the day with a vow of harmlessness.", "Observe the morning; don't just exist in it.", "Let compassion guide your first words today.", "Stillness is the best preparation for action.",
+                "You are stronger than any obstacle today presents.", "Greet the day with a mind free of judgment.", "Focus on the step in front of you, not the whole staircase.", "Let your inner wisdom lead the way today.", "True strength lies in gentle persistence.",
+                "The morning is a mirror for your soul's intentions.", "Shed yesterday's worries; they do not belong in today.", "Cultivate an unwavering mind this morning.", "Your purpose today is simply to be your best self.", "Harmony within creates harmony without.",
+                "Approach today's tasks with a detached, joyful spirit.", "The universe supports a mind aligned with truth.", "Let your morning routine be a sacred ritual.", "Find strength in your stillness today.", "Your calm presence is a gift to the world.",
+                "Seek progress, not perfection, today.", "Let the morning light wash away your doubts.", "You carry the wisdom of the ages within you.", "Step into today with courage and an open heart.", "Peace is a choice you can make right now."
+            ];
+
+            // 100 Good Night Quotes (50 original + 50 new mindfulness/Gita inspired)
+            const gnQuotes = [
+                "Rest your mind, tomorrow is a new battle.", "The stars are shining just for you.", "Sleep well, dream big.", "Close your eyes and release the day.", "Peaceful sleep brings a powerful tomorrow.",
+                "Let the night take your worries away.", "Tomorrow is a fresh page, rest up.", "You survived today, be proud.", "End the day with a positive thought.", "Sleep is the best meditation.",
+                "Goodnight, let the stars light the way to where your dreams can be found.", "Always end the day with a positive thought.", "As the night gets dark, let your worries fade.", "Rest quietly, sleep peacefully.", "May your dreams be kind tonight.",
+                "The day is over, it's time for rest.", "Don't lose hope, tomorrow brings a new dawn.", "Unplug and unwind.", "Your body needs rest to heal and grow.", "Let gratitude be your pillow.",
+                "Forgive yourself for today's mistakes, sleep well.", "Tomorrow you will try again.", "Embrace the quiet of the night.", "Let the moonlight guide your dreams.", "You've done enough for today.",
+                "A good laugh and a long sleep are the best cures in the doctor's book.", "Night is the blotting paper for many sorrows.", "I wish for you a good night of sleep, sweet dreams, and a smiling morning.", "Take a deep breath and sleep.", "Leave today's troubles in the past.",
+                "May you wake up refreshed and ready.", "The darker the night, the brighter the stars.", "Calm your mind.", "You are safe, you are loved, goodnight.", "Let go of what you can't control.",
+                "Recharge your soul.", "Sweet dreams to a beautiful mind.", "Sleep tight.", "The universe has your back, rest now.", "Turn off the world, turn on your dreams.",
+                "Thank you for doing your best today.", "Every night is a chance to reset.", "Close your eyes, take a deep breath.", "Find peace in the stillness.", "May your sleep be deep and restful.",
+                "Sending you peaceful vibes for a good night.", "Rest is productive too.", "Allow yourself to rest.", "Good night! See you in the morning.", "Drift off to sleep with a happy heart.",
+                "The day is done. Release it to the universe.", "Surrender the weight of today to the night.", "Sleep is the bridge between today's effort and tomorrow's strength.", "Let the stillness of the night quiet your restless mind.", "You cannot change today; you can only rest for tomorrow.",
+                "Forgive yourself for what was left undone.", "The stars remind us of the vastness of our inner peace.", "Close your eyes and detach from the world's demands.", "Your soul requires silence to heal.", "Let go of the illusion of control as you sleep.",
+                "Rest your body, quiet your mind, free your spirit.", "May your dreams be reflections of your highest self.", "The night is a sanctuary for the weary traveler.", "Breathe out the tension of the day.", "You have fulfilled your dharma for today. Sleep well.",
+                "Let the darkness absorb your worries.", "Find comfort in the emptiness of the night.", "Your mind is a quiet lake; let the ripples settle.", "Sleep with a heart free of anger and resentment.", "The universe holds you safely as you rest.",
+                "Release your attachments and drift into peace.", "Tomorrow is a new canvas. Tonight, just rest.", "May you find the ultimate stillness in your sleep.", "The moon watches over your silent healing.", "Detach from the outcomes of today's actions.",
+                "Your worth is not measured by your productivity. Rest.", "Let the gentle night erase your fears.", "Sleep is the mind's meditation.", "You are infinitely more than today's struggles.", "Embrace the void of the night with a calm heart.",
+                "Let your last thought be one of pure gratitude.", "The cycle of action pauses now. Rest deeply.", "May your sleep be as deep as your inner wisdom.", "The night sky is a reminder of your own infinite nature.", "Shed the ego as you close your eyes.",
+                "Rest now, for the soul's journey continues tomorrow.", "Find refuge in the silence of your own being.", "Let the peaceful energy of the night envelop you.", "Your mind deserves a break from its own chatter.", "Sleep knowing you did the best you could.",
+                "The night brings the gift of a clean slate.", "Surrender your fears to the shadows.", "May your rest be undisturbed and your spirit renewed.", "The quiet of the night is the song of the universe.", "Let the stars sing you a lullaby of peace.",
+                "You are safe, you are held, you are at peace.", "Release the need to know what happens next.", "Sleep with the faith that all is unfolding perfectly.", "The night is a gentle reminder to let go.", "Close your eyes and return to your true self."
+            ];
+
+            // Background Service Worker setup
+            if ('serviceWorker' in navigator) {
+                const swCode = `
+                    const gmQuotes = ${JSON.stringify(gmQuotes)};
+                    const gnQuotes = ${JSON.stringify(gnQuotes)};
+                    
+                    self.addEventListener('install', event => self.skipWaiting());
+                    self.addEventListener('activate', event => event.waitUntil(self.clients.claim()));
+
+                    let gmSentDate = null;
+                    let gnSentDate = null;
+
+                    setInterval(() => {
+                        const now = new Date();
+                        const hours = now.getHours();
+                        const dateString = now.toDateString();
+
+                        if (hours === 8 && gmSentDate !== dateString) {
+                            const quote = gmQuotes[Math.floor(Math.random() * gmQuotes.length)];
+                            self.registration.showNotification("Good Morning ☀️", { body: quote, icon: 'karmapath-favicon-32.png', vibrate: [200, 100, 200] });
+                            gmSentDate = dateString;
+                        }
+
+                        if (hours === 22 && gnSentDate !== dateString) {
+                            const quote = gnQuotes[Math.floor(Math.random() * gnQuotes.length)];
+                            self.registration.showNotification("Good Night 🌙", { body: quote, icon: 'karmapath-favicon-32.png', vibrate: [200, 100, 200] });
+                            gnSentDate = dateString;
+                        }
+                    }, 60000);
+                `;
+
+                const blob = new Blob([swCode], { type: 'application/javascript' });
+                const swUrl = URL.createObjectURL(blob);
+
+                navigator.serviceWorker.register(swUrl)
+                    .then(reg => console.log('Karmapath Time-based SW Registered! 🚀'))
+                    .catch(err => console.error('SW Registration Failed!', err));
+            }
+
+            // Foreground main thread checking
+            setInterval(() => {
+                if (!('Notification' in window) || Notification.permission !== "granted") return;
+
+                const now = new Date();
+                const hours = now.getHours();
+                const dateString = now.toDateString();
+                
+                const gmKey = 'kp_gm_sent_' + dateString;
+                const gnKey = 'kp_gn_sent_' + dateString;
+
+                if (hours === 8 && !localStorage.getItem(gmKey)) {
+                    const quote = gmQuotes[Math.floor(Math.random() * gmQuotes.length)];
+                    sendPushLocal("Good Morning ☀️", quote);
+                    localStorage.setItem(gmKey, 'true');
+                }
+
+                if (hours === 22 && !localStorage.getItem(gnKey)) {
+                    const quote = gnQuotes[Math.floor(Math.random() * gnQuotes.length)];
+                    sendPushLocal("Good Night 🌙", quote);
+                    localStorage.setItem(gnKey, 'true');
+                }
+            }, 60000);
+
+            function sendPushLocal(title, body) {
+                if ('serviceWorker' in navigator && navigator.serviceWorker.ready) {
+                    navigator.serviceWorker.ready.then(registration => {
+                        registration.showNotification(title, { body: body, icon: 'karmapath-favicon-32.png', vibrate: [200, 100, 200] });
+                    });
+                } else {
+                    new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
+                }
+            }
+        });
+    </script>
+    <!-- 8 AM & 10 PM LOCAL STORAGE & SW NOTIFICATION LOGIC END -->
 </body>
 </html>
