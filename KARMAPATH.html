@@ -22,9 +22,86 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Karmapath">
 
+    <!-- Link preview image: shown when this page is shared on WhatsApp, Meta AI, etc. -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Karmapath Sankalp">
+    <meta property="og:title" content="Karmapath Sankalp — Bhagavad Gita Wisdom & Daily Guidance">
+    <meta property="og:description" content="A daily companion built from the Bhagavad Gita — Krishna's shlokas by emotion, guided dharma quests, and reflections. Assume the Role of Arjuna.">
+    <meta property="og:image" content="https://cls24x7.com/karmapath-og-image.png">
+    <meta property="og:url" content="https://cls24x7.com/KARMAPATH">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Karmapath Sankalp — Bhagavad Gita Wisdom & Daily Guidance">
+    <meta name="twitter:description" content="A daily companion built from the Bhagavad Gita — Krishna's shlokas by emotion, guided dharma quests, and reflections. Assume the Role of Arjuna.">
+    <meta name="twitter:image" content="https://cls24x7.com/karmapath-og-image.png">
+
+    <!-- Structured data for search engines -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Karmapath Sankalp",
+        "alternateName": "Karmapath",
+        "description": "A daily companion built from the Bhagavad Gita — Krishna's shlokas organized by emotion, guided dharma quests, and reflections for anxiety, sadness, anger, peace, and purpose.",
+        "url": "https://cls24x7.com/KARMAPATH",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Any",
+        "about": "Bhagavad Gita",
+        "inLanguage": "en",
+        "keywords": "Bhagavad Gita, Sankalp, Gita shlokas, Krishna Arjuna wisdom, spiritual guidance, dharma quests",
+        "areaServed": {
+            "@type": "Country",
+            "name": "India"
+        },
+        "isPartOf": {
+            "@type": "Organization",
+            "name": "Cheshta Learning System Foundation",
+            "url": "https://cls24x7.com/"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is Karmapath Sankalp?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Karmapath Sankalp is a daily companion app built from the Bhagavad Gita. It offers Krishna's shlokas organized by emotion, guided dharma quests, and space for personal reflection — helping you assume the role of Arjuna in your own life."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does Karmapath choose a shloka for me?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You choose how you're feeling — anxiety, sadness, anger, loneliness, laziness, protection, happiness, or peace — and Karmapath surfaces a Bhagavad Gita shloka in Sanskrit with transliteration and English translation matched to that emotion."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What language are the Karmapath shlokas in?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Each shloka is shown in Sanskrit (Devanagari script), with Roman transliteration and an English translation, so it's accessible whether or not you read Sanskrit."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Who created Karmapath Sankalp?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Karmapath Sankalp is an initiative of the Cheshta Learning System (CLS) Foundation, built as a companion for psychological and spiritual self-defense alongside CLS Foundation's physical self-defense and legal awareness programs."
+                }
+            }
+        ]
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=Noto+Serif+Devanagari:wght@200;300;400&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
         :root {
@@ -188,80 +265,12 @@
             width: 16px; height: 16px; animation: spin 1s linear infinite; display: none; margin: 0 auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Sequence Styles */
-        .typing-text {
-            overflow: hidden;
-            border-right: .15em solid #6D28D9;
-            white-space: pre-wrap;
-            margin: 0 auto;
-            letter-spacing: .05em;
-            opacity: 0;
-        }
-
-        .reveal-text {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease, transform 1s ease;
-        }
-        
-        .reveal-text.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #6D28D9, #8B5CF6);
-            color: white;
-            padding: 0.75rem 2rem;
-            border-radius: 9999px;
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3);
-            cursor: pointer;
-            border: none;
-            outline: none;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(109, 40, 217, 0.5);
-        }
-
-        /* Progress Indicator */
-        .progress-dots {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 12px;
-            z-index: 40;
-            transition: opacity 0.5s ease;
-        }
-        
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(43, 43, 43, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .dot.active {
-            background: #6D28D9;
-            transform: scale(1.3);
-            box-shadow: 0 0 10px rgba(109, 40, 217, 0.5);
-        }
     </style>
 </head>
 <body class="antialiased min-h-screen relative selection:bg-[#6D28D9]/20">
 
     <!-- INTRO MUSIC AUDIO TAG -->
-    <audio id="intro-audio" src="Peacock Feather.mp3" preload="auto" loop></audio>
+    <audio id="intro-audio" src="Peacock Feather.mp3" preload="auto"></audio>
 
     <noscript>
         <div style="max-width:640px;margin:60px auto;padding:0 24px;font-family:sans-serif;color:#2B2B2B;text-align:center;">
@@ -278,58 +287,13 @@
 
     <div id="toast" class="bg-white/95 backdrop-blur-md border border-[#2B2B2B]/10 text-[#2B2B2B]/80 text-[10px] uppercase tracking-[0.3em] px-6 py-3 rounded-full font-normal shadow-[0_10px_30px_rgba(43,43,43,0.12)]">Action completed</div>
 
-    <!-- MUSIC TOGGLE -->
-    <div id="music-toggle-btn" class="fixed top-8 left-8 z-50 flex items-center gap-3 opacity-40 hover:opacity-100 transition-opacity duration-700 cursor-pointer hidden" onclick="toggleIntroMusic()">
-        <span id="music-icon" class="text-xl">🔇</span>
-        <span id="music-text" class="text-[8px] uppercase tracking-[0.3em] text-[#8A8A8A] hidden sm:block">Music Off</span>
-    </div>
-
-    <!-- Progress Dots for Sequence -->
-    <div class="progress-dots" id="sequence-dots">
-        <div class="dot active" id="dot-query"></div>
-        <div class="dot" id="dot-solution"></div>
-        <div class="dot" id="dot-intro"></div>
+    <div id="lunar-indicator" class="fixed top-8 left-8 z-50 flex items-center gap-3 opacity-40 hover:opacity-100 transition-opacity duration-700 cursor-help" title="Cosmic Sync">
+        <span id="lunar-icon" class="text-xl">🌑</span>
+        <span id="lunar-text" class="text-[8px] uppercase tracking-[0.3em] text-[#8A8A8A] hidden sm:block">Syncing...</span>
     </div>
 
     <div id="app" class="relative z-10 w-full min-h-screen flex flex-col items-center p-6 mx-auto max-w-4xl font-light">
 
-        <!-- SEQUENCE 1: THE QUERY -->
-        <div id="screen-query" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[100vh] px-4 active">
-            <div class="mb-8 w-full max-w-2xl mx-auto">
-                <p class="text-[10px] tracking-[0.4em] uppercase text-[#8A8A8A] mb-8 reveal-text" id="query-pretext">A Question Arises</p>
-                <h1 id="query-text" class="text-3xl md:text-5xl font-thin text-[#2B2B2B] leading-tight"></h1>
-            </div>
-            <p class="text-sm md:text-base text-[#8A8A8A] mt-6 max-w-xl mx-auto reveal-text hidden leading-relaxed font-light italic" id="query-subtext">
-                "The mind is restless, turbulent, obstinate and very strong, O Krishna, and to subdue it, I think, is more difficult than controlling the wind."
-            </p>
-            <div class="mt-16 reveal-text hidden" id="btn-next-query">
-                <button class="btn-primary flex items-center gap-3 mx-auto" onclick="nextSequence('solution')">
-                    Seek the Answer <i class="fas fa-arrow-right text-[10px]"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- SEQUENCE 2: THE SOLUTION -->
-        <div id="screen-solution" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[100vh] px-4">
-            <div class="mb-8 w-full max-w-2xl mx-auto">
-                <div class="w-12 h-12 rounded-full border border-[#6D28D9]/30 flex items-center justify-center mx-auto mb-8 reveal-text" id="icon-solution">
-                    <i class="fas fa-om text-[#6D28D9] text-xl"></i>
-                </div>
-                <h1 class="text-3xl md:text-5xl font-thin text-[#6D28D9] leading-tight reveal-text" id="title-solution">
-                    The Dialogue Remains.
-                </h1>
-            </div>
-            <p class="text-base md:text-xl text-[#2B2B2B]/80 mt-6 max-w-2xl mx-auto reveal-text leading-relaxed font-light" id="desc-solution">
-                Before the battle, there was a conversation. Wisdom that doesn't expire, waiting to be heard again. A sanctuary for the modern mind, built from the timeless verses of the Bhagavad Gita.
-            </p>
-            <div class="mt-16 reveal-text" id="btn-next-solution">
-                <button class="btn-primary flex items-center gap-3 mx-auto" onclick="nextSequence('intro')">
-                    Open the Codex <i class="fas fa-arrow-right text-[10px]"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- SEQUENCE 3: THE INTRO -->
         <div id="screen-intro" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[100vh] px-4 cursor-pointer" onclick="enterFromIntro()">
             <svg viewBox="0 0 433.982577 879.000000" class="w-28 md:w-32 mx-auto mb-8" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -635,63 +599,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
 
     <!-- ONE SINGLE MASTER SCRIPT BLOCK -->
     <script>
-        // --- SEQUENCE LOGIC ---
-        function typeWriter(text, element, speed, callback) {
-            let i = 0;
-            element.innerHTML = "";
-            element.style.opacity = "1";
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                } else {
-                    if (callback) callback();
-                }
-            }
-            type();
-        }
-
-        const queryFullText = "Are you tired of feeling like your mind is a battlefield?";
-        
-        function startSequence() {
-            setTimeout(() => {
-                typeWriter(queryFullText, document.getElementById('query-text'), 40, () => {
-                    setTimeout(() => {
-                        document.getElementById('query-subtext').classList.remove('hidden');
-                        document.getElementById('btn-next-query').classList.remove('hidden');
-                        setTimeout(() => {
-                            document.getElementById('query-subtext').classList.add('visible');
-                            document.getElementById('btn-next-query').classList.add('visible');
-                        }, 50);
-                    }, 500);
-                });
-            }, 500);
-        }
-
-        function nextSequence(step) {
-            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById('screen-' + step).classList.add('active');
-            
-            document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
-            
-            if (step === 'solution') {
-                document.getElementById('dot-solution').classList.add('active');
-                setTimeout(() => {
-                    document.getElementById('icon-solution').classList.add('visible');
-                    setTimeout(() => document.getElementById('title-solution').classList.add('visible'), 300);
-                    setTimeout(() => document.getElementById('desc-solution').classList.add('visible'), 600);
-                    setTimeout(() => document.getElementById('btn-next-solution').classList.add('visible'), 900);
-                }, 100);
-            } else if (step === 'intro') {
-                document.getElementById('dot-intro').classList.add('active');
-                document.getElementById('music-toggle-btn').classList.remove('hidden');
-                
-                // Try playing intro music when reaching intro screen
-                playIntroMusic();
-            }
-        }
-
         // --- DATA & CONFIG ---
         const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwf818vMCSIAK4KEVMmPp9-3vJD5VxoC251XBH9wyy-zZBqNRcTYy-I_I2ZdCgaYtUJUA/exec";
         const NOTIF_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHOSwcUmk1s9DWWNzjVdMeoukh5Dt2iHfb4IqI5YLiNUWwkqr0aN8f_YB-QLoTgEQidw/exec";
@@ -769,17 +676,23 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         const BRAND_VIOLET = '#6D28D9';
 
         // --- GLOBAL PUSH NOTIFICATION ENGINE ---
-        window.sendKarmapathPush = async function(title, body) {
+        window.sendKarmapathPush = function(title, body) {
             if (!('Notification' in window) || Notification.permission !== "granted") return;
             
             try {
                 if ('serviceWorker' in navigator) {
-                    const reg = await navigator.serviceWorker.ready;
-                    await reg.showNotification(title, { 
-                        body: body, 
-                        icon: 'karmapath-favicon-32.png', 
-                        badge: 'karmapath-favicon-16.png',
-                        vibrate: [200, 100, 200]
+                    navigator.serviceWorker.getRegistrations().then(regs => {
+                        if (regs.length > 0) {
+                            regs[0].showNotification(title, { 
+                                body: body, 
+                                icon: 'karmapath-favicon-32.png', 
+                                vibrate: [200, 100, 200] 
+                            });
+                        } else {
+                            new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
+                        }
+                    }).catch(e => {
+                        new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
                     });
                 } else {
                     new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
@@ -883,12 +796,13 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             document.documentElement.style.setProperty('--kp-accent-rgb', hexToRgbString(hex));
         }
 
+        function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
         function forceLogout(message) {
             localStorage.removeItem('karmapath_auth_token');
             localStorage.removeItem('karmapath_user_name');
             localStorage.removeItem('karmapath_reg_date');
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-            document.getElementById('sequence-dots').style.opacity = '0';
             document.getElementById('screen-login').classList.add('active');
             if (message) showToast(message);
         }
@@ -953,6 +867,23 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             }
         }
 
+        function enterFromIntro() {
+            if (isUserAuthenticated) {
+                navigate('home');
+                triggerWelcomePush();
+            } else {
+                navigate('login');
+                setTimeout(() => { showToast("Enter your name and the key you have."); }, 600);
+            }
+        }
+
+        function navigate(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen-' + screenId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (screenId === 'home') { stopAudio(); renderEchoes(); setAccent(BRAND_VIOLET); }
+        }
+
         function selectEmotion(emotion) {
             currentEmotion = emotion;
             setAccent(EMOTION_COLORS[emotion] || BRAND_VIOLET);
@@ -989,6 +920,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             showToast("The universe has chosen");
         }
 
+        // --- SANKALPA & QUESTS ---
         const SANKALPA_STAGES = [
             `<svg viewBox="0 0 100 100" class="w-6 h-6" style="color: rgba(var(--kp-accent-rgb), 0.5);"><circle cx="50" cy="50" r="10" fill="currentColor" class="animate-pulse"/></svg>`,
             `<svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2" class="w-12 h-12" style="color: rgba(var(--kp-accent-rgb), 0.6);"><path d="M50 80 Q 60 50 50 20" stroke-linecap="round"/><circle cx="50" cy="80" r="4" fill="currentColor"/></svg>`,
@@ -1095,7 +1027,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             const list = document.getElementById('echoes-list');
             
             if(echoes.length === 0) { container.classList.add('hidden'); return; }
-
             container.classList.remove('hidden');
             list.innerHTML = '';
 
@@ -1131,37 +1062,9 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             }
         }
 
-        function playIntroMusic() {
-            const audio = document.getElementById('intro-audio');
-            const musicIcon = document.getElementById('music-icon');
-            const musicText = document.getElementById('music-text');
-            
-            if (audio && audio.paused) {
-                audio.play().then(() => {
-                    musicIcon.innerText = "🎵";
-                    musicText.innerText = "Music On";
-                }).catch(err => {
-                    console.log("Audio autoplay blocked by browser, waiting for next interaction.", err);
-                });
-            }
-        }
-
-        function toggleIntroMusic() {
-            const audio = document.getElementById('intro-audio');
-            const musicIcon = document.getElementById('music-icon');
-            const musicText = document.getElementById('music-text');
-            
-            if (!audio) return;
-            
-            if (audio.paused) {
-                audio.play();
-                musicIcon.innerText = "🎵";
-                musicText.innerText = "Music On";
-            } else {
-                audio.pause();
-                musicIcon.innerText = "🔇";
-                musicText.innerText = "Music Off";
-            }
+        function applyCosmicSync() {
+            document.getElementById('lunar-icon').innerText = "🌕";
+            document.getElementById('lunar-text').innerText = "Full Moon Sync";
         }
 
         let bgAudio;
@@ -1172,14 +1075,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                 bgAudio.volume = 0.4;
             }
         }
-        function toggleAudio() { 
-            const intro = document.getElementById('intro-audio');
-            if(intro && !intro.paused) toggleIntroMusic();
-
-            initAudio(); 
-            if (isPlaying) stopAudio(); 
-            else playAudio(); 
-        }
+        function toggleAudio() { initAudio(); if (isPlaying) stopAudio(); else playAudio(); }
         function playAudio() {
             bgAudio.play().catch(err => console.log("Audio playback failed:", err));
             isPlaying = true;
@@ -1287,12 +1183,24 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         window.onload = async () => {
             setAccent(BRAND_VIOLET);
             createStars();
+            applyCosmicSync(); 
             initSankalpa(); 
             renderEchoes(); 
             updateNotifBellUI();
 
-            startSequence();
+            // COMPULSORY INTRO SCREEN
+            document.getElementById('screen-intro').classList.add('active');
 
+            // PEACOCK FEATHER AUDIO LOGIC
+            const introAudio = document.getElementById('intro-audio');
+            if (introAudio) {
+                introAudio.volume = 0.5;
+                introAudio.play().catch(e => {
+                    document.body.addEventListener('click', () => { introAudio.play().catch(err => {}); }, { once: true });
+                });
+            }
+            
+            // BACKGROUND SW REGISTRATION (8 AM, 5 PM, 10 PM)
             if ('serviceWorker' in navigator) {
                 const swCode = `
                     const gmQuotes = ${JSON.stringify(gmQuotes)};
@@ -1330,12 +1238,12 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
 
             if (notifPermissionGranted()) { startNotificationPolling(); }
 
+            // AUTH VERIFICATION IN BACKGROUND
             const token = localStorage.getItem('karmapath_auth_token');
             if (token) {
                 try {
                     const response = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?action=verify&token=${encodeURIComponent(token)}`);
                     const result = await response.json();
-
                     if (result.valid) {
                         isUserAuthenticated = true;
                         updateGreetingUI(); 
@@ -1343,11 +1251,12 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                         localStorage.removeItem('karmapath_auth_token');
                     }
                 } catch (error) {
-                    isUserAuthenticated = true; 
+                    isUserAuthenticated = true; // Fallback offline
                     updateGreetingUI(); 
                 }
             }
 
+            // Foreground Time Check Fallback
             setInterval(() => {
                 if (!notifPermissionGranted()) return;
                 const now = new Date(), hours = now.getHours(), dateString = now.toDateString();
