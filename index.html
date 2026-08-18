@@ -322,9 +322,7 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Brand / Authority -->
                 <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center font-heading font-black text-2xl shadow-glow">
-                        <span class="text-cls-orange">C</span><span class="text-cls-navy">L</span><span class="text-cls-green">S</span>
-                    </div>
+                    <img src="cls-icon-192.png" alt="CLS Foundation" class="w-12 h-12 rounded-lg shadow-glow object-cover">
                     <div class="hidden sm:block">
                         <div class="text-white font-heading font-bold text-sm tracking-wide leading-tight uppercase">Cheshta Learning System</div>
                         <div class="text-gray-400 font-sans font-semibold text-[10px] tracking-widest uppercase">Foundation &bull; Est. 2019</div>
@@ -342,6 +340,10 @@
                     <a href="#donate" class="bg-cls-orange text-white px-6 py-2.5 rounded-md font-heading font-bold text-sm tracking-wide hover:bg-orange-600 transition-all btn-pulse flex items-center gap-2">
                         <i class="fas fa-shield-alt"></i> Protect a Child
                     </a>
+                    <button id="cls-notif-bell" onclick="clsEnableNotifications()" class="text-gray-300 hover:text-white transition-colors text-lg" title="Get notified about updates">
+                        <i class="fas fa-bell"></i>
+                        <span class="hidden">Get Updates</span>
+                    </button>
                 </div>
 
                 <!-- Mobile Menu Toggle -->
@@ -872,9 +874,7 @@
                 <!-- Brand Info -->
                 <div class="col-span-1 lg:col-span-1">
                     <div class="flex items-center gap-2 mb-6">
-                        <div class="w-10 h-10 bg-white rounded flex items-center justify-center font-heading font-black text-xl">
-                            <span class="text-cls-orange">C</span><span class="text-cls-navy">L</span><span class="text-cls-green">S</span>
-                        </div>
+                        <img src="cls-icon-192.png" alt="CLS Foundation" class="w-10 h-10 rounded object-cover">
                         <div class="text-white font-heading font-bold text-sm uppercase leading-tight">Cheshta Learning<br>System</div>
                     </div>
                     <p class="text-gray-500 text-sm leading-relaxed mb-6 font-semibold">
@@ -1112,6 +1112,60 @@
                 el.textContent = el.getAttribute('data-target') + (el.getAttribute('data-suffix') || '');
             });
         }
+
+        // --- SCHEDULED NOTIFICATIONS (own dedicated Google Sheet / Apps Script — same one Karmapath uses) ---
+        // Works whenever this page is open (foreground or backgrounded tab).
+        // It does NOT wake up a fully closed browser — that needs a separate push-server setup.
+        const NOTIF_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHOSwcUmk1s9DWWNzjVdMeoukh5Dt2iHfb4IqI5YLiNUWwkqr0aN8f_YB-QLoTgEQidw/exec";
+        const CLS_NOTIF_INTERVAL_MS = 60000;
+        let clsNotifPollHandle = null;
+
+        function clsNotifGranted() {
+            return ('Notification' in window) && Notification.permission === 'granted';
+        }
+
+        async function clsEnableNotifications() {
+            if (!('Notification' in window)) return;
+            const result = await Notification.requestPermission();
+            clsUpdateBell();
+            if (result === 'granted') startClsNotifPolling();
+        }
+
+        function clsUpdateBell() {
+            const btn = document.getElementById('cls-notif-bell');
+            if (!btn) return;
+            if (!('Notification' in window)) { btn.classList.add('hidden'); return; }
+            const granted = Notification.permission === 'granted';
+            btn.querySelector('span').innerText = granted ? 'Notifications On' : 'Get Updates';
+            btn.title = granted ? 'Notifications on' : 'Get notified about updates';
+            btn.querySelector('i').className = granted ? 'fas fa-bell text-cls-orange' : 'fas fa-bell';
+        }
+
+        function startClsNotifPolling() {
+            if (clsNotifPollHandle) return;
+            checkClsNotifications();
+            clsNotifPollHandle = setInterval(checkClsNotifications, CLS_NOTIF_INTERVAL_MS);
+        }
+
+        async function checkClsNotifications() {
+            if (!clsNotifGranted()) return;
+            if (!NOTIF_SCRIPT_URL || NOTIF_SCRIPT_URL.indexOf('PASTE_') === 0) return; // not configured yet
+            try {
+                const res = await fetch(NOTIF_SCRIPT_URL);
+                const data = await res.json();
+                const shown = JSON.parse(localStorage.getItem('cls_shown_notifs') || '[]');
+                (data.notifications || []).forEach(n => {
+                    if (!shown.includes(n.id)) {
+                        try { new Notification(n.title, { body: n.message, icon: 'cls-icon-192.png' }); } catch (e) {}
+                        shown.push(n.id);
+                    }
+                });
+                localStorage.setItem('cls_shown_notifs', JSON.stringify(shown.slice(-200)));
+            } catch (err) { /* offline — silently retry next interval */ }
+        }
+
+        clsUpdateBell();
+        if (clsNotifGranted()) { startClsNotifPolling(); }
     </script>
 </body>
 </html>
