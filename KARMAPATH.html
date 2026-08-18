@@ -22,7 +22,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Karmapath">
 
-    <!-- Link preview image: shown when this page is shared on WhatsApp, Meta AI, etc. -->
+    <!-- Link preview image -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Karmapath Sankalp">
     <meta property="og:title" content="Karmapath Sankalp — Bhagavad Gita Wisdom & Daily Guidance">
@@ -34,7 +34,7 @@
     <meta name="twitter:description" content="A daily companion built from the Bhagavad Gita — Krishna's shlokas by emotion, guided dharma quests, and reflections. Assume the Role of Arjuna.">
     <meta name="twitter:image" content="https://cls24x7.com/karmapath-og-image.png">
 
-    <!-- Structured data for search engines -->
+    <!-- Structured data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -79,34 +79,18 @@
                     "@type": "Answer",
                     "text": "You choose how you're feeling — anxiety, sadness, anger, loneliness, laziness, protection, happiness, or peace — and Karmapath surfaces a Bhagavad Gita shloka in Sanskrit with transliteration and English translation matched to that emotion."
                 }
-            },
-            {
-                "@type": "Question",
-                "name": "What language are the Karmapath shlokas in?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Each shloka is shown in Sanskrit (Devanagari script), with Roman transliteration and an English translation, so it's accessible whether or not you read Sanskrit."
-                }
-            },
-            {
-                "@type": "Question",
-                "name": "Who created Karmapath Sankalp?",
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "Karmapath Sankalp is an initiative of the Cheshta Learning System (CLS) Foundation, built as a companion for psychological and spiritual self-defense alongside CLS Foundation's physical self-defense and legal awareness programs."
-                }
             }
         ]
     }
     </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@200;300;400&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
         :root {
-            --kp-accent-rgb: 109,40,217; /* default: Wordmark Violet #6D28D9 — JS sets this per selected emotion */
+            --kp-accent-rgb: 109,40,217; 
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -635,7 +619,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         <div id="screen-shloka" class="screen flex-col items-center w-full min-h-screen py-12 px-4 md:px-8 fade-in">
             <div class="w-full flex justify-between items-center mb-16 max-w-3xl">
                 <button onclick="navigate('home')" class="text-[#666666] hover:text-[#2B2B2B] transition-colors duration-500 flex items-center gap-4 group">
-                    <svg class="w-6 h-6 transform group-hover:-translate-x-2 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+                    <svg class="w-6 h-6 transform group-hover:-translate-x-2 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
                     <span class="text-xs tracking-[0.3em] uppercase font-normal opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden sm:block">Dissolve</span>
                 </button>
                 <span id="shloka-category" class="uppercase tracking-[0.4em] text-xs font-medium kp-accent-text">CATEGORY</span>
@@ -781,13 +765,15 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                 document.getElementById('dot-intro').classList.add('active');
                 document.getElementById('music-toggle-btn').classList.remove('hidden');
                 
+                // Restart animations on intro screen elements to ensure they play properly AFTER peacock logo
                 const introElements = document.querySelectorAll('#screen-intro .intro-rise, #screen-intro .reveal-sweep');
                 introElements.forEach(el => {
                     el.style.animation = 'none';
-                    el.offsetHeight; 
+                    el.offsetHeight; /* trigger reflow */
                     el.style.animation = null; 
                 });
 
+                // ONLY PLAY MUSIC WHEN "OPEN THE CODEX" IS CLICKED
                 playIntroMusic();
             }
         }
@@ -869,17 +855,23 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         const BRAND_VIOLET = '#6D28D9';
 
         // --- GLOBAL PUSH NOTIFICATION ENGINE ---
-        window.sendKarmapathPush = async function(title, body) {
+        window.sendKarmapathPush = function(title, body) {
             if (!('Notification' in window) || Notification.permission !== "granted") return;
             
             try {
                 if ('serviceWorker' in navigator) {
-                    const reg = await navigator.serviceWorker.ready;
-                    await reg.showNotification(title, { 
-                        body: body, 
-                        icon: 'karmapath-favicon-32.png', 
-                        badge: 'karmapath-favicon-16.png',
-                        vibrate: [200, 100, 200]
+                    navigator.serviceWorker.getRegistrations().then(regs => {
+                        if (regs.length > 0) {
+                            regs[0].showNotification(title, { 
+                                body: body, 
+                                icon: 'karmapath-favicon-32.png', 
+                                vibrate: [200, 100, 200] 
+                            });
+                        } else {
+                            new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
+                        }
+                    }).catch(e => {
+                        new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
                     });
                 } else {
                     new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
@@ -1056,8 +1048,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         }
 
         function enterFromIntro() {
-            playIntroMusic();
-
             if (isUserAuthenticated) {
                 navigate('home');
                 triggerWelcomePush();
@@ -1429,11 +1419,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             // 1. ALWAYS SHOW ANIMATION SEQUENCE FIRST
             startSequence();
             
-            // 2. Play music automatically on user interaction anywhere on the document (Fix for mobile autoplay policies)
-            document.body.addEventListener('click', playIntroMusic, { once: true });
-            document.body.addEventListener('touchstart', playIntroMusic, { once: true });
-            
-            // 3. REGISTER BACKGROUND SERVICE WORKER
+            // 2. REGISTER BACKGROUND SERVICE WORKER
             if ('serviceWorker' in navigator) {
                 const swCode = `
                     const gmQuotes = ${JSON.stringify(gmQuotes)};
@@ -1471,7 +1457,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
 
             if (notifPermissionGranted()) { startNotificationPolling(); }
 
-            // 4. AUTH VERIFICATION IN BACKGROUND
+            // 3. AUTH VERIFICATION IN BACKGROUND
             const token = localStorage.getItem('karmapath_auth_token');
             if (token) {
                 try {
@@ -1489,7 +1475,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                 }
             }
 
-            // 5. FOREGROUND TIME CHECK (FALLBACK)
+            // 4. FOREGROUND TIME CHECK (FALLBACK)
             setInterval(() => {
                 if (!notifPermissionGranted()) return;
                 const now = new Date(), hours = now.getHours(), dateString = now.toDateString();
