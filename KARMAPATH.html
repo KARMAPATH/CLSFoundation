@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Karmapath Sankalp — Bhagavad Gita Wisdom, Shlokas & Daily Guidance</title>
     <meta name="description" content="Karmapath Sankalp is a daily companion built from the Bhagavad Gita — explore Krishna's shlokas by emotion, guided dharma quests, and reflections for anxiety, sadness, anger, peace, and purpose. Assume the Role of Arjuna.">
-    <meta name="keywords" content="Karmapath, Sankalp, Karmapath Sankalp, Bhagavad Gita, Bhagwat Gita, Gita wisdom, Krishna Arjuna, shlokas, Sanskrit verses, spiritual guidance app, daily reflection, Hindu scripture, dharma">
+    <meta name="keywords" content="Karmapath, Sankalp, Karmapath Sankalp, Bhagavad Gita, Bhagwat Gita, Bhagavad Gita app, Gita wisdom, Gita quotes daily, Krishna Arjuna, Krishna quotes, Arjuna Krishna dialogue, shlokas, Sanskrit verses with meaning, Gita shlokas for anxiety, Gita shlokas for peace, spiritual guidance app, daily reflection app, Hindu scripture app, dharma, karma, sankalpa, meditation app India, self-help spiritual app, Bhagavad Gita for stress, Gita wisdom for daily life">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Cheshta Learning System Foundation">
+    <meta name="geo.region" content="IN">
+    <meta name="geo.placename" content="India">
     <link rel="canonical" href="https://cls24x7.com/KARMAPATH">
 
     <!-- App icon: shown when someone adds this page to their home screen as a web app -->
@@ -45,11 +47,56 @@
         "operatingSystem": "Any",
         "about": "Bhagavad Gita",
         "inLanguage": "en",
+        "keywords": "Bhagavad Gita, Sankalp, Gita shlokas, Krishna Arjuna wisdom, spiritual guidance, dharma quests",
+        "areaServed": {
+            "@type": "Country",
+            "name": "India"
+        },
         "isPartOf": {
             "@type": "Organization",
             "name": "Cheshta Learning System Foundation",
             "url": "https://cls24x7.com/"
         }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is Karmapath Sankalp?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Karmapath Sankalp is a daily companion app built from the Bhagavad Gita. It offers Krishna's shlokas organized by emotion, guided dharma quests, and space for personal reflection — helping you assume the role of Arjuna in your own life."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How does Karmapath choose a shloka for me?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You choose how you're feeling — anxiety, sadness, anger, loneliness, laziness, protection, happiness, or peace — and Karmapath surfaces a Bhagavad Gita shloka in Sanskrit with transliteration and English translation matched to that emotion."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What language are the Karmapath shlokas in?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Each shloka is shown in Sanskrit (Devanagari script), with Roman transliteration and an English translation, so it's accessible whether or not you read Sanskrit."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Who created Karmapath Sankalp?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Karmapath Sankalp is an initiative of the Cheshta Learning System (CLS) Foundation, built as a companion for psychological and spiritual self-defense alongside CLS Foundation's physical self-defense and legal awareness programs."
+                }
+            }
+        ]
     }
     </script>
 
@@ -132,6 +179,39 @@
             from { opacity: 0; transform: translateY(30px) scale(0.95); filter: blur(10px); }
             to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
         }
+
+        /* A little extra life: cheap, one-shot entrance animations (transform/opacity only) */
+        @keyframes wordRise {
+            from { opacity: 0; transform: translateY(16px) scale(0.92); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .word-rise { animation: wordRise 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+        .float-1-in { animation: floatSlow 6s ease-in-out infinite, wordRise 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+        .float-2-in { animation: floatMed 8s ease-in-out infinite, wordRise 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+        .float-3-in { animation: floatFast 5s ease-in-out infinite, wordRise 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+        .float-4-in { animation: floatSlow 7s ease-in-out infinite reverse, wordRise 0.7s cubic-bezier(0.16,1,0.3,1) both; }
+        .card-in { animation: floatSlow 6s ease-in-out infinite, verseIn 0.8s cubic-bezier(0.16,1,0.3,1) both; }
+
+        @keyframes verseIn {
+            from { opacity: 0; transform: translateY(18px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .verse-in { animation: verseIn 0.8s cubic-bezier(0.16,1,0.3,1) both; }
+
+        @keyframes ctaPulseRing {
+            0% { box-shadow: 0 0 0 0 rgba(109,40,217,0.35); }
+            70% { box-shadow: 0 0 0 14px rgba(109,40,217,0); }
+            100% { box-shadow: 0 0 0 0 rgba(109,40,217,0); }
+        }
+        .cta-pulse { animation: ctaPulseRing 2.8s ease-out infinite; }
+        .cta-pulse:hover { animation-play-state: paused; }
+
+        @keyframes checkPop {
+            0% { transform: scale(1); }
+            40% { transform: scale(1.35); }
+            100% { transform: scale(1); }
+        }
+        .check-pop { animation: checkPop 0.5s cubic-bezier(0.34,1.56,0.64,1); }
 
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -221,7 +301,7 @@
                 </div>
                 
                 <div class="flex flex-col w-full gap-4">
-                    <button id="login-btn" onclick="verifyReferral()" class="group relative w-full px-6 py-4 border border-[#6D28D9]/30 bg-[#6D28D9]/8 text-[#6D28D9] tracking-[0.2em] uppercase text-[10px] transition-all duration-500 hover:text-white hover:border-[#6D28D9] hover:bg-[#6D28D9] hover:shadow-[0_0_20px_rgba(109,40,217,0.25)] rounded-xl overflow-hidden">
+                    <button id="login-btn" onclick="verifyReferral()" class="group relative w-full px-6 py-4 border border-[#6D28D9]/30 bg-[#6D28D9]/8 text-[#6D28D9] tracking-[0.2em] uppercase text-[10px] transition-all duration-500 hover:text-white hover:border-[#6D28D9] hover:bg-[#6D28D9] hover:shadow-[0_0_20px_rgba(109,40,217,0.25)] rounded-xl overflow-hidden cta-pulse">
                         <span id="login-text" class="relative z-10">Enter the Sanctuary</span>
                         <div id="login-loader" class="loader relative z-10 hidden"></div>
                     </button>
@@ -258,14 +338,14 @@
             <p class="text-[#8A8A8A] text-xs tracking-[0.4em] uppercase mb-16 text-center">What is clouding the sky?</p>
             
             <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-16 w-full max-w-3xl px-4 mb-24">
-                <button onclick="selectEmotion('Anxiety')" class="float-1 text-2xl md:text-4xl text-[#64748B]/60 hover:text-[#64748B] hover:scale-110 transition-all duration-700 font-thin">Anxiety</button>
-                <button onclick="selectEmotion('Sadness')" class="float-3 text-3xl md:text-5xl text-[#2563EB]/60 hover:text-[#2563EB] hover:scale-110 transition-all duration-700 font-thin">Sadness</button>
-                <button onclick="selectEmotion('Anger')" class="float-2 text-2xl md:text-4xl text-[#DC2626]/60 hover:text-[#DC2626] hover:scale-110 transition-all duration-700 font-thin">Anger</button>
-                <button onclick="selectEmotion('Loneliness')" class="float-4 text-3xl md:text-5xl text-[#8B5CF6]/60 hover:text-[#8B5CF6] hover:scale-110 transition-all duration-700 font-thin">Loneliness</button>
-                <button onclick="selectEmotion('Laziness')" class="float-1 text-xl md:text-3xl text-[#EAB308]/70 hover:text-[#EAB308] hover:scale-110 transition-all duration-700 font-thin">Laziness</button>
-                <button onclick="selectEmotion('Protection')" class="float-3 text-2xl md:text-4xl text-[#F97316]/60 hover:text-[#F97316] hover:scale-110 transition-all duration-700 font-thin">Protection</button>
-                <button onclick="selectEmotion('Happiness')" class="float-2 text-3xl md:text-5xl text-[#059669]/60 hover:text-[#059669] hover:scale-110 transition-all duration-700 font-thin">Happiness</button>
-                <button onclick="selectEmotion('Peace')" class="float-4 text-4xl md:text-6xl text-[#F472B6]/60 hover:text-[#F472B6] hover:scale-110 hover:drop-shadow-[0_0_25px_rgba(244,114,182,0.35)] transition-all duration-700 font-thin">Peace</button>
+                <button onclick="selectEmotion('Anxiety')" style="animation-delay: 0s, 0.05s;" class="float-1-in text-2xl md:text-4xl text-[#64748B]/60 hover:text-[#64748B] hover:scale-110 transition-all duration-700 font-thin">Anxiety</button>
+                <button onclick="selectEmotion('Sadness')" style="animation-delay: 0s, 0.1s;" class="float-3-in text-3xl md:text-5xl text-[#2563EB]/60 hover:text-[#2563EB] hover:scale-110 transition-all duration-700 font-thin">Sadness</button>
+                <button onclick="selectEmotion('Anger')" style="animation-delay: 0s, 0.15s;" class="float-2-in text-2xl md:text-4xl text-[#DC2626]/60 hover:text-[#DC2626] hover:scale-110 transition-all duration-700 font-thin">Anger</button>
+                <button onclick="selectEmotion('Loneliness')" style="animation-delay: 0s, 0.2s;" class="float-4-in text-3xl md:text-5xl text-[#8B5CF6]/60 hover:text-[#8B5CF6] hover:scale-110 transition-all duration-700 font-thin">Loneliness</button>
+                <button onclick="selectEmotion('Laziness')" style="animation-delay: 0s, 0.25s;" class="float-1-in text-xl md:text-3xl text-[#EAB308]/70 hover:text-[#EAB308] hover:scale-110 transition-all duration-700 font-thin">Laziness</button>
+                <button onclick="selectEmotion('Protection')" style="animation-delay: 0s, 0.3s;" class="float-3-in text-2xl md:text-4xl text-[#F97316]/60 hover:text-[#F97316] hover:scale-110 transition-all duration-700 font-thin">Protection</button>
+                <button onclick="selectEmotion('Happiness')" style="animation-delay: 0s, 0.35s;" class="float-2-in text-3xl md:text-5xl text-[#059669]/60 hover:text-[#059669] hover:scale-110 transition-all duration-700 font-thin">Happiness</button>
+                <button onclick="selectEmotion('Peace')" style="animation-delay: 0s, 0.4s;" class="float-4-in text-4xl md:text-6xl text-[#F472B6]/60 hover:text-[#F472B6] hover:scale-110 hover:drop-shadow-[0_0_25px_rgba(244,114,182,0.35)] transition-all duration-700 font-thin">Peace</button>
             </div>
 
             <div class="flex flex-col items-center opacity-70 hover:opacity-100 transition-opacity duration-500 cursor-pointer" onclick="randomGuidance()">
@@ -309,7 +389,7 @@
             </div>
 
             <div class="w-full max-w-3xl flex flex-col items-center text-center space-y-24">
-                <div class="relative w-full">
+                <div class="relative w-full verse-in" style="animation-delay: 0.05s;">
                     <p class="text-[10px] tracking-[0.3em] text-[#8A8A8A] mb-10" id="shloka-ref"></p>
                     <h3 id="shloka-sanskrit" class="sanskrit-text text-2xl md:text-4xl leading-[2.5] text-[#2B2B2B] font-light"></h3>
                     
@@ -325,12 +405,12 @@
                     <p id="shloka-roman" class="kp-accent-text-soft text-sm md:text-base leading-relaxed mt-6 font-light tracking-wide italic transition-opacity duration-1000"></p>
                 </div>
 
-                <div class="w-full relative flex flex-col items-center">
+                <div class="w-full relative flex flex-col items-center verse-in" style="animation-delay: 0.2s;">
                     <div class="w-px h-12 bg-gradient-to-b from-[#2B2B2B]/15 to-transparent mb-12"></div>
                     <p id="shloka-translation" class="text-xl md:text-3xl text-[#2B2B2B]/75 leading-relaxed font-thin italic max-w-2xl"></p>
                 </div>
 
-                <div class="w-full relative pt-12 flex flex-col items-center bg-white border border-[#2B2B2B]/8 rounded-3xl p-8 max-w-xl float-1 shadow-[0_10px_40px_rgba(43,43,43,0.08)]">
+                <div class="w-full relative pt-12 flex flex-col items-center bg-white border border-[#2B2B2B]/8 rounded-3xl p-8 max-w-xl card-in shadow-[0_10px_40px_rgba(43,43,43,0.08)]" style="animation-delay: 0s, 0.35s;">
                     <h4 class="text-[10px] uppercase tracking-[0.4em] kp-accent-text-soft mb-6 flex items-center gap-3">
                         <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
                         Today's Dharma Quest
@@ -763,7 +843,7 @@
             if (questCompleted) return;
             questCompleted = true;
 
-            document.getElementById('quest-checkbox').classList.add('checked');
+            document.getElementById('quest-checkbox').classList.add('checked', 'check-pop');
             document.getElementById('quest-check-icon').style.opacity = '1';
             document.getElementById('quest-text').classList.add('checked');
             document.getElementById('quest-action-text').innerText = "Dharma Fulfilled";
