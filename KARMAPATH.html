@@ -269,6 +269,17 @@
 </head>
 <body class="antialiased min-h-screen relative selection:bg-[#6D28D9]/20">
 
+    <!-- INTRO MUSIC AUDIO TAG -->
+    <audio id="intro-audio" src="Peacock Feather.mp3" preload="auto"></audio>
+
+    <noscript>
+        <div style="max-width:640px;margin:60px auto;padding:0 24px;font-family:sans-serif;color:#2B2B2B;text-align:center;">
+            <h1 style="color:#6D28D9;letter-spacing:0.1em;">KARMAPATH SANKALP</h1>
+            <p>Karmapath Sankalp is a daily companion built from the <strong>Bhagavad Gita</strong> — Krishna's shlokas organized by emotion (anxiety, sadness, anger, loneliness, laziness, protection, happiness, and peace), guided dharma quests, and personal reflection. Assume the Role of Arjuna and let the timeless dialogue between Arjuna and Krishna guide your day.</p>
+            <p>Please enable JavaScript in your browser to use Karmapath Sankalp.</p>
+        </div>
+    </noscript>
+
     <div id="stars-container" class="fixed inset-0 z-0 pointer-events-none"></div>
     <div class="aurora-1" id="aurora-1"></div>
     <div class="aurora-2" id="aurora-2"></div>
@@ -586,13 +597,14 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         </div>
     </div>
 
-    <!-- ONE SINGLE MASTER SCRIPT BLOCK TO PREVENT ANY CONFLICTS -->
+    <!-- ONE SINGLE MASTER SCRIPT BLOCK -->
     <script>
         // --- DATA & CONFIG ---
         const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwf818vMCSIAK4KEVMmPp9-3vJD5VxoC251XBH9wyy-zZBqNRcTYy-I_I2ZdCgaYtUJUA/exec";
         const NOTIF_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHOSwcUmk1s9DWWNzjVdMeoukh5Dt2iHfb4IqI5YLiNUWwkqr0aN8f_YB-QLoTgEQidw/exec";
         const NOTIF_CHECK_INTERVAL_MS = 20000;
         let notifPollHandle = null;
+        let isUserAuthenticated = false;
 
         const WELCOME_MESSAGES = [
             "Krishna is waiting in the stillness. Welcome back.", "The Gita has no closing time. Welcome, seeker.", "Arjuna once stood where you stand now — uncertain, yet ready.",
@@ -663,20 +675,24 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         };
         const BRAND_VIOLET = '#6D28D9';
 
-        // --- PUSH NOTIFICATION ENGINE ---
-        
-        // This is the main OUT-OF-APP notification system.
-        window.sendKarmapathPush = async function(title, body) {
+        // --- GLOBAL PUSH NOTIFICATION ENGINE ---
+        window.sendKarmapathPush = function(title, body) {
             if (!('Notification' in window) || Notification.permission !== "granted") return;
             
             try {
                 if ('serviceWorker' in navigator) {
-                    const reg = await navigator.serviceWorker.ready;
-                    await reg.showNotification(title, { 
-                        body: body, 
-                        icon: 'karmapath-favicon-32.png', 
-                        badge: 'karmapath-favicon-16.png',
-                        vibrate: [200, 100, 200]
+                    navigator.serviceWorker.getRegistrations().then(regs => {
+                        if (regs.length > 0) {
+                            regs[0].showNotification(title, { 
+                                body: body, 
+                                icon: 'karmapath-favicon-32.png', 
+                                vibrate: [200, 100, 200] 
+                            });
+                        } else {
+                            new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
+                        }
+                    }).catch(e => {
+                        new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
                     });
                 } else {
                     new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
@@ -710,7 +726,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                 if (permission === 'granted') {
                     updateNotifBellUI();
                     startNotificationPolling();
-                    // THE DEMO VIBE
                     setTimeout(() => {
                         window.sendKarmapathPush("Karmapath 🪷", "The sanctuary is now open. You will receive quiet reminders of wisdom here.");
                     }, 500);
@@ -756,11 +771,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             } catch (err) { }
         }
 
-        function maybeShowWelcome() {
-            const today = new Date().toISOString().slice(0, 10);
-            if (localStorage.getItem('karmapath_last_welcome') === today) return;
-            localStorage.setItem('karmapath_last_welcome', today);
-            
+        function triggerWelcomePush() {
             if (notifPermissionGranted()) {
                 window.sendKarmapathPush("Karmapath 🪷", pickRandom(WELCOME_MESSAGES));
             } else {
@@ -769,7 +780,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         }
 
         // --- APP LOGIC ---
-
         function showToast(message, duration = 3000) {
             const toast = document.getElementById('toast');
             toast.innerText = message;
@@ -804,9 +814,8 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             if(!nameInput) { showToast("Enter your name to begin"); return; }
             if(!codeInput) { showToast("Enter the cosmic key"); return; }
 
-            // Immediately ask for permission if not granted yet during the button click gesture
             if ("Notification" in window && Notification.permission === "default") {
-                Notification.requestPermission().then(perm => {
+                Notification.requestPermission().then(() => {
                     if (typeof updateNotifBellUI === 'function') updateNotifBellUI();
                 });
             }
@@ -829,16 +838,11 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                     localStorage.setItem('karmapath_user_name', result.userName);
                     localStorage.setItem('karmapath_reg_date', result.regDate);
                     
+                    isUserAuthenticated = true;
                     showToast("Path Unlocked.");
                     updateGreetingUI();
                     
-                    // LOGIN PUSH NOTIFICATION (OUT OF APP)
-                    if (notifPermissionGranted()) {
-                        setTimeout(() => {
-                            window.sendKarmapathPush("Karmapath 🪷", "Welcome to Karmapath. The path awaits.");
-                        }, 500);
-                    }
-
+                    setTimeout(() => { triggerWelcomePush(); }, 500);
                     setTimeout(() => navigate('onboarding'), 1500);
                 } else {
                     showToast(result.message || "Invalid or used code.");
@@ -864,8 +868,13 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         }
 
         function enterFromIntro() {
-            navigate('login');
-            setTimeout(() => { showToast("Enter your name and the key you have."); }, 600);
+            if (isUserAuthenticated) {
+                navigate('home');
+                triggerWelcomePush();
+            } else {
+                navigate('login');
+                setTimeout(() => { showToast("Enter your name and the key you have."); }, 600);
+            }
         }
 
         function navigate(screenId) {
@@ -936,7 +945,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         function waterSankalpa() {
             let sankalpa = JSON.parse(localStorage.getItem('karmapath_sankalpa')) || { days: 0, lastDate: null };
             const today = new Date().toLocaleDateString('en-US');
-            
             if (sankalpa.lastDate !== today) {
                 sankalpa.days += 1;
                 sankalpa.lastDate = today;
@@ -946,10 +954,10 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         }
 
         function renderSankalpa(days) {
-            const stage = getSankalpaStage(days);
             const container = document.getElementById('sankalpa-svg-container');
             const textObj = document.getElementById('sankalpa-text');
             if (container && textObj) {
+                const stage = getSankalpaStage(days);
                 container.innerHTML = SANKALPA_STAGES[stage.idx];
                 textObj.innerText = `${stage.name} (${days} Days)`;
             }
@@ -971,8 +979,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             document.getElementById('quest-action-text').innerText = "Dharma Fulfilled";
 
             waterSankalpa();
-            
-            // QUEST OUT-OF-APP NOTIFICATION
             window.sendKarmapathPush("Dharma Fulfilled 🪷", "You have taken action today. Your karma is altered.");
 
             for (let i = 0; i < 30; i++) {
@@ -989,7 +995,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             }
         }
 
-        // --- JOURNAL LOGIC ---
         function saveJournal() {
             const input = document.getElementById('journal-input').value.trim();
             if(!input) return;
@@ -1011,8 +1016,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
 
             const releasedMsg = pickRandom(THOUGHT_RELEASED_MESSAGES);
             showToast(releasedMsg);
-            
-            // VOID RELEASE OUT-OF-APP NOTIFICATION
             window.sendKarmapathPush("Void 🌌", releasedMsg);
 
             setTimeout(() => { navigate('home'); }, 1500);
@@ -1024,7 +1027,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             const list = document.getElementById('echoes-list');
             
             if(echoes.length === 0) { container.classList.add('hidden'); return; }
-
             container.classList.remove('hidden');
             list.innerHTML = '';
 
@@ -1045,7 +1047,26 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             });
         }
 
-        // --- AUDIO ENGINE ---
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            if(!container) return;
+            for (let i = 0; i < 24; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.top = `${Math.random() * 100}%`; star.style.left = `${Math.random() * 100}%`;
+                star.style.width = star.style.height = `${Math.random() * 2 + 0.5}px`;
+                star.style.setProperty('--duration', `${Math.random() * 4 + 3}s`);
+                star.style.setProperty('--delay', `${Math.random() * 5}s`);
+                star.style.setProperty('--max-opacity', Math.random() * 0.4 + 0.1);
+                container.appendChild(star);
+            }
+        }
+
+        function applyCosmicSync() {
+            document.getElementById('lunar-icon').innerText = "🌕";
+            document.getElementById('lunar-text').innerText = "Full Moon Sync";
+        }
+
         let bgAudio;
         function initAudio() { 
             if (!bgAudio) {
@@ -1060,22 +1081,17 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             isPlaying = true;
             document.getElementById('play-icon').classList.add('hidden'); document.getElementById('stop-icon').classList.remove('hidden');
             document.getElementById('breathe-halo').classList.add('breathe-active');
-            const textEl = document.getElementById('breathe-text');
-            textEl.innerText = "Devotional Aura...";
-            textEl.style.opacity = '1';
+            document.getElementById('breathe-text').style.opacity = '1';
         }
         function stopAudio() {
             if (bgAudio && isPlaying) {
                 let vol = bgAudio.volume;
                 const fadeInterval = setInterval(() => {
                     if (vol > 0.05) {
-                        vol -= 0.05;
-                        bgAudio.volume = vol;
+                        vol -= 0.05; bgAudio.volume = vol;
                     } else {
                         clearInterval(fadeInterval);
-                        bgAudio.pause();
-                        bgAudio.volume = 0.4; 
-                        isPlaying = false;
+                        bgAudio.pause(); bgAudio.volume = 0.4; isPlaying = false;
                     }
                 }, 50);
             }
@@ -1115,7 +1131,6 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             }
         }
 
-        // --- EXPORT TO IMAGE ---
         function wrapText(context, text, x, y, maxWidth, lineHeight) {
             let words = text.split(' '), line = '';
             for(let n = 0; n < words.length; n++) {
@@ -1167,25 +1182,25 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         // --- INIT & RUN ---
         window.onload = async () => {
             setAccent(BRAND_VIOLET);
-            for (let i = 0; i < 24; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                star.style.top = `${Math.random() * 100}%`; star.style.left = `${Math.random() * 100}%`;
-                star.style.width = star.style.height = `${Math.random() * 2 + 0.5}px`;
-                star.style.setProperty('--duration', `${Math.random() * 4 + 3}s`);
-                star.style.setProperty('--delay', `${Math.random() * 5}s`);
-                star.style.setProperty('--max-opacity', Math.random() * 0.4 + 0.1);
-                document.getElementById('stars-container').appendChild(star);
-            }
-            
-            document.getElementById('lunar-icon').innerText = "🌕";
-            document.getElementById('lunar-text').innerText = "Full Moon Sync";
-            
+            createStars();
+            applyCosmicSync(); 
             initSankalpa(); 
             renderEchoes(); 
             updateNotifBellUI();
+
+            // COMPULSORY INTRO SCREEN
+            document.getElementById('screen-intro').classList.add('active');
+
+            // PEACOCK FEATHER AUDIO LOGIC
+            const introAudio = document.getElementById('intro-audio');
+            if (introAudio) {
+                introAudio.volume = 0.5;
+                introAudio.play().catch(e => {
+                    document.body.addEventListener('click', () => { introAudio.play().catch(err => {}); }, { once: true });
+                });
+            }
             
-            // Register Background SW for time-based checks (8 AM, 5 PM, 10 PM) early so it's ready.
+            // BACKGROUND SW REGISTRATION (8 AM, 5 PM, 10 PM)
             if ('serviceWorker' in navigator) {
                 const swCode = `
                     const gmQuotes = ${JSON.stringify(gmQuotes)};
@@ -1199,6 +1214,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
 
                     setInterval(() => {
                         const now = new Date(), hours = now.getHours(), dateString = now.toDateString();
+                        
                         if (hours === 8 && gmSentDate !== dateString) {
                             const quote = gmQuotes[Math.floor(Math.random() * gmQuotes.length)];
                             self.registration.showNotification("Good Morning ☀️", { body: quote, icon: 'karmapath-favicon-32.png', vibrate: [200, 100, 200] });
@@ -1222,35 +1238,25 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
 
             if (notifPermissionGranted()) { startNotificationPolling(); }
 
+            // AUTH VERIFICATION IN BACKGROUND
             const token = localStorage.getItem('karmapath_auth_token');
             if (token) {
                 try {
                     const response = await fetch(`${GOOGLE_APPS_SCRIPT_URL}?action=verify&token=${encodeURIComponent(token)}`);
                     const result = await response.json();
-
                     if (result.valid) {
+                        isUserAuthenticated = true;
                         updateGreetingUI(); 
-                        navigate('home'); 
-                        // Show welcome ONLY if they didn't just login right now in this session
-                        const today = new Date().toISOString().slice(0, 10);
-                        if (localStorage.getItem('karmapath_last_welcome') !== today) {
-                            localStorage.setItem('karmapath_last_welcome', today);
-                            if (notifPermissionGranted()) {
-                                window.sendKarmapathPush("Karmapath 🪷", pickRandom(WELCOME_MESSAGES));
-                            }
-                        }
                     } else {
-                        forceLogout("Cosmic ties severed. Your access has been revoked.");
+                        localStorage.removeItem('karmapath_auth_token');
                     }
                 } catch (error) {
+                    isUserAuthenticated = true; // Fallback offline
                     updateGreetingUI(); 
-                    navigate('home'); 
                 }
-            } else {
-                document.getElementById('screen-intro').classList.add('active');
             }
 
-            // Fallback for Foreground Time Check (if SW gets suspended)
+            // Foreground Time Check Fallback
             setInterval(() => {
                 if (!notifPermissionGranted()) return;
                 const now = new Date(), hours = now.getHours(), dateString = now.toDateString();
