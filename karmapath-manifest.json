@@ -1,0 +1,25 @@
+{
+  "name": "Karmapath Sankalp",
+  "short_name": "Karmapath",
+  "description": "Assume the Role of Arjuna \u2014 a companion for the modern mind, built from the Bhagavad Gita.",
+  "start_url": "https://cls24x7.com/KARMAPATH",
+  "scope": "https://cls24x7.com/KARMAPATH",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F5F7",
+  "theme_color": "#6D28D9",
+  "icons": [
+    {
+      "src": "https://cls24x7.com/karmapath-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cls24x7.com/karmapath-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
