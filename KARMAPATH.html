@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karmapath - Bhagavad Gita Wisdom</title>
+    <title>Karmapath Sankalp — Bhagavad Gita Wisdom, Shlokas & Daily Guidance</title>
+    <meta name="description" content="Karmapath Sankalp is a daily companion built from the Bhagavad Gita — explore Krishna's shlokas by emotion, guided dharma quests, and reflections for anxiety, sadness, anger, peace, and purpose. Assume the Role of Arjuna.">
+    <meta name="keywords" content="Karmapath, Sankalp, Karmapath Sankalp, Bhagavad Gita, Bhagwat Gita, Gita wisdom, Krishna Arjuna, shlokas, Sanskrit verses, spiritual guidance app, daily reflection, Hindu scripture, dharma">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Cheshta Learning System Foundation">
+    <link rel="canonical" href="https://cls24x7.com/KARMAPATH">
 
     <!-- App icon: shown when someone adds this page to their home screen as a web app -->
     <link rel="manifest" href="karmapath-manifest.json">
@@ -17,14 +22,36 @@
 
     <!-- Link preview image: shown when this page is shared on WhatsApp, Meta AI, etc. -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Karmapath — Sankalp">
-    <meta property="og:description" content="Assume the Role of Arjuna. A companion for the modern mind, built from the timeless dialogue between Arjuna and Krishna.">
+    <meta property="og:site_name" content="Karmapath Sankalp">
+    <meta property="og:title" content="Karmapath Sankalp — Bhagavad Gita Wisdom & Daily Guidance">
+    <meta property="og:description" content="A daily companion built from the Bhagavad Gita — Krishna's shlokas by emotion, guided dharma quests, and reflections. Assume the Role of Arjuna.">
     <meta property="og:image" content="https://cls24x7.com/karmapath-og-image.png">
     <meta property="og:url" content="https://cls24x7.com/KARMAPATH">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Karmapath — Sankalp">
-    <meta name="twitter:description" content="Assume the Role of Arjuna. A companion for the modern mind, built from the timeless dialogue between Arjuna and Krishna.">
+    <meta name="twitter:title" content="Karmapath Sankalp — Bhagavad Gita Wisdom & Daily Guidance">
+    <meta name="twitter:description" content="A daily companion built from the Bhagavad Gita — Krishna's shlokas by emotion, guided dharma quests, and reflections. Assume the Role of Arjuna.">
     <meta name="twitter:image" content="https://cls24x7.com/karmapath-og-image.png">
+
+    <!-- Structured data for search engines -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Karmapath Sankalp",
+        "alternateName": "Karmapath",
+        "description": "A daily companion built from the Bhagavad Gita — Krishna's shlokas organized by emotion, guided dharma quests, and reflections for anxiety, sadness, anger, peace, and purpose.",
+        "url": "https://cls24x7.com/KARMAPATH",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "Any",
+        "about": "Bhagavad Gita",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "Organization",
+            "name": "Cheshta Learning System Foundation",
+            "url": "https://cls24x7.com/"
+        }
+    }
+    </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=Noto+Serif+Devanagari:wght@200;300;400&display=swap" rel="stylesheet">
@@ -64,15 +91,15 @@
         }
         .aurora-1 {
             position: fixed; top: 40%; left: 50%; width: 90vw; height: 90vw; max-width: 1000px; max-height: 1000px;
-            background: radial-gradient(circle, rgba(109, 40, 217, 0.06) 0%, rgba(0,0,0,0) 65%);
-            filter: blur(60px); z-index: -2; animation: auroraRotate1 25s infinite alternate ease-in-out; pointer-events: none;
-            transition: opacity 2s ease, transform 2s ease;
+            background: radial-gradient(circle, rgba(109, 40, 217, 0.05) 0%, rgba(109, 40, 217, 0.015) 40%, rgba(0,0,0,0) 65%);
+            z-index: -2; animation: auroraRotate1 25s infinite alternate ease-in-out; pointer-events: none;
+            will-change: transform; transition: opacity 2s ease;
         }
         .aurora-2 {
             position: fixed; top: 60%; left: 50%; width: 100vw; height: 100vw; max-width: 1200px; max-height: 1200px;
-            background: radial-gradient(circle, rgba(234, 216, 221, 0.5) 0%, rgba(0,0,0,0) 60%);
-            filter: blur(80px); z-index: -2; animation: auroraRotate2 30s infinite alternate-reverse ease-in-out; pointer-events: none;
-            transition: opacity 2s ease, transform 2s ease;
+            background: radial-gradient(circle, rgba(234, 216, 221, 0.45) 0%, rgba(234, 216, 221, 0.12) 40%, rgba(0,0,0,0) 60%);
+            z-index: -2; animation: auroraRotate2 30s infinite alternate-reverse ease-in-out; pointer-events: none;
+            will-change: transform; transition: opacity 2s ease;
         }
 
         @keyframes floatSlow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
@@ -93,7 +120,6 @@
         .star {
             position: absolute; background-color: #6D28D9; border-radius: 50%; opacity: 0;
             animation: twinkle var(--duration) infinite ease-in-out; animation-delay: var(--delay);
-            box-shadow: 0 0 8px rgba(109, 40, 217, 0.35);
             transition: opacity 2s ease;
         }
         @keyframes twinkle {
@@ -151,6 +177,14 @@
 </head>
 <body class="antialiased min-h-screen relative selection:bg-[#6D28D9]/20">
 
+    <noscript>
+        <div style="max-width:640px;margin:60px auto;padding:0 24px;font-family:sans-serif;color:#2B2B2B;text-align:center;">
+            <h1 style="color:#6D28D9;letter-spacing:0.1em;">KARMAPATH SANKALP</h1>
+            <p>Karmapath Sankalp is a daily companion built from the <strong>Bhagavad Gita</strong> — Krishna's shlokas organized by emotion (anxiety, sadness, anger, loneliness, laziness, protection, happiness, and peace), guided dharma quests, and personal reflection. Assume the Role of Arjuna and let the timeless dialogue between Arjuna and Krishna guide your day.</p>
+            <p>Please enable JavaScript in your browser to use Karmapath Sankalp.</p>
+        </div>
+    </noscript>
+
     <div id="stars-container" class="fixed inset-0 z-0 pointer-events-none"></div>
     <div class="aurora-1" id="aurora-1"></div>
     <div class="aurora-2" id="aurora-2"></div>
@@ -169,6 +203,7 @@
             
             <div class="mb-12">
                 <h1 class="text-3xl md:text-5xl tracking-[0.4em] text-[#6D28D9] font-thin float-1">KARMAPATH</h1>
+                <p class="text-xs md:text-sm tracking-[0.5em] text-[#8A8A8A] uppercase mt-2">Sankalp</p>
                 <div class="w-px h-12 bg-gradient-to-b from-transparent via-[#6D28D9]/25 to-transparent mx-auto mt-6 mb-6"></div>
                 <p class="text-[10px] md:text-xs text-[#8A8A8A] leading-relaxed font-thin tracking-[0.4em] uppercase">Seek the wisdom within</p>
             </div>
@@ -199,7 +234,8 @@
         </div>
 
         <div id="screen-onboarding" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[90vh] fade-in">
-            <h1 class="text-2xl md:text-4xl tracking-[0.4em] mb-16 text-[#6D28D9]/70 font-thin float-1">KARMAPATH</h1>
+            <h1 class="text-2xl md:text-4xl tracking-[0.4em] text-[#6D28D9]/70 font-thin float-1">KARMAPATH</h1>
+            <p class="text-[10px] md:text-xs tracking-[0.5em] text-[#8A8A8A]/80 uppercase mt-2 mb-16">Sankalp</p>
             <p class="text-xl md:text-3xl text-[#2B2B2B]/80 mb-20 max-w-2xl leading-[2] font-thin text-shimmer">
                 "The mind is restless, turbulent, obstinate and very strong, O Krishna."
             </p>
@@ -811,7 +847,7 @@
         function createStars() {
             const container = document.getElementById('stars-container');
             if(!container) return;
-            for (let i = 0; i < 60; i++) {
+            for (let i = 0; i < 24; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 star.style.top = `${Math.random() * 100}%`; star.style.left = `${Math.random() * 100}%`;
@@ -900,6 +936,7 @@
             ctx.fillStyle = "rgba(43, 43, 43, 0.75)"; ctx.font = "italic 300 45px Inter"; startY += 80;
             wrapText(ctx, '"' + currentShlokaObj.translation + '"', 540, startY, 800, 65);
             ctx.fillStyle = "#6D28D9"; ctx.font = "200 30px Inter"; ctx.letterSpacing = "15px"; ctx.fillText("KARMAPATH", 540, 1750);
+            ctx.fillStyle = "rgba(138, 138, 138, 0.9)"; ctx.font = "300 18px Inter"; ctx.letterSpacing = "12px"; ctx.fillText("SANKALP", 540, 1785);
             
             // Generate blob and trigger native share sheet
             canvas.toBlob(async (blob) => {
