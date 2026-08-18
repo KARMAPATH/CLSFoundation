@@ -214,6 +214,20 @@
         }
         .check-pop { animation: checkPop 0.5s cubic-bezier(0.34,1.56,0.64,1); }
 
+        /* Intro screen: hand-traced logo "drawing itself" reveal + staggered text + tap prompt */
+        @keyframes revealGrow { from { height: 0; } to { height: 879px; } }
+        .reveal-sweep { animation: revealGrow 2.2s cubic-bezier(0.65,0,0.35,1) 0.2s forwards; }
+        @keyframes introRise {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .intro-rise { opacity: 0; animation: introRise 1s cubic-bezier(0.16,1,0.3,1) forwards; }
+        @keyframes tapPulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.4); }
+        }
+        .tap-pulse { animation: tapPulse 2s ease-in-out infinite; }
+
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(43,43,43,0.12); border-radius: 10px; }
@@ -234,9 +248,9 @@
         
         #toast {
             position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(100px);
-            opacity: 0; transition: all 0.5s ease; z-index: 100;
+            opacity: 0; transition: all 0.5s ease; z-index: 100; pointer-events: none;
         }
-        #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
 
         .quest-check {
             width: 24px; height: 24px; border: 1px solid rgba(43,43,43,0.25); border-radius: 50%;
@@ -279,6 +293,138 @@
     </div>
 
     <div id="app" class="relative z-10 w-full min-h-screen flex flex-col items-center p-6 mx-auto max-w-4xl font-light">
+
+        <div id="screen-intro" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[100vh] px-4 cursor-pointer" onclick="enterFromIntro()">
+            <svg viewBox="0 0 433.982577 879.000000" class="w-28 md:w-32 mx-auto mb-8" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="introRevealGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="white" stop-opacity="1"/>
+                        <stop offset="85%" stop-color="white" stop-opacity="1"/>
+                        <stop offset="100%" stop-color="white" stop-opacity="0"/>
+                    </linearGradient>
+                    <mask id="introRevealMask">
+                        <rect class="reveal-sweep" x="0" y="0" width="434" height="0" fill="url(#introRevealGrad)"/>
+                    </mask>
+                </defs>
+                <g mask="url(#introRevealMask)">
+                    <g transform="translate(-410.000000,882.000000) scale(0.100000,-0.100000)" fill="#2B2B2B" stroke="none">
+                        <path d="M6129 8729 c-549 -441 -1025 -891 -1293 -1226 -442 -550 -569 -1085
+-412 -1723 49 -197 153 -435 265 -605 268 -407 700 -706 1149 -795 l110 -22
+11 -37 c6 -20 34 -76 61 -126 86 -154 158 -307 174 -371 13 -49 16 -119 16
+-330 l-1 -269 -63 125 c-91 182 -183 323 -310 480 -141 173 -276 298 -551 510
+-396 305 -552 461 -712 708 -68 105 -172 313 -208 415 -29 80 -50 103 -86 92
+-44 -14 -49 -39 -33 -185 35 -338 127 -737 239 -1045 11 -29 -118 99 -176 174
+-27 36 -64 94 -81 130 -36 73 -43 81 -75 81 -44 0 -53 -24 -53 -135 0 -261 83
+-612 200 -846 169 -338 388 -546 875 -835 514 -303 681 -432 837 -639 114
+-151 184 -322 193 -471 l6 -89 -23 39 c-55 92 -148 214 -226 297 -144 152
+-267 246 -564 425 -106 64 -232 145 -280 181 -110 81 -242 220 -303 317 -49
+80 -75 97 -114 77 -30 -17 -34 -46 -16 -130 80 -380 253 -697 514 -943 99 -93
+197 -166 346 -258 305 -188 457 -313 543 -449 55 -84 98 -199 111 -294 6 -46
+11 -246 11 -480 0 -444 0 -447 60 -447 60 0 60 0 60 480 0 499 1 506 80 665
+80 160 183 266 390 403 63 41 187 122 275 180 135 89 180 125 291 236 225 225
+371 485 453 809 44 172 46 192 22 216 -12 12 -32 21 -46 21 -26 0 -26 -1 -107
+-124 -61 -94 -173 -209 -281 -289 -43 -32 -160 -108 -260 -169 -100 -61 -209
+-129 -242 -151 -222 -149 -417 -348 -540 -553 l-35 -58 0 76 c0 185 134 444
+328 635 147 145 275 234 643 449 353 206 490 305 655 475 202 209 330 446 409
+753 41 161 65 314 72 469 5 104 4 119 -12 137 -22 25 -57 26 -77 3 -9 -10 -27
+-41 -41 -69 -15 -29 -53 -87 -86 -130 -61 -80 -178 -201 -169 -174 121 353
+206 725 242 1055 9 83 11 136 5 147 -15 27 -44 39 -72 29 -19 -7 -31 -31 -62
+-115 -125 -352 -369 -671 -733 -960 -59 -47 -164 -130 -233 -185 -388 -307
+-640 -601 -810 -946 l-60 -120 3 295 3 295 32 76 c17 41 69 143 116 227 46 83
+90 171 97 196 11 41 16 46 49 51 422 68 820 307 1107 664 228 284 371 611 429
+985 24 152 17 448 -14 591 -64 298 -225 625 -442 892 -292 361 -790 834 -1286
+1223 -87 68 -136 100 -154 100 -17 0 -62 -29 -140 -91z m241 -118 c193 -149
+333 -316 425 -505 80 -163 100 -243 100 -396 -1 -93 -5 -140 -19 -185 -42
+-137 -120 -253 -222 -331 l-72 -55 -81 17 -81 17 33 23 c44 30 111 118 140
+184 82 188 56 364 -91 610 -73 122 -199 283 -225 288 -24 5 -55 -25 -129 -122
+-293 -382 -325 -686 -99 -918 l66 -67 -74 -16 -73 -17 -55 38 c-74 51 -154
+142 -197 224 -150 286 -75 629 214 981 91 111 323 313 345 301 6 -3 48 -35 95
+-71z m-760 -524 c-52 -116 -71 -201 -77 -342 -3 -91 -1 -150 9 -197 l14 -67
+-55 -38 c-95 -65 -271 -248 -344 -358 -101 -154 -192 -370 -213 -510 -7 -46
+-8 -48 -15 -22 -18 65 -31 266 -25 366 21 327 141 612 378 897 63 75 348 348
+355 340 2 -2 -10 -32 -27 -69z m1531 -147 c118 -118 173 -181 228 -264 171
+-257 253 -492 268 -762 6 -104 -8 -296 -26 -361 -7 -25 -8 -23 -15 22 -11 71
+-62 226 -107 323 -89 192 -253 396 -427 530 -72 55 -74 57 -68 92 38 216 22
+366 -60 563 l-32 77 41 -32 c23 -18 112 -102 198 -188z m-807 103 c81 -114
+164 -284 182 -373 19 -94 7 -178 -38 -263 -33 -61 -111 -139 -171 -171 l-36
+-19 -57 34 c-145 88 -222 246 -194 401 14 73 51 175 87 238 43 74 153 230 163
+230 5 0 34 -35 64 -77z m-1459 -690 c-51 -134 -85 -334 -85 -513 0 -109 24
+-327 45 -412 l7 -26 -44 15 c-87 30 -212 1 -287 -67 -18 -17 -35 -29 -38 -27
+-7 7 15 199 33 284 41 203 155 456 294 656 41 59 77 107 79 107 2 0 0 -8 -4
+-17z m778 -74 c21 -32 71 -89 111 -126 l73 -67 -80 -48 c-112 -67 -172 -115
+-269 -216 -269 -280 -407 -664 -377 -1054 21 -285 110 -511 278 -706 140 -163
+368 -287 591 -323 41 -7 77 -14 79 -15 2 -2 -11 -18 -28 -36 -41 -41 -78 -114
+-87 -167 -8 -50 -7 -50 -157 -12 -504 127 -938 507 -1154 1007 -49 114 -110
+301 -101 309 2 3 22 -5 44 -16 23 -10 70 -22 105 -25 135 -13 255 54 317 175
+l32 64 0 176 c0 192 15 322 53 454 81 276 222 487 447 666 56 45 66 50 75 36
+6 -9 27 -43 48 -76z m1345 56 c147 -110 300 -298 378 -462 95 -202 124 -339
+133 -638 6 -212 9 -233 29 -273 35 -66 88 -119 150 -149 76 -37 201 -40 275
+-6 l47 22 -6 -27 c-49 -203 -176 -467 -316 -654 -82 -109 -272 -298 -376 -373
+-207 -150 -458 -259 -666 -290 -42 -7 -46 -6 -46 13 0 41 -41 131 -80 175 -22
+25 -40 47 -40 50 0 3 26 8 57 12 141 17 324 91 448 180 83 60 203 186 260 274
+185 286 238 728 130 1081 -38 123 -144 334 -215 428 -114 151 -271 291 -403
+358 l-48 25 78 77 c43 43 95 108 117 145 21 37 41 67 43 67 2 0 25 -16 51 -35z
+m774 -120 c74 -110 176 -319 217 -441 34 -105 67 -263 77 -379 l7 -80 -38 34
+c-80 70 -195 97 -288 67 l-49 -15 7 27 c21 84 45 303 45 412 0 169 -34 380
+-81 500 -9 23 -8 23 17 -5 14 -16 53 -70 86 -120z m-1294 -175 c402 -96 717
+-455 818 -931 26 -123 24 -362 -4 -489 -99 -453 -387 -725 -827 -779 -44 -5
+-82 -7 -85 -4 -14 14 110 107 198 150 379 181 551 443 551 838 0 443 -261 843
+-635 971 -62 21 -104 28 -195 32 -138 5 -235 -16 -358 -78 -444 -223 -660
+-864 -447 -1325 90 -194 228 -325 458 -434 91 -43 180 -107 198 -142 11 -20
+10 -20 -37 -14 -200 28 -345 76 -465 155 -214 140 -344 348 -409 655 -20 92
+-17 361 4 465 78 367 300 684 590 840 147 80 261 108 437 109 92 1 147 -4 208
+-19z m-41 -346 c154 -40 302 -154 412 -317 174 -257 216 -635 100 -894 -77
+-174 -185 -275 -419 -394 -99 -50 -139 -77 -192 -129 l-68 -66 -67 66 c-54 52
+-96 80 -200 134 -218 112 -325 208 -397 359 -61 126 -71 181 -70 372 0 141 4
+183 22 247 96 348 336 593 626 638 63 10 182 3 253 -16z m-1621 -414 c116 -66
+138 -223 44 -321 -100 -106 -284 -70 -335 66 -72 186 120 354 291 255z m3102
+11 c73 -38 112 -102 112 -186 0 -205 -256 -285 -375 -117 -26 38 -30 52 -30
+110 1 93 44 163 122 198 44 19 128 17 171 -5z m-3469 -1257 c174 -284 362
+-473 826 -831 371 -286 588 -540 769 -900 119 -236 166 -396 166 -560 l0 -108
+-39 85 c-121 266 -341 567 -562 771 -206 190 -389 326 -738 550 l-194 124 -28
+63 c-81 179 -176 491 -229 752 -11 58 -23 113 -25 123 -2 9 -2 17 -1 17 2 0
+26 -38 55 -86z m3666 -60 c-60 -279 -127 -503 -213 -714 l-38 -94 -231 -151
+c-251 -163 -379 -254 -518 -365 -312 -250 -533 -518 -711 -863 l-73 -142 -1
+103 c0 158 49 322 166 557 168 336 408 609 810 925 262 205 374 302 496 428
+124 129 246 285 300 381 18 33 34 58 36 57 1 -2 -9 -57 -23 -122z m-1780 -305
+c52 -14 126 -90 143 -145 29 -97 9 -173 -91 -347 -35 -62 -76 -136 -91 -164
+l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
+81 214 57z m-1846 -504 l81 -59 84 -171 c186 -375 366 -611 752 -984 87 -85
+148 -147 134 -139 -14 8 -113 66 -220 128 -107 62 -233 138 -280 168 -422 272
+-645 567 -760 1003 -16 61 -34 145 -40 187 -6 43 -13 88 -16 101 -4 17 22 -5
+89 -75 52 -55 131 -126 176 -159z m3797 72 c-98 -483 -324 -820 -735 -1096
+-80 -54 -548 -331 -559 -331 -3 0 107 114 244 253 339 343 469 518 641 862 80
+160 88 173 141 213 83 62 212 183 252 235 35 45 35 45 38 17 2 -15 -8 -84 -22
+-153z m-3329 -388 c377 -251 567 -410 760 -633 259 -301 460 -711 486 -989 l6
+-57 -65 106 c-139 230 -274 386 -623 724 -343 331 -503 519 -646 760 -91 154
+-121 214 -101 207 9 -4 91 -57 183 -118z m2794 74 c-63 -125 -211 -351 -308
+-473 -37 -47 -225 -245 -418 -440 -193 -195 -387 -398 -430 -450 -76 -92 -200
+-273 -243 -355 l-21 -40 -1 43 c-1 101 78 338 177 534 191 378 455 669 878
+969 133 94 367 248 378 249 4 0 -1 -17 -12 -37z m-2623 -1431 c64 -43 183
+-118 265 -167 447 -269 699 -552 790 -885 21 -76 30 -172 14 -146 -40 62 -113
+149 -169 202 -98 91 -169 143 -365 265 -239 150 -309 203 -433 328 -114 115
+-204 239 -277 386 -45 89 -93 206 -93 226 0 6 34 -21 75 -59 42 -39 128 -106
+193 -150z m2508 116 c-146 -362 -347 -587 -743 -833 -267 -165 -429 -300 -520
+-432 -36 -52 -38 -54 -41 -29 -5 39 32 173 72 267 109 251 353 505 674 701
+354 217 413 256 527 361 33 30 61 54 63 52 1 -1 -13 -40 -32 -87z"/>
+                        <path d="M6132 6170 c-191 -51 -339 -202 -382 -389 -17 -73 -8 -203 19 -264
+29 -68 102 -142 158 -161 122 -42 215 1 293 135 23 38 45 69 49 69 5 0 27 -31
+50 -69 46 -78 94 -123 150 -140 154 -46 289 63 323 259 16 91 0 189 -47 287
+-102 217 -374 338 -613 273z m253 -115 c173 -45 296 -196 297 -365 1 -91 -17
+-145 -62 -194 -34 -36 -44 -41 -83 -41 -56 0 -74 16 -135 119 -93 156 -171
+156 -264 -1 -60 -101 -79 -118 -132 -118 -56 1 -90 26 -123 92 -22 46 -27 69
+-26 132 1 263 257 445 528 376z"/>
+                    </g>
+                </g>
+            </svg>
+            <h1 class="text-3xl md:text-5xl tracking-[0.4em] text-[#6D28D9] font-thin intro-rise" style="animation-delay: 2.3s;">KARMAPATH</h1>
+            <p class="text-xs md:text-sm tracking-[0.5em] text-[#8A8A8A] uppercase mt-2 intro-rise" style="animation-delay: 2.6s;">Sankalp</p>
+            <p class="text-[#2B2B2B]/60 text-sm italic mt-8 max-w-xs mx-auto intro-rise" style="animation-delay: 2.9s;">Assume the Role of Arjuna.</p>
+            <div class="mt-16 intro-rise" style="animation-delay: 3.6s;">
+                <div class="w-2 h-2 rounded-full bg-[#6D28D9] mx-auto mb-3 tap-pulse"></div>
+                <p class="text-[9px] tracking-[0.4em] uppercase text-[#8A8A8A]">Tap to Begin</p>
+            </div>
+        </div>
 
         <div id="screen-login" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[100vh] fade-in px-4">
             
@@ -461,7 +607,7 @@
         // --- SCHEDULED NOTIFICATIONS (powered by a Google Sheet — see setup notes) ---
         // Works whenever this page/PWA is open (foreground or backgrounded tab).
         // It does NOT wake up a fully closed app — that needs a separate push-server setup.
-        const NOTIF_CHECK_INTERVAL_MS = 60000; // check every 60 seconds
+        const NOTIF_CHECK_INTERVAL_MS = 20000; // check every 20 seconds
         let notifPollHandle = null;
 
         function notifPermissionGranted() {
@@ -469,14 +615,36 @@
         }
 
         async function enableNotifications() {
-            if (!('Notification' in window)) { showToast("Notifications aren't supported on this browser."); return; }
-            const result = await Notification.requestPermission();
-            if (result === 'granted') {
-                showToast("Notifications enabled.");
+            if (!window.isSecureContext) {
+                showToast("Notifications need HTTPS to work — won't work from a local file.");
+                return;
+            }
+            if (!('Notification' in window)) {
+                showToast("On iPhone: add this to your Home Screen first, then enable notifications from there.");
+                return;
+            }
+            if (Notification.permission === 'granted') {
+                showToast("Notifications are already on.");
                 updateNotifBellUI();
                 startNotificationPolling();
-            } else {
-                showToast("Notifications weren't allowed.");
+                return;
+            }
+            if (Notification.permission === 'denied') {
+                showToast("Notifications are blocked — allow them in your browser's site settings.");
+                return;
+            }
+            try {
+                const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000));
+                const result = await Promise.race([Notification.requestPermission(), timeout]);
+                if (result === 'granted') {
+                    showToast("Notifications enabled.");
+                    updateNotifBellUI();
+                    startNotificationPolling();
+                } else {
+                    showToast("Notifications weren't allowed.");
+                }
+            } catch (err) {
+                showToast("Check your browser's address bar for a permission prompt.");
             }
         }
 
@@ -737,6 +905,13 @@
         }
 
         // --- NAVIGATION & INTERACTION ---
+        function enterFromIntro() {
+            navigate('login');
+            setTimeout(() => {
+                notifyOrToast("Karmapath", "Enter your name and the key you have. No key? Tap Acquire a Key below.", 5000);
+            }, 600);
+        }
+
         function navigate(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById('screen-' + screenId).classList.add('active');
@@ -938,7 +1113,7 @@
             
             waterSankalpa();
             document.getElementById('journal-input').value = '';
-            showToast("Thought released into the void");
+            showToast(pickRandom(THOUGHT_RELEASED_MESSAGES));
             setTimeout(() => { navigate('home'); }, 1500);
         }
 
@@ -970,11 +1145,11 @@
         }
 
         // --- COSMIC UI FX ---
-        function showToast(message) {
+        function showToast(message, duration = 3000) {
             const toast = document.getElementById('toast');
             toast.innerText = message;
             toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+            setTimeout(() => { toast.classList.remove('show'); }, duration);
         }
 
         function createParticleBurst(x, y) {
@@ -1117,6 +1292,159 @@
         }
 
         // --- INITIALIZATION WITH LIVE VERIFICATION ---
+        // --- WELCOME & MICRO-COPY VARIETY ---
+        function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+        const WELCOME_MESSAGES = [
+            "Krishna is waiting in the stillness. Welcome back.",
+            "The Gita has no closing time. Welcome, seeker.",
+            "Arjuna once stood where you stand now — uncertain, yet ready.",
+            "Every verse you've read lives in you. Welcome back.",
+            "The dialogue between doubt and dharma continues today.",
+            "Krishna's counsel doesn't expire. Come, listen again.",
+            "You return to the field of Kurukshetra — your own mind.",
+            "The charioteer is ready when you are.",
+            "Wisdom repeats itself until we're ready to hear it.",
+            "The Gita was written for exactly this moment.",
+            "Welcome back to the conversation that never truly ends.",
+            "Somewhere in these verses, today's answer is waiting.",
+            "You've returned to the source. Welcome.",
+            "The battlefield within welcomes you back.",
+            "Krishna speaks in silence too. Welcome back to it.",
+            "Another day, another verse worth carrying with you.",
+            "The path doesn't move. You do. Welcome back to it.",
+            "Dharma doesn't rush. Neither should you. Welcome back.",
+            "You've made space for wisdom today. That's enough.",
+            "The teacher is patient. Welcome back, student.",
+            "Welcome back, seeker.",
+            "The path remembers you.",
+            "One more step on the path today.",
+            "You showed up. That's the whole practice.",
+            "Welcome home, to yourself.",
+            "The journey continues, quietly.",
+            "Today's a good day to walk the path again.",
+            "You're exactly where you need to be. Welcome back.",
+            "Small steps, steady path. Welcome back.",
+            "The path doesn't judge how long you were away.",
+            "Welcome back — the path was here the whole time.",
+            "Every return counts. Welcome back.",
+            "You found your way back. That matters.",
+            "The path is patient. So is this place.",
+            "Welcome back to your own becoming.",
+            "You've circled back to yourself. Welcome.",
+            "The road within is always open.",
+            "Welcome, wanderer. Rest here a while.",
+            "You're not lost. You're exactly here. Welcome.",
+            "The path is short today. Just this moment.",
+            "A quiet moment is waiting for you.",
+            "Come sit with your thoughts for a while.",
+            "Stillness welcomes you back.",
+            "Breathe. You've arrived.",
+            "The noise can wait. Welcome to the quiet.",
+            "This is your pause button. Welcome back.",
+            "A little stillness goes a long way. Welcome back.",
+            "Welcome to the calm between your thoughts.",
+            "The mind settles the moment you arrive.",
+            "You've made it to the quiet part of your day.",
+            "One breath, one verse, one moment. Welcome.",
+            "The world can wait a few minutes. Welcome back.",
+            "Stillness doesn't ask for much. Just you.",
+            "Welcome back to the space between thoughts.",
+            "You've found the pause you were looking for.",
+            "Peace doesn't announce itself loudly. Welcome to it.",
+            "A calm mind starts with a single visit. Welcome back.",
+            "Here's your moment of quiet. Welcome.",
+            "The stillness missed you.",
+            "Welcome back — let the noise settle.",
+            "You're doing better than you think. Welcome back.",
+            "Every visit here is a small act of self-care.",
+            "Growth doesn't always look like progress. Welcome back.",
+            "You chose yourself today. Welcome.",
+            "This is what showing up for yourself looks like.",
+            "One more day, one more chance to grow. Welcome back.",
+            "You're building something, one visit at a time.",
+            "Welcome back — your sankalpa is still growing.",
+            "You didn't have to come back. You did anyway.",
+            "This small habit is bigger than it feels. Welcome back.",
+            "You're allowed to need this. Welcome back.",
+            "Consistency looks like this. Welcome back.",
+            "Welcome back — your effort is quietly adding up.",
+            "You keep returning. That's the practice.",
+            "Today's visit counts, even if it's brief. Welcome.",
+            "You're closer than you were yesterday. Welcome back.",
+            "This is progress, even if it's quiet. Welcome back.",
+            "Welcome back — you're still on your own side.",
+            "Showing up is the whole game. Welcome back.",
+            "You're allowed to grow slowly. Welcome back.",
+            "Good to see you again.",
+            "Welcome back — we kept your seat.",
+            "Hello again, seeker.",
+            "Glad you're here today.",
+            "Welcome back. The mind could use the company.",
+            "Another day, another chance to check in with yourself.",
+            "You're here. That's a good start.",
+            "Welcome back — no reason needed.",
+            "Hey — good to have you back.",
+            "Welcome back. Take your time.",
+            "The door's always open. Welcome back.",
+            "Good timing. Welcome back.",
+            "Welcome back, whenever you're ready.",
+            "This space missed you a little.",
+            "Welcome back — start wherever feels right.",
+            "You're always welcome here.",
+            "Welcome back. No rush, no pressure.",
+            "It's good to have you back again.",
+            "Welcome back — let's see how today feels.",
+            "Here again. That's worth noticing. Welcome back."
+        ];
+
+        const THOUGHT_RELEASED_MESSAGES = [
+            "Thought released into the void.",
+            "Sent with light and intention.",
+            "Let go. It's no longer yours to carry.",
+            "Released. The mind is a little lighter now.",
+            "Your words have been set free.",
+            "That thought is no longer waiting on you.",
+            "Given to the silence.",
+            "Carried away, gently.",
+            "You said it. Now let it rest.",
+            "Set down, so you can walk on.",
+            "The void listens without judgment.",
+            "That's one less thing to hold onto.",
+            "Released, like a breath you didn't know you were holding.",
+            "It's out of your hands now.",
+            "Written, released, done.",
+            "The weight of it is lighter now.",
+            "Let it drift. You did your part.",
+            "Spoken into stillness.",
+            "That thought has found its way out.",
+            "You don't have to carry that alone anymore.",
+            "Given over to the quiet.",
+            "It's said. Let that be enough.",
+            "Freed from your mind, if only for now.",
+            "The page holds it so you don't have to.",
+            "Released — may it come back only as peace.",
+            "That's been let go, gently and fully.",
+            "Your mind just made a little more room.",
+            "Sent onward, with light and intention.",
+            "It's released. Breathe a little easier now.",
+            "Given to the silence between your thoughts."
+        ];
+
+        function notifyOrToast(title, body, toastDuration = 3000) {
+            if (notifPermissionGranted()) {
+                try { new Notification(title, { body: body, icon: 'karmapath-icon-192.png' }); return; } catch (e) { /* fall through to toast */ }
+            }
+            showToast(body, toastDuration);
+        }
+
+        function maybeShowWelcome() {
+            const today = new Date().toISOString().slice(0, 10);
+            if (localStorage.getItem('karmapath_last_welcome') === today) return;
+            localStorage.setItem('karmapath_last_welcome', today);
+            notifyOrToast("Karmapath", pickRandom(WELCOME_MESSAGES));
+        }
+
         window.onload = async () => {
             setAccent(BRAND_VIOLET);
             createStars();
@@ -1136,15 +1464,17 @@
                     if (result.valid) {
                         updateGreetingUI(); 
                         navigate('home'); 
+                        maybeShowWelcome();
                     } else {
                         forceLogout("Cosmic ties severed. Your access has been revoked.");
                     }
                 } catch (error) {
                     updateGreetingUI(); 
                     navigate('home'); 
+                    maybeShowWelcome();
                 }
             } else {
-                document.getElementById('screen-login').classList.add('active');
+                document.getElementById('screen-intro').classList.add('active');
             }
         };
     </script>
