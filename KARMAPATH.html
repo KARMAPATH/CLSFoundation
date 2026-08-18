@@ -205,6 +205,7 @@
         }
         .cta-pulse { animation: ctaPulseRing 2.8s ease-out infinite; }
         .cta-pulse:hover { animation-play-state: paused; }
+        #notif-bell:hover { color: rgb(var(--kp-accent-rgb)); }
 
         @keyframes checkPop {
             0% { transform: scale(1); }
@@ -353,6 +354,11 @@
                 <p class="text-[10px] tracking-[0.4em] uppercase text-[#8A8A8A] hover:text-[#6D28D9] transition-colors duration-300">Let the Universe Guide You</p>
             </div>
 
+            <button id="notif-bell" onclick="enableNotifications()" class="mt-10 flex items-center gap-2 text-[9px] tracking-[0.3em] uppercase text-[#8A8A8A]/70 transition-colors duration-300">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"></path></svg>
+                <span>Enable Notifications</span>
+            </button>
+
             <div class="flex flex-col items-center mt-24 group cursor-pointer opacity-90 hover:opacity-100 transition-opacity duration-700" onclick="showSankalpaInfo()">
                 <div class="w-px h-24 bg-gradient-to-b from-transparent via-[#6D28D9]/15 to-transparent mb-8"></div>
                 <div id="sankalpa-svg-container" class="relative w-24 h-24 flex items-center justify-center transition-all duration-1000 group-hover:scale-110 kp-accent-glow rounded-full"></div>
@@ -446,8 +452,69 @@
     </div>
 
     <script>
-        // --- YOUR UNIQUE GOOGLE APPS SCRIPT URL ---
+        // --- YOUR UNIQUE GOOGLE APPS SCRIPT URL (used for login/auth — do not change) ---
         const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwf818vMCSIAK4KEVMmPp9-3vJD5VxoC251XBH9wyy-zZBqNRcTYy-I_I2ZdCgaYtUJUA/exec";
+
+        // --- SEPARATE Apps Script URL for the Notifications sheet (its own script, its own sheet) ---
+        const NOTIF_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHOSwcUmk1s9DWWNzjVdMeoukh5Dt2iHfb4IqI5YLiNUWwkqr0aN8f_YB-QLoTgEQidw/exec";
+
+        // --- SCHEDULED NOTIFICATIONS (powered by a Google Sheet — see setup notes) ---
+        // Works whenever this page/PWA is open (foreground or backgrounded tab).
+        // It does NOT wake up a fully closed app — that needs a separate push-server setup.
+        const NOTIF_CHECK_INTERVAL_MS = 60000; // check every 60 seconds
+        let notifPollHandle = null;
+
+        function notifPermissionGranted() {
+            return ('Notification' in window) && Notification.permission === 'granted';
+        }
+
+        async function enableNotifications() {
+            if (!('Notification' in window)) { showToast("Notifications aren't supported on this browser."); return; }
+            const result = await Notification.requestPermission();
+            if (result === 'granted') {
+                showToast("Notifications enabled.");
+                updateNotifBellUI();
+                startNotificationPolling();
+            } else {
+                showToast("Notifications weren't allowed.");
+            }
+        }
+
+        function updateNotifBellUI() {
+            const btn = document.getElementById('notif-bell');
+            if (!btn) return;
+            if (!('Notification' in window)) { btn.classList.add('hidden'); return; }
+            if (Notification.permission === 'granted') {
+                btn.querySelector('span').innerText = 'Notifications On';
+            } else {
+                btn.querySelector('span').innerText = 'Enable Notifications';
+            }
+        }
+
+        function startNotificationPolling() {
+            if (notifPollHandle) return; // already running
+            checkScheduledNotifications();
+            notifPollHandle = setInterval(checkScheduledNotifications, NOTIF_CHECK_INTERVAL_MS);
+        }
+
+        async function checkScheduledNotifications() {
+            if (!notifPermissionGranted()) return;
+            if (!NOTIF_SCRIPT_URL || NOTIF_SCRIPT_URL.indexOf('PASTE_') === 0) return; // not configured yet
+            try {
+                const res = await fetch(NOTIF_SCRIPT_URL);
+                const data = await res.json();
+                const shown = JSON.parse(localStorage.getItem('karmapath_shown_notifs') || '[]');
+                (data.notifications || []).forEach(n => {
+                    if (!shown.includes(n.id)) {
+                        try {
+                            new Notification(n.title, { body: n.message, icon: 'karmapath-icon-192.png' });
+                        } catch (e) { /* ignore individual notification failures */ }
+                        shown.push(n.id);
+                    }
+                });
+                localStorage.setItem('karmapath_shown_notifs', JSON.stringify(shown.slice(-200)));
+            } catch (err) { /* offline or endpoint not set up yet — silently retry next interval */ }
+        }
 
         // --- DATABASE ---
         const shlokaDB = {
@@ -1056,6 +1123,8 @@
             applyCosmicSync(); 
             initSankalpa(); 
             renderEchoes(); 
+            updateNotifBellUI();
+            if (notifPermissionGranted()) { startNotificationPolling(); }
 
             const token = localStorage.getItem('karmapath_auth_token');
             
