@@ -101,11 +101,12 @@
     </script>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=Noto+Serif+Devanagari:wght@200;300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
         :root {
-            --kp-accent-rgb: 109,40,217; 
+            --kp-accent-rgb: 109,40,217; /* default: Wordmark Violet #6D28D9 — JS sets this per selected emotion */
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -120,13 +121,14 @@
             background: radial-gradient(ellipse 90% 70% at 50% 42%, #EAD8DD 0%, #F3E8E6 45%, #FAF6F4 75%, #FFFFFF 100%);
         }
         .kp-accent-text { color: rgb(var(--kp-accent-rgb)); transition: color 0.6s ease; }
-        .kp-accent-text-soft { color: rgba(var(--kp-accent-rgb), 0.65); transition: color 0.6s ease; }
-        .kp-accent-text-faint { color: rgba(var(--kp-accent-rgb), 0.45); transition: color 0.6s ease; }
-        .kp-accent-border { border-color: rgba(var(--kp-accent-rgb), 0.35); transition: border-color 0.6s ease; }
-        .kp-accent-border-faint { border-color: rgba(var(--kp-accent-rgb), 0.15); transition: border-color 0.6s ease; }
+        .kp-accent-text-soft { color: rgba(var(--kp-accent-rgb), 0.85); transition: color 0.6s ease; }
+        .kp-accent-text-faint { color: rgba(var(--kp-accent-rgb), 0.65); transition: color 0.6s ease; }
+        .kp-accent-border { border-color: rgba(var(--kp-accent-rgb), 0.50); transition: border-color 0.6s ease; }
+        .kp-accent-border-faint { border-color: rgba(var(--kp-accent-rgb), 0.25); transition: border-color 0.6s ease; }
         .kp-accent-bg-soft { background-color: rgba(var(--kp-accent-rgb), 0.08); transition: background-color 0.6s ease; }
-        .kp-accent-glow { box-shadow: 0 0 20px rgba(var(--kp-accent-rgb), 0.22); transition: box-shadow 0.6s ease; }
+        .kp-accent-glow { box-shadow: 0 0 20px rgba(var(--kp-accent-rgb), 0.35); transition: box-shadow 0.6s ease; }
         
+        /* Cosmic Aurora */
         @keyframes auroraRotate1 {
             0% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
             100% { transform: translate(-30%, -20%) rotate(180deg) scale(1.5); }
@@ -137,13 +139,13 @@
         }
         .aurora-1 {
             position: fixed; top: 40%; left: 50%; width: 90vw; height: 90vw; max-width: 1000px; max-height: 1000px;
-            background: radial-gradient(circle, rgba(109, 40, 217, 0.05) 0%, rgba(109, 40, 217, 0.015) 40%, rgba(0,0,0,0) 65%);
+            background: radial-gradient(circle, rgba(109, 40, 217, 0.08) 0%, rgba(109, 40, 217, 0.02) 40%, rgba(0,0,0,0) 65%);
             z-index: -2; animation: auroraRotate1 25s infinite alternate ease-in-out; pointer-events: none;
             will-change: transform; transition: opacity 2s ease;
         }
         .aurora-2 {
             position: fixed; top: 60%; left: 50%; width: 100vw; height: 100vw; max-width: 1200px; max-height: 1200px;
-            background: radial-gradient(circle, rgba(234, 216, 221, 0.45) 0%, rgba(234, 216, 221, 0.12) 40%, rgba(0,0,0,0) 60%);
+            background: radial-gradient(circle, rgba(234, 216, 221, 0.55) 0%, rgba(234, 216, 221, 0.15) 40%, rgba(0,0,0,0) 60%);
             z-index: -2; animation: auroraRotate2 30s infinite alternate-reverse ease-in-out; pointer-events: none;
             will-change: transform; transition: opacity 2s ease;
         }
@@ -158,8 +160,8 @@
         .float-4 { animation: floatSlow 7s ease-in-out infinite reverse; }
 
         @keyframes visualBreath {
-            0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.12; }
-            50% { transform: translate(-50%, -50%) scale(2.5); opacity: 0.35; }
+            0%, 100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.15; }
+            50% { transform: translate(-50%, -50%) scale(2.5); opacity: 0.45; }
         }
         .breathe-active { animation: visualBreath 10s ease-in-out infinite; }
 
@@ -227,17 +229,17 @@
 
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(43,43,43,0.12); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: rgba(43,43,43,0.15); border-radius: 10px; }
         
         .screen { display: none; opacity: 0; transition: opacity 1.5s ease; }
         .screen.active { display: flex; opacity: 1; }
 
         textarea { background: transparent; border: none; outline: none; resize: none; box-shadow: none; }
-        .journal-line { width: 40px; height: 1px; background: rgba(43,43,43,0.18); transition: width 0.8s ease, background 0.8s ease; }
-        textarea:focus + .journal-line { width: 150px; background: rgba(var(--kp-accent-rgb), 0.6); box-shadow: 0 0 15px rgba(var(--kp-accent-rgb), 0.3); }
+        .journal-line { width: 40px; height: 1px; background: rgba(43,43,43,0.25); transition: width 0.8s ease, background 0.8s ease; }
+        textarea:focus + .journal-line { width: 150px; background: rgba(var(--kp-accent-rgb), 0.8); box-shadow: 0 0 15px rgba(var(--kp-accent-rgb), 0.4); }
         
         .text-shimmer {
-            background: linear-gradient(90deg, rgba(43,43,43,0.45) 0%, rgba(43,43,43,0.95) 50%, rgba(43,43,43,0.45) 100%);
+            background: linear-gradient(90deg, rgba(43,43,43,0.55) 0%, rgba(43,43,43,1) 50%, rgba(43,43,43,0.55) 100%);
             background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text;
             animation: shimmer 4s linear infinite;
         }
@@ -250,31 +252,99 @@
         #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: auto; }
 
         .quest-check {
-            width: 24px; height: 24px; border: 1px solid rgba(43,43,43,0.25); border-radius: 50%;
+            width: 24px; height: 24px; border: 1.5px solid rgba(43,43,43,0.35); border-radius: 50%;
             cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;
         }
-        .quest-check.checked { background: rgba(var(--kp-accent-rgb), 0.85); border-color: rgba(var(--kp-accent-rgb), 0.85); box-shadow: 0 0 15px rgba(var(--kp-accent-rgb), 0.4); }
+        .quest-check.checked { background: rgba(var(--kp-accent-rgb), 0.95); border-color: rgba(var(--kp-accent-rgb), 0.95); box-shadow: 0 0 15px rgba(var(--kp-accent-rgb), 0.5); }
         .quest-text { transition: all 0.5s ease; }
-        .quest-text.checked { text-decoration: line-through; opacity: 0.4; color: #8A8A8A; }
+        .quest-text.checked { text-decoration: line-through; opacity: 0.5; color: #666666; }
 
         .particle { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: rgb(var(--kp-accent-rgb)); pointer-events: none; opacity: 1; z-index: 50; }
-        #story-modal { background: rgba(43,43,43,0.9); backdrop-filter: blur(20px); }
+        #story-modal { background: rgba(43,43,43,0.95); backdrop-filter: blur(20px); }
         
         .loader {
-            border: 2px solid rgba(43,43,43,0.1); border-top: 2px solid rgb(var(--kp-accent-rgb)); border-radius: 50%;
+            border: 2px solid rgba(43,43,43,0.15); border-top: 2px solid rgb(var(--kp-accent-rgb)); border-radius: 50%;
             width: 16px; height: 16px; animation: spin 1s linear infinite; display: none; margin: 0 auto;
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Sequence Styles */
+        .typing-text {
+            overflow: hidden;
+            border-right: .15em solid #6D28D9;
+            white-space: pre-wrap;
+            margin: 0 auto;
+            letter-spacing: .05em;
+            opacity: 0;
+        }
+
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+        
+        .reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6D28D9, #8B5CF6);
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
+            cursor: pointer;
+            border: none;
+            outline: none;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(109, 40, 217, 0.6);
+        }
+
+        /* Progress Indicator */
+        .progress-dots {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 40;
+            transition: opacity 0.5s ease;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(43, 43, 43, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: #6D28D9;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(109, 40, 217, 0.6);
+        }
     </style>
 </head>
-<body class="antialiased min-h-screen relative selection:bg-[#6D28D9]/20">
+<body class="antialiased min-h-screen relative selection:bg-[#6D28D9]/20 font-normal">
 
     <!-- INTRO MUSIC AUDIO TAG -->
-    <audio id="intro-audio" src="Peacock Feather.mp3" preload="auto"></audio>
+    <audio id="intro-audio" src="Peacock Feather.mp3" preload="auto" loop></audio>
 
     <noscript>
         <div style="max-width:640px;margin:60px auto;padding:0 24px;font-family:sans-serif;color:#2B2B2B;text-align:center;">
-            <h1 style="color:#6D28D9;letter-spacing:0.1em;">KARMAPATH SANKALP</h1>
+            <h1 style="color:#6D28D9;letter-spacing:0.1em; font-weight:500;">KARMAPATH SANKALP</h1>
             <p>Karmapath Sankalp is a daily companion built from the <strong>Bhagavad Gita</strong> — Krishna's shlokas organized by emotion (anxiety, sadness, anger, loneliness, laziness, protection, happiness, and peace), guided dharma quests, and personal reflection. Assume the Role of Arjuna and let the timeless dialogue between Arjuna and Krishna guide your day.</p>
             <p>Please enable JavaScript in your browser to use Karmapath Sankalp.</p>
         </div>
@@ -285,15 +355,60 @@
     <div class="aurora-2" id="aurora-2"></div>
     <div class="fixed inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20 pointer-events-none z-0"></div>
 
-    <div id="toast" class="bg-white/95 backdrop-blur-md border border-[#2B2B2B]/10 text-[#2B2B2B]/80 text-[10px] uppercase tracking-[0.3em] px-6 py-3 rounded-full font-normal shadow-[0_10px_30px_rgba(43,43,43,0.12)]">Action completed</div>
+    <div id="toast" class="bg-white/95 backdrop-blur-md border border-[#2B2B2B]/15 text-[#2B2B2B]/90 text-[10px] uppercase tracking-[0.3em] px-6 py-3 rounded-full font-medium shadow-[0_10px_30px_rgba(43,43,43,0.15)]">Action completed</div>
 
-    <div id="lunar-indicator" class="fixed top-8 left-8 z-50 flex items-center gap-3 opacity-40 hover:opacity-100 transition-opacity duration-700 cursor-help" title="Cosmic Sync">
-        <span id="lunar-icon" class="text-xl">🌑</span>
-        <span id="lunar-text" class="text-[8px] uppercase tracking-[0.3em] text-[#8A8A8A] hidden sm:block">Syncing...</span>
+    <!-- MUSIC TOGGLE -->
+    <div id="music-toggle-btn" class="fixed top-8 left-8 z-50 flex items-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-700 cursor-pointer hidden" onclick="toggleIntroMusic()">
+        <span id="music-icon" class="text-xl">🔇</span>
+        <span id="music-text" class="text-[8px] uppercase tracking-[0.3em] text-[#666666] font-medium hidden sm:block">Music Off</span>
     </div>
 
-    <div id="app" class="relative z-10 w-full min-h-screen flex flex-col items-center p-6 mx-auto max-w-4xl font-light">
+    <!-- Progress Dots for Sequence -->
+    <div class="progress-dots" id="sequence-dots">
+        <div class="dot active" id="dot-query"></div>
+        <div class="dot" id="dot-solution"></div>
+        <div class="dot" id="dot-intro"></div>
+    </div>
 
+    <div id="app" class="relative z-10 w-full min-h-screen flex flex-col items-center p-6 mx-auto max-w-4xl">
+
+        <!-- SEQUENCE 1: THE QUERY -->
+        <div id="screen-query" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[100vh] px-4 active">
+            <div class="mb-8 w-full max-w-2xl mx-auto">
+                <i class="fas fa-question-circle text-4xl text-[#6D28D9]/70 mb-6 reveal-text" id="icon-query"></i>
+                <h1 id="query-text" class="text-3xl md:text-5xl font-light text-[#2B2B2B] leading-tight"></h1>
+            </div>
+            <p class="text-sm md:text-base text-[#666666] mt-6 max-w-xl mx-auto reveal-text hidden leading-relaxed font-normal italic" id="query-subtext">
+                "The mind is restless, turbulent, obstinate and very strong, O Krishna, and to subdue it, I think, is more difficult than controlling the wind."
+            </p>
+            <div class="mt-16 reveal-text hidden" id="btn-next-query">
+                <button class="btn-primary flex items-center gap-3 mx-auto" onclick="nextSequence('solution')">
+                    Seek the Answer <i class="fas fa-arrow-right text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SEQUENCE 2: THE SOLUTION -->
+        <div id="screen-solution" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[100vh] px-4">
+            <div class="mb-8 w-full max-w-2xl mx-auto">
+                <div class="w-12 h-12 rounded-full border-2 border-[#6D28D9]/40 flex items-center justify-center mx-auto mb-8 reveal-text" id="icon-solution">
+                    <i class="fas fa-om text-[#6D28D9] text-xl"></i>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-light text-[#6D28D9] leading-tight reveal-text" id="title-solution">
+                    The Dialogue Remains.
+                </h1>
+            </div>
+            <p class="text-base md:text-xl text-[#2B2B2B]/90 mt-6 max-w-2xl mx-auto reveal-text leading-relaxed font-normal" id="desc-solution">
+                Before the battle, there was a conversation. Wisdom that doesn't expire, waiting to be heard again. A sanctuary for the modern mind, built from the timeless verses of the Bhagavad Gita.
+            </p>
+            <div class="mt-16 reveal-text" id="btn-next-solution">
+                <button class="btn-primary flex items-center gap-3 mx-auto" onclick="nextSequence('intro')">
+                    Open the Codex <i class="fas fa-arrow-right text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SEQUENCE 3: THE INTRO -->
         <div id="screen-intro" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[100vh] px-4 cursor-pointer" onclick="enterFromIntro()">
             <svg viewBox="0 0 433.982577 879.000000" class="w-28 md:w-32 mx-auto mb-8" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -417,43 +532,43 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                     </g>
                 </g>
             </svg>
-            <h1 class="text-3xl md:text-5xl tracking-[0.4em] text-[#6D28D9] font-thin intro-rise" style="animation-delay: 2.3s;">KARMAPATH</h1>
-            <p class="text-xs md:text-sm tracking-[0.5em] text-[#8A8A8A] uppercase mt-2 intro-rise" style="animation-delay: 2.6s;">Sankalp</p>
-            <p class="text-[#2B2B2B]/60 text-sm italic mt-8 max-w-xs mx-auto intro-rise" style="animation-delay: 2.9s;">Assume the Role of Arjuna.</p>
+            <h1 class="text-3xl md:text-5xl tracking-[0.4em] text-[#6D28D9] font-light intro-rise" style="animation-delay: 2.3s;">KARMAPATH</h1>
+            <p class="text-xs md:text-sm tracking-[0.5em] text-[#666666] font-medium uppercase mt-2 intro-rise" style="animation-delay: 2.6s;">Sankalp</p>
+            <p class="text-[#2B2B2B]/80 text-sm italic mt-8 max-w-xs mx-auto font-normal intro-rise" style="animation-delay: 2.9s;">Assume the Role of Arjuna.</p>
             <div class="mt-16 intro-rise" style="animation-delay: 3.6s;">
                 <div class="w-2 h-2 rounded-full bg-[#6D28D9] mx-auto mb-3 tap-pulse"></div>
-                <p class="text-[9px] tracking-[0.4em] uppercase text-[#8A8A8A]">Tap to Begin</p>
+                <p class="text-[9px] tracking-[0.4em] uppercase text-[#666666] font-medium">Tap to Begin</p>
             </div>
         </div>
 
         <div id="screen-login" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[100vh] fade-in px-4">
             
             <div class="mb-12">
-                <h1 class="text-3xl md:text-5xl tracking-[0.4em] text-[#6D28D9] font-thin float-1">KARMAPATH</h1>
-                <p class="text-xs md:text-sm tracking-[0.5em] text-[#8A8A8A] uppercase mt-2">Sankalp</p>
+                <h1 class="text-3xl md:text-5xl tracking-[0.4em] text-[#6D28D9] font-light float-1">KARMAPATH</h1>
+                <p class="text-xs md:text-sm tracking-[0.5em] text-[#666666] font-medium uppercase mt-2">Sankalp</p>
                 <div class="w-px h-12 bg-gradient-to-b from-transparent via-[#6D28D9]/25 to-transparent mx-auto mt-6 mb-6"></div>
-                <p class="text-[10px] md:text-xs text-[#8A8A8A] leading-relaxed font-thin tracking-[0.4em] uppercase">Seek the wisdom within</p>
+                <p class="text-[10px] md:text-xs text-[#666666] leading-relaxed font-normal tracking-[0.4em] uppercase">Seek the wisdom within</p>
             </div>
             
-            <div class="flex flex-col items-center w-full max-w-md bg-white/80 backdrop-blur-md border border-[#2B2B2B]/8 rounded-3xl p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(43,43,43,0.15)]">
+            <div class="flex flex-col items-center w-full max-w-md bg-white/80 backdrop-blur-md border border-[#2B2B2B]/15 rounded-3xl p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(43,43,43,0.15)]">
                 
                 <div class="w-full relative mb-8 group">
-                    <label class="absolute -top-3 left-4 text-[8px] uppercase tracking-[0.3em] text-[#8A8A8A] bg-white px-2 transition-colors duration-300 group-focus-within:text-[#6D28D9]">Seeker Name</label>
-                    <input type="text" id="name-input" placeholder="How shall we call you?" class="w-full bg-transparent border border-[#2B2B2B]/15 rounded-xl px-6 py-4 text-[#2B2B2B]/85 text-sm tracking-widest font-thin focus:outline-none focus:border-[#6D28D9]/50 focus:bg-[#6D28D9]/5 transition-all duration-500 placeholder-[#2B2B2B]/25" autocomplete="off">
+                    <label class="absolute -top-3 left-4 text-[8px] uppercase tracking-[0.3em] text-[#666666] font-medium bg-white px-2 transition-colors duration-300 group-focus-within:text-[#6D28D9]">Seeker Name</label>
+                    <input type="text" id="name-input" placeholder="How shall we call you?" class="w-full bg-transparent border border-[#2B2B2B]/20 rounded-xl px-6 py-4 text-[#2B2B2B] text-sm tracking-widest font-normal focus:outline-none focus:border-[#6D28D9]/60 focus:bg-[#6D28D9]/5 transition-all duration-500 placeholder-[#2B2B2B]/40" autocomplete="off">
                 </div>
 
                 <div class="w-full relative mb-10 group">
-                    <label class="absolute -top-3 left-4 text-[8px] uppercase tracking-[0.3em] text-[#8A8A8A] bg-white px-2 transition-colors duration-300 group-focus-within:text-[#6D28D9]">Cosmic Key</label>
-                    <input type="text" id="referral-input" placeholder="Enter Referral Code" class="w-full bg-transparent border border-[#2B2B2B]/15 rounded-xl px-6 py-4 text-[#2B2B2B]/85 text-sm tracking-[0.2em] uppercase font-thin focus:outline-none focus:border-[#6D28D9]/50 focus:bg-[#6D28D9]/5 transition-all duration-500 placeholder-[#2B2B2B]/25" autocomplete="off">
+                    <label class="absolute -top-3 left-4 text-[8px] uppercase tracking-[0.3em] text-[#666666] font-medium bg-white px-2 transition-colors duration-300 group-focus-within:text-[#6D28D9]">Cosmic Key</label>
+                    <input type="text" id="referral-input" placeholder="Enter Referral Code" class="w-full bg-transparent border border-[#2B2B2B]/20 rounded-xl px-6 py-4 text-[#2B2B2B] text-sm tracking-[0.2em] uppercase font-normal focus:outline-none focus:border-[#6D28D9]/60 focus:bg-[#6D28D9]/5 transition-all duration-500 placeholder-[#2B2B2B]/40" autocomplete="off">
                 </div>
                 
                 <div class="flex flex-col w-full gap-4">
-                    <button id="login-btn" onclick="verifyReferral()" class="group relative w-full px-6 py-4 border border-[#6D28D9]/30 bg-[#6D28D9]/8 text-[#6D28D9] tracking-[0.2em] uppercase text-[10px] transition-all duration-500 hover:text-white hover:border-[#6D28D9] hover:bg-[#6D28D9] hover:shadow-[0_0_20px_rgba(109,40,217,0.25)] rounded-xl overflow-hidden cta-pulse">
+                    <button id="login-btn" onclick="verifyReferral()" class="group relative w-full px-6 py-4 border border-[#6D28D9]/40 bg-[#6D28D9]/10 text-[#6D28D9] font-medium tracking-[0.2em] uppercase text-[10px] transition-all duration-500 hover:text-white hover:border-[#6D28D9] hover:bg-[#6D28D9] hover:shadow-[0_0_20px_rgba(109,40,217,0.35)] rounded-xl overflow-hidden cta-pulse">
                         <span id="login-text" class="relative z-10">Enter the Sanctuary</span>
                         <div id="login-loader" class="loader relative z-10 hidden"></div>
                     </button>
                     
-                    <button onclick="window.open('https://your-purchase-link-here.com', '_blank')" class="group relative w-full px-6 py-4 text-[#8A8A8A] tracking-[0.2em] uppercase text-[10px] transition-all duration-500 hover:text-[#2B2B2B] rounded-xl hover:bg-[#2B2B2B]/5">
+                    <button onclick="window.open('https://your-purchase-link-here.com', '_blank')" class="group relative w-full px-6 py-4 text-[#666666] font-medium tracking-[0.2em] uppercase text-[10px] transition-all duration-500 hover:text-[#2B2B2B] rounded-xl hover:bg-[#2B2B2B]/5">
                         Acquire a Key
                     </button>
                 </div>
@@ -461,144 +576,222 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         </div>
 
         <div id="screen-onboarding" class="screen kp-bg-blush flex-col items-center justify-center text-center w-full min-h-[90vh] fade-in">
-            <h1 class="text-2xl md:text-4xl tracking-[0.4em] text-[#6D28D9]/70 font-thin float-1">KARMAPATH</h1>
-            <p class="text-[10px] md:text-xs tracking-[0.5em] text-[#8A8A8A]/80 uppercase mt-2 mb-16">Sankalp</p>
-            <p class="text-xl md:text-3xl text-[#2B2B2B]/80 mb-20 max-w-2xl leading-[2] font-thin text-shimmer">
+            <h1 class="text-2xl md:text-4xl tracking-[0.4em] text-[#6D28D9]/90 font-light float-1">KARMAPATH</h1>
+            <p class="text-[10px] md:text-xs tracking-[0.5em] text-[#666666] font-medium uppercase mt-2 mb-16">Sankalp</p>
+            <p class="text-xl md:text-3xl text-[#2B2B2B] mb-20 max-w-2xl leading-[2] font-light text-shimmer">
                 "The mind is restless, turbulent, obstinate and very strong, O Krishna."
             </p>
-            <div class="w-px h-24 bg-gradient-to-b from-transparent via-[#6D28D9]/25 to-transparent mb-12"></div>
-            <button onclick="navigate('home')" class="group relative px-8 py-4 kp-accent-text-soft tracking-[0.3em] uppercase text-xs transition-all duration-1000 hover:text-[#6D28D9]">
+            <div class="w-px h-24 bg-gradient-to-b from-transparent via-[#6D28D9]/35 to-transparent mb-12"></div>
+            <button onclick="navigate('home')" class="group relative px-8 py-4 kp-accent-text-soft tracking-[0.3em] font-medium uppercase text-xs transition-all duration-1000 hover:text-[#6D28D9]">
                 <span class="relative z-10">Enter the Sanctuary</span>
-                <div class="absolute inset-0 bg-[#6D28D9]/0 group-hover:bg-[#6D28D9]/5 blur-2xl transition-all duration-1000 rounded-full"></div>
+                <div class="absolute inset-0 bg-[#6D28D9]/0 group-hover:bg-[#6D28D9]/10 blur-2xl transition-all duration-1000 rounded-full"></div>
             </button>
         </div>
 
         <div id="screen-home" class="screen flex-col items-center justify-center w-full min-h-[90vh] py-20 fade-in relative">
             
             <div id="user-greeting" class="absolute top-8 left-1/2 transform -translate-x-1/2 text-center hidden">
-                <p class="kp-accent-text-soft text-[10px] tracking-[0.4em] uppercase mb-1">Seeker</p>
-                <p id="display-name" class="text-[#2B2B2B]/80 text-sm tracking-[0.2em] font-thin"></p>
-                <p id="display-day" class="text-[#8A8A8A] text-[9px] tracking-[0.3em] uppercase mt-2"></p>
+                <p class="kp-accent-text-soft font-medium text-[10px] tracking-[0.4em] uppercase mb-1">Seeker</p>
+                <p id="display-name" class="text-[#2B2B2B]/90 text-sm tracking-[0.2em] font-normal"></p>
+                <p id="display-day" class="text-[#666666] font-medium text-[9px] tracking-[0.3em] uppercase mt-2"></p>
             </div>
 
-            <h2 class="text-xl md:text-2xl text-[#2B2B2B]/70 mb-2 font-thin tracking-[0.2em] text-center float-2 mt-16">Observe your mind.</h2>
-            <p class="text-[#8A8A8A] text-xs tracking-[0.4em] uppercase mb-16 text-center">What is clouding the sky?</p>
+            <h2 class="text-xl md:text-2xl text-[#2B2B2B]/90 mb-2 font-light tracking-[0.2em] text-center float-2 mt-16">Observe your mind.</h2>
+            <p class="text-[#666666] font-medium text-xs tracking-[0.4em] uppercase mb-16 text-center">What is clouding the sky?</p>
             
             <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-16 w-full max-w-3xl px-4 mb-24">
-                <button onclick="selectEmotion('Anxiety')" style="animation-delay: 0s, 0.05s;" class="float-1-in text-2xl md:text-4xl text-[#64748B]/60 hover:text-[#64748B] hover:scale-110 transition-all duration-700 font-thin">Anxiety</button>
-                <button onclick="selectEmotion('Sadness')" style="animation-delay: 0s, 0.1s;" class="float-3-in text-3xl md:text-5xl text-[#2563EB]/60 hover:text-[#2563EB] hover:scale-110 transition-all duration-700 font-thin">Sadness</button>
-                <button onclick="selectEmotion('Anger')" style="animation-delay: 0s, 0.15s;" class="float-2-in text-2xl md:text-4xl text-[#DC2626]/60 hover:text-[#DC2626] hover:scale-110 transition-all duration-700 font-thin">Anger</button>
-                <button onclick="selectEmotion('Loneliness')" style="animation-delay: 0s, 0.2s;" class="float-4-in text-3xl md:text-5xl text-[#8B5CF6]/60 hover:text-[#8B5CF6] hover:scale-110 transition-all duration-700 font-thin">Loneliness</button>
-                <button onclick="selectEmotion('Laziness')" style="animation-delay: 0s, 0.25s;" class="float-1-in text-xl md:text-3xl text-[#EAB308]/70 hover:text-[#EAB308] hover:scale-110 transition-all duration-700 font-thin">Laziness</button>
-                <button onclick="selectEmotion('Protection')" style="animation-delay: 0s, 0.3s;" class="float-3-in text-2xl md:text-4xl text-[#F97316]/60 hover:text-[#F97316] hover:scale-110 transition-all duration-700 font-thin">Protection</button>
-                <button onclick="selectEmotion('Happiness')" style="animation-delay: 0s, 0.35s;" class="float-2-in text-3xl md:text-5xl text-[#059669]/60 hover:text-[#059669] hover:scale-110 transition-all duration-700 font-thin">Happiness</button>
-                <button onclick="selectEmotion('Peace')" style="animation-delay: 0s, 0.4s;" class="float-4-in text-4xl md:text-6xl text-[#F472B6]/60 hover:text-[#F472B6] hover:scale-110 hover:drop-shadow-[0_0_25px_rgba(244,114,182,0.35)] transition-all duration-700 font-thin">Peace</button>
+                <button onclick="selectEmotion('Anxiety')" style="animation-delay: 0s, 0.05s;" class="float-1-in text-2xl md:text-4xl text-[#64748B]/80 hover:text-[#64748B] hover:scale-110 transition-all duration-700 font-light">Anxiety</button>
+                <button onclick="selectEmotion('Sadness')" style="animation-delay: 0s, 0.1s;" class="float-3-in text-3xl md:text-5xl text-[#2563EB]/80 hover:text-[#2563EB] hover:scale-110 transition-all duration-700 font-light">Sadness</button>
+                <button onclick="selectEmotion('Anger')" style="animation-delay: 0s, 0.15s;" class="float-2-in text-2xl md:text-4xl text-[#DC2626]/80 hover:text-[#DC2626] hover:scale-110 transition-all duration-700 font-light">Anger</button>
+                <button onclick="selectEmotion('Loneliness')" style="animation-delay: 0s, 0.2s;" class="float-4-in text-3xl md:text-5xl text-[#8B5CF6]/80 hover:text-[#8B5CF6] hover:scale-110 transition-all duration-700 font-light">Loneliness</button>
+                <button onclick="selectEmotion('Laziness')" style="animation-delay: 0s, 0.25s;" class="float-1-in text-xl md:text-3xl text-[#EAB308]/90 hover:text-[#EAB308] hover:scale-110 transition-all duration-700 font-light">Laziness</button>
+                <button onclick="selectEmotion('Protection')" style="animation-delay: 0s, 0.3s;" class="float-3-in text-2xl md:text-4xl text-[#F97316]/80 hover:text-[#F97316] hover:scale-110 transition-all duration-700 font-light">Protection</button>
+                <button onclick="selectEmotion('Happiness')" style="animation-delay: 0s, 0.35s;" class="float-2-in text-3xl md:text-5xl text-[#059669]/80 hover:text-[#059669] hover:scale-110 transition-all duration-700 font-light">Happiness</button>
+                <button onclick="selectEmotion('Peace')" style="animation-delay: 0s, 0.4s;" class="float-4-in text-4xl md:text-6xl text-[#F472B6]/80 hover:text-[#F472B6] hover:scale-110 hover:drop-shadow-[0_0_25px_rgba(244,114,182,0.35)] transition-all duration-700 font-light">Peace</button>
             </div>
 
-            <div class="flex flex-col items-center opacity-70 hover:opacity-100 transition-opacity duration-500 cursor-pointer" onclick="randomGuidance()">
-                <div class="w-px h-16 bg-gradient-to-b from-transparent to-[#2B2B2B]/15 mb-6"></div>
-                <p class="text-[10px] tracking-[0.4em] uppercase text-[#8A8A8A] hover:text-[#6D28D9] transition-colors duration-300">Let the Universe Guide You</p>
+            <div class="flex flex-col items-center opacity-80 hover:opacity-100 transition-opacity duration-500 cursor-pointer" onclick="randomGuidance()">
+                <div class="w-px h-16 bg-gradient-to-b from-transparent to-[#2B2B2B]/25 mb-6"></div>
+                <p class="text-[10px] font-medium tracking-[0.4em] uppercase text-[#666666] hover:text-[#6D28D9] transition-colors duration-300">Let the Universe Guide You</p>
             </div>
 
-            <button id="notif-bell" onclick="enableNotifications()" class="mt-10 flex items-center gap-2 text-[9px] tracking-[0.3em] uppercase text-[#8A8A8A]/70 transition-colors duration-300">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"></path></svg>
+            <button id="notif-bell" onclick="enableNotifications()" class="mt-10 flex items-center gap-2 text-[9px] font-medium tracking-[0.3em] uppercase text-[#666666] transition-colors duration-300">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"></path></svg>
                 <span>Enable Notifications</span>
             </button>
 
             <div class="flex flex-col items-center mt-24 group cursor-pointer opacity-90 hover:opacity-100 transition-opacity duration-700" onclick="showSankalpaInfo()">
-                <div class="w-px h-24 bg-gradient-to-b from-transparent via-[#6D28D9]/15 to-transparent mb-8"></div>
+                <div class="w-px h-24 bg-gradient-to-b from-transparent via-[#6D28D9]/25 to-transparent mb-8"></div>
                 <div id="sankalpa-svg-container" class="relative w-24 h-24 flex items-center justify-center transition-all duration-1000 group-hover:scale-110 kp-accent-glow rounded-full"></div>
-                <p id="sankalpa-text" class="kp-accent-text-faint text-[9px] tracking-[0.4em] uppercase mt-6 transition-opacity duration-500">Sankalpa: The Seed</p>
+                <p id="sankalpa-text" class="kp-accent-text-soft font-medium text-[9px] tracking-[0.4em] uppercase mt-6 transition-opacity duration-500">Sankalpa: The Seed</p>
             </div>
 
             <div id="echoes-container" class="w-full max-w-2xl mt-32 flex flex-col items-center hidden">
-                <p class="kp-accent-text-faint text-[10px] tracking-[0.4em] uppercase mb-12">Echoes of the Mind</p>
+                <p class="kp-accent-text-soft font-medium text-[10px] tracking-[0.4em] uppercase mb-12">Echoes of the Mind</p>
                 <div id="echoes-list" class="w-full flex flex-col space-y-8 text-center"></div>
             </div>
         </div>
 
         <div id="screen-shloka" class="screen flex-col items-center w-full min-h-screen py-12 px-4 md:px-8 fade-in">
             <div class="w-full flex justify-between items-center mb-16 max-w-3xl">
-                <button onclick="navigate('home')" class="text-[#8A8A8A] hover:text-[#2B2B2B] transition-colors duration-500 flex items-center gap-4 group">
-                    <svg class="w-6 h-6 transform group-hover:-translate-x-2 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 19l-7-7 7-7"></path></svg>
-                    <span class="text-xs tracking-[0.3em] uppercase font-thin opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden sm:block">Dissolve</span>
+                <button onclick="navigate('home')" class="text-[#666666] hover:text-[#2B2B2B] transition-colors duration-500 flex items-center gap-4 group">
+                    <svg class="w-6 h-6 transform group-hover:-translate-x-2 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+                    <span class="text-xs tracking-[0.3em] uppercase font-normal opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden sm:block">Dissolve</span>
                 </button>
-                <span id="shloka-category" class="uppercase tracking-[0.4em] text-xs kp-accent-text">CATEGORY</span>
-                <button onclick="generateStoryExport()" class="text-[#8A8A8A] hover:text-[#2B2B2B] transition-colors duration-500 flex items-center gap-4 group relative">
-                    <span class="text-xs tracking-[0.3em] uppercase font-thin opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden sm:block">Share Story</span>
-                    <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                <span id="shloka-category" class="uppercase tracking-[0.4em] text-xs font-medium kp-accent-text">CATEGORY</span>
+                <button onclick="generateStoryExport()" class="text-[#666666] hover:text-[#2B2B2B] transition-colors duration-500 flex items-center gap-4 group relative">
+                    <span class="text-xs tracking-[0.3em] uppercase font-normal opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden sm:block">Share Story</span>
+                    <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                 </button>
             </div>
 
             <div class="flex flex-col items-center mb-24 float-2 relative">
-                <div id="breathe-halo" class="absolute top-1/2 left-1/2 transform w-32 h-32 rounded-full blur-2xl pointer-events-none opacity-0" style="background-color: rgba(var(--kp-accent-rgb), 0.25);"></div>
+                <div id="breathe-halo" class="absolute top-1/2 left-1/2 transform w-32 h-32 rounded-full blur-2xl pointer-events-none opacity-0" style="background-color: rgba(var(--kp-accent-rgb), 0.35);"></div>
                 <button id="audio-btn" onclick="toggleAudio()" class="relative group w-24 h-24 flex items-center justify-center kp-accent-text-soft hover:kp-accent-text transition-colors duration-1000 z-10">
-                    <div id="audio-ring" class="absolute inset-0 kp-accent-border-faint border rounded-full scale-75 group-hover:scale-110 transition-all duration-1000"></div>
+                    <div id="audio-ring" class="absolute inset-0 kp-accent-border-faint border-2 rounded-full scale-75 group-hover:scale-110 transition-all duration-1000"></div>
                     <svg id="play-icon" class="w-8 h-8 relative z-10 ml-1 drop-shadow-[0_0_10px_currentColor]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     <svg id="stop-icon" class="w-8 h-8 relative z-10 hidden drop-shadow-[0_0_10px_currentColor]" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
                 </button>
-                <p id="breathe-text" class="kp-accent-text-faint text-[10px] mt-8 uppercase tracking-[0.4em] opacity-0 transition-opacity duration-1000">Devotional Aura...</p>
+                <p id="breathe-text" class="kp-accent-text-soft font-medium text-[10px] mt-8 uppercase tracking-[0.4em] opacity-0 transition-opacity duration-1000">Devotional Aura...</p>
             </div>
 
             <div class="w-full max-w-3xl flex flex-col items-center text-center space-y-24">
                 <div class="relative w-full verse-in" style="animation-delay: 0.05s;">
-                    <p class="text-[10px] tracking-[0.3em] text-[#8A8A8A] mb-10" id="shloka-ref"></p>
-                    <h3 id="shloka-sanskrit" class="sanskrit-text text-2xl md:text-4xl leading-[2.5] text-[#2B2B2B] font-light"></h3>
+                    <p class="text-[10px] font-medium tracking-[0.3em] text-[#666666] mb-10" id="shloka-ref"></p>
+                    <h3 id="shloka-sanskrit" class="sanskrit-text text-2xl md:text-4xl leading-[2.5] text-[#2B2B2B] font-normal"></h3>
                     
                     <div class="flex justify-center mt-10 mb-2">
-                        <button id="shloka-audio-btn" onclick="playShlokaAudio()" class="group relative px-6 py-3 flex items-center gap-3 kp-accent-border border kp-accent-bg-soft kp-accent-text hover:text-white hover:bg-[rgb(var(--kp-accent-rgb))] hover:kp-accent-glow rounded-full transition-all duration-500">
+                        <button id="shloka-audio-btn" onclick="playShlokaAudio()" class="group relative px-6 py-3 flex items-center gap-3 kp-accent-border border-2 kp-accent-bg-soft kp-accent-text hover:text-white hover:bg-[rgb(var(--kp-accent-rgb))] hover:kp-accent-glow rounded-full transition-all duration-500">
                             <svg id="shloka-play-icon" class="w-4 h-4 drop-shadow-[0_0_5px_currentColor]" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                             <svg id="shloka-pause-icon" class="w-4 h-4 hidden drop-shadow-[0_0_5px_currentColor]" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
-                            <span id="shloka-audio-text" class="text-[10px] tracking-[0.3em] uppercase">Listen to Verse</span>
+                            <span id="shloka-audio-text" class="text-[10px] font-medium tracking-[0.3em] uppercase">Listen to Verse</span>
                         </button>
                         <audio id="shloka-audio-player" class="hidden"></audio>
                     </div>
 
-                    <p id="shloka-roman" class="kp-accent-text-soft text-sm md:text-base leading-relaxed mt-6 font-light tracking-wide italic transition-opacity duration-1000"></p>
+                    <p id="shloka-roman" class="kp-accent-text text-sm md:text-base leading-relaxed mt-6 font-normal tracking-wide italic transition-opacity duration-1000"></p>
                 </div>
 
                 <div class="w-full relative flex flex-col items-center verse-in" style="animation-delay: 0.2s;">
-                    <div class="w-px h-12 bg-gradient-to-b from-[#2B2B2B]/15 to-transparent mb-12"></div>
-                    <p id="shloka-translation" class="text-xl md:text-3xl text-[#2B2B2B]/75 leading-relaxed font-thin italic max-w-2xl"></p>
+                    <div class="w-px h-12 bg-gradient-to-b from-[#2B2B2B]/25 to-transparent mb-12"></div>
+                    <p id="shloka-translation" class="text-xl md:text-3xl text-[#2B2B2B]/90 leading-relaxed font-light italic max-w-2xl"></p>
                 </div>
 
-                <div class="w-full relative pt-12 flex flex-col items-center bg-white border border-[#2B2B2B]/8 rounded-3xl p-8 max-w-xl card-in shadow-[0_10px_40px_rgba(43,43,43,0.08)]" style="animation-delay: 0s, 0.35s;">
-                    <h4 class="text-[10px] uppercase tracking-[0.4em] kp-accent-text-soft mb-6 flex items-center gap-3">
+                <div class="w-full relative pt-12 flex flex-col items-center bg-white border border-[#2B2B2B]/15 rounded-3xl p-8 max-w-xl card-in shadow-[0_10px_40px_rgba(43,43,43,0.1)]" style="animation-delay: 0s, 0.35s;">
+                    <h4 class="text-[10px] font-medium uppercase tracking-[0.4em] kp-accent-text mb-6 flex items-center gap-3">
                         <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
                         Today's Dharma Quest
                     </h4>
-                    <p id="quest-text" class="quest-text text-base md:text-lg text-[#2B2B2B]/85 leading-relaxed font-light mb-8"></p>
+                    <p id="quest-text" class="quest-text text-base md:text-lg text-[#2B2B2B] leading-relaxed font-normal mb-8"></p>
                     <div class="flex items-center gap-4 group cursor-pointer" onclick="completeQuest(this, event)">
                         <div class="quest-check group-hover:scale-110 relative" id="quest-checkbox">
                             <svg class="w-3 h-3 text-white opacity-0 transition-opacity duration-300" id="quest-check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
                         </div>
-                        <span class="text-[10px] tracking-[0.3em] uppercase text-[#8A8A8A] group-hover:kp-accent-text transition-colors duration-300" id="quest-action-text">Commit to Action</span>
+                        <span class="text-[10px] font-medium tracking-[0.3em] uppercase text-[#666666] group-hover:kp-accent-text transition-colors duration-300" id="quest-action-text">Commit to Action</span>
                     </div>
                 </div>
             </div>
             
             <div class="w-full max-w-2xl mt-40 mb-20 flex flex-col items-center">
-                <p class="text-[10px] tracking-[0.3em] text-[#8A8A8A] uppercase mb-8">Release your thoughts</p>
-                <textarea id="journal-input" class="w-full text-center text-xl md:text-3xl text-[#2B2B2B]/85 placeholder-[#2B2B2B]/20 leading-relaxed font-thin transition-all duration-700" rows="1" placeholder="..." oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
+                <p class="text-[10px] font-medium tracking-[0.3em] text-[#666666] uppercase mb-8">Release your thoughts</p>
+                <textarea id="journal-input" class="w-full text-center text-xl md:text-3xl text-[#2B2B2B] placeholder-[#2B2B2B]/40 leading-relaxed font-light transition-all duration-700" rows="1" placeholder="..." oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
                 <div class="journal-line mt-6 mb-8"></div>
-                <button onclick="saveJournal()" class="text-[10px] tracking-[0.4em] uppercase text-[#8A8A8A] hover:kp-accent-text transition-colors duration-500">Release into the void</button>
+                <button onclick="saveJournal()" class="text-[10px] font-medium tracking-[0.4em] uppercase text-[#666666] hover:kp-accent-text transition-colors duration-500">Release into the void</button>
             </div>
         </div>
     </div>
 
     <div id="story-modal" class="fixed inset-0 z-[100] hidden flex flex-col items-center justify-center p-6 opacity-0 transition-opacity duration-500">
-        <button onclick="closeStoryModal()" class="absolute top-8 right-8 text-white/50 hover:text-white">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path></svg>
+        <button onclick="closeStoryModal()" class="absolute top-8 right-8 text-white/70 hover:text-white">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
-        <p class="text-xs tracking-[0.3em] text-white/50 uppercase mb-6">Long press image to save</p>
+        <p class="text-xs tracking-[0.3em] font-medium text-white/70 uppercase mb-6">Long press image to save</p>
         <canvas id="export-canvas" width="1080" height="1920" class="hidden"></canvas>
-        <div class="relative w-full max-w-[300px] sm:max-w-[400px] aspect-[9/16] rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(109,40,217,0.15)]">
+        <div class="relative w-full max-w-[300px] sm:max-w-[400px] aspect-[9/16] rounded-2xl overflow-hidden shadow-[0_0_50px_rgba(109,40,217,0.25)] border border-white/10">
             <img id="export-image" src="" alt="Karmapath Story" class="w-full h-full object-cover">
         </div>
     </div>
 
     <!-- ONE SINGLE MASTER SCRIPT BLOCK -->
     <script>
+        // --- SEQUENCE LOGIC ---
+        function typeWriter(text, element, speed, callback) {
+            let i = 0;
+            element.innerHTML = "";
+            element.style.opacity = "1";
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        const queryFullText = "Are you tired of feeling like your mind is a battlefield?";
+        
+        function startSequence() {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen-query').classList.add('active');
+            document.getElementById('sequence-dots').style.display = 'flex';
+            document.getElementById('music-toggle-btn').classList.add('hidden');
+
+            const qText = document.getElementById('query-text');
+            const qSub = document.getElementById('query-subtext');
+            const qBtn = document.getElementById('btn-next-query');
+
+            qText.innerHTML = "";
+            qSub.classList.remove('visible');
+            qSub.classList.add('hidden');
+            qBtn.classList.remove('visible');
+            qBtn.classList.add('hidden');
+
+            setTimeout(() => {
+                typeWriter(queryFullText, qText, 40, () => {
+                    setTimeout(() => {
+                        qSub.classList.remove('hidden');
+                        qBtn.classList.remove('hidden');
+                        setTimeout(() => {
+                            qSub.classList.add('visible');
+                            qBtn.classList.add('visible');
+                        }, 50);
+                    }, 500);
+                });
+            }, 500);
+        }
+
+        function nextSequence(step) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('screen-' + step).classList.add('active');
+            
+            document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+            
+            if (step === 'solution') {
+                document.getElementById('dot-solution').classList.add('active');
+                setTimeout(() => {
+                    document.getElementById('icon-solution').classList.add('visible');
+                    setTimeout(() => document.getElementById('title-solution').classList.add('visible'), 300);
+                    setTimeout(() => document.getElementById('desc-solution').classList.add('visible'), 600);
+                    setTimeout(() => document.getElementById('btn-next-solution').classList.add('visible'), 900);
+                }, 100);
+            } else if (step === 'intro') {
+                document.getElementById('dot-intro').classList.add('active');
+                document.getElementById('music-toggle-btn').classList.remove('hidden');
+                
+                const introElements = document.querySelectorAll('#screen-intro .intro-rise, #screen-intro .reveal-sweep');
+                introElements.forEach(el => {
+                    el.style.animation = 'none';
+                    el.offsetHeight; 
+                    el.style.animation = null; 
+                });
+
+                playIntroMusic();
+            }
+        }
+
         // --- DATA & CONFIG ---
         const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwf818vMCSIAK4KEVMmPp9-3vJD5VxoC251XBH9wyy-zZBqNRcTYy-I_I2ZdCgaYtUJUA/exec";
         const NOTIF_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHOSwcUmk1s9DWWNzjVdMeoukh5Dt2iHfb4IqI5YLiNUWwkqr0aN8f_YB-QLoTgEQidw/exec";
@@ -676,23 +869,17 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         const BRAND_VIOLET = '#6D28D9';
 
         // --- GLOBAL PUSH NOTIFICATION ENGINE ---
-        window.sendKarmapathPush = function(title, body) {
+        window.sendKarmapathPush = async function(title, body) {
             if (!('Notification' in window) || Notification.permission !== "granted") return;
             
             try {
                 if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.getRegistrations().then(regs => {
-                        if (regs.length > 0) {
-                            regs[0].showNotification(title, { 
-                                body: body, 
-                                icon: 'karmapath-favicon-32.png', 
-                                vibrate: [200, 100, 200] 
-                            });
-                        } else {
-                            new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
-                        }
-                    }).catch(e => {
-                        new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
+                    const reg = await navigator.serviceWorker.ready;
+                    await reg.showNotification(title, { 
+                        body: body, 
+                        icon: 'karmapath-favicon-32.png', 
+                        badge: 'karmapath-favicon-16.png',
+                        vibrate: [200, 100, 200]
                     });
                 } else {
                     new Notification(title, { body: body, icon: 'karmapath-favicon-32.png' });
@@ -803,6 +990,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             localStorage.removeItem('karmapath_user_name');
             localStorage.removeItem('karmapath_reg_date');
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('sequence-dots').style.opacity = '0';
             document.getElementById('screen-login').classList.add('active');
             if (message) showToast(message);
         }
@@ -868,6 +1056,8 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         }
 
         function enterFromIntro() {
+            playIntroMusic();
+
             if (isUserAuthenticated) {
                 navigate('home');
                 triggerWelcomePush();
@@ -881,6 +1071,18 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById('screen-' + screenId).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            const dots = document.getElementById('sequence-dots');
+            if (dots) {
+                if (['query', 'solution', 'intro'].includes(screenId)) {
+                    dots.style.display = 'flex';
+                    setTimeout(() => dots.style.opacity = '1', 50);
+                } else {
+                    dots.style.opacity = '0';
+                    setTimeout(() => dots.style.display = 'none', 500);
+                }
+            }
+
             if (screenId === 'home') { stopAudio(); renderEchoes(); setAccent(BRAND_VIOLET); }
         }
 
@@ -945,6 +1147,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
         function waterSankalpa() {
             let sankalpa = JSON.parse(localStorage.getItem('karmapath_sankalpa')) || { days: 0, lastDate: null };
             const today = new Date().toLocaleDateString('en-US');
+            
             if (sankalpa.lastDate !== today) {
                 sankalpa.days += 1;
                 sankalpa.lastDate = today;
@@ -995,6 +1198,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             }
         }
 
+        // --- JOURNAL LOGIC ---
         function saveJournal() {
             const input = document.getElementById('journal-input').value.trim();
             if(!input) return;
@@ -1027,6 +1231,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             const list = document.getElementById('echoes-list');
             
             if(echoes.length === 0) { container.classList.add('hidden'); return; }
+
             container.classList.remove('hidden');
             list.innerHTML = '';
 
@@ -1038,10 +1243,10 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                 div.style.opacity = opacity;
                 div.style.transform = `scale(${scale})`;
                 div.innerHTML = `
-                    <div class="flex items-center justify-center gap-4 text-[10px] uppercase tracking-[0.3em] text-gray-500 mb-4">
+                    <div class="flex items-center justify-center gap-4 text-[10px] uppercase tracking-[0.3em] text-[#666666] font-medium mb-4">
                         <span>${echo.date}</span><div class="w-1 h-1 rounded-full" style="background-color: rgba(var(--kp-accent-rgb), 0.6);"></div><span>${echo.emotion}</span>
                     </div>
-                    <p class="text-sm md:text-lg text-gray-400 font-thin italic">"${echo.text}"</p>
+                    <p class="text-sm md:text-lg text-[#666666] font-light italic">"${echo.text}"</p>
                 `;
                 list.appendChild(div);
             });
@@ -1062,9 +1267,37 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             }
         }
 
-        function applyCosmicSync() {
-            document.getElementById('lunar-icon').innerText = "🌕";
-            document.getElementById('lunar-text').innerText = "Full Moon Sync";
+        function playIntroMusic() {
+            const audio = document.getElementById('intro-audio');
+            const musicIcon = document.getElementById('music-icon');
+            const musicText = document.getElementById('music-text');
+            
+            if (audio && audio.paused) {
+                audio.play().then(() => {
+                    if(musicIcon) musicIcon.innerText = "🎵";
+                    if(musicText) musicText.innerText = "Music On";
+                }).catch(err => {
+                    console.log("Audio autoplay blocked by browser, waiting for next interaction.", err);
+                });
+            }
+        }
+
+        function toggleIntroMusic() {
+            const audio = document.getElementById('intro-audio');
+            const musicIcon = document.getElementById('music-icon');
+            const musicText = document.getElementById('music-text');
+            
+            if (!audio) return;
+            
+            if (audio.paused) {
+                audio.play();
+                musicIcon.innerText = "🎵";
+                musicText.innerText = "Music On";
+            } else {
+                audio.pause();
+                musicIcon.innerText = "🔇";
+                musicText.innerText = "Music Off";
+            }
         }
 
         let bgAudio;
@@ -1075,7 +1308,14 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                 bgAudio.volume = 0.4;
             }
         }
-        function toggleAudio() { initAudio(); if (isPlaying) stopAudio(); else playAudio(); }
+        function toggleAudio() { 
+            const intro = document.getElementById('intro-audio');
+            if(intro && !intro.paused) toggleIntroMusic();
+
+            initAudio(); 
+            if (isPlaying) stopAudio(); 
+            else playAudio(); 
+        }
         function playAudio() {
             bgAudio.play().catch(err => console.log("Audio playback failed:", err));
             isPlaying = true;
@@ -1179,28 +1419,21 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
             modal.style.opacity = '0'; setTimeout(() => { modal.classList.add('hidden'); }, 500);
         }
 
-        // --- INIT & RUN ---
         window.onload = async () => {
             setAccent(BRAND_VIOLET);
             createStars();
-            applyCosmicSync(); 
             initSankalpa(); 
             renderEchoes(); 
             updateNotifBellUI();
 
-            // COMPULSORY INTRO SCREEN
-            document.getElementById('screen-intro').classList.add('active');
-
-            // PEACOCK FEATHER AUDIO LOGIC
-            const introAudio = document.getElementById('intro-audio');
-            if (introAudio) {
-                introAudio.volume = 0.5;
-                introAudio.play().catch(e => {
-                    document.body.addEventListener('click', () => { introAudio.play().catch(err => {}); }, { once: true });
-                });
-            }
+            // 1. ALWAYS SHOW ANIMATION SEQUENCE FIRST
+            startSequence();
             
-            // BACKGROUND SW REGISTRATION (8 AM, 5 PM, 10 PM)
+            // 2. Play music automatically on user interaction anywhere on the document (Fix for mobile autoplay policies)
+            document.body.addEventListener('click', playIntroMusic, { once: true });
+            document.body.addEventListener('touchstart', playIntroMusic, { once: true });
+            
+            // 3. REGISTER BACKGROUND SERVICE WORKER
             if ('serviceWorker' in navigator) {
                 const swCode = `
                     const gmQuotes = ${JSON.stringify(gmQuotes)};
@@ -1238,7 +1471,7 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
 
             if (notifPermissionGranted()) { startNotificationPolling(); }
 
-            // AUTH VERIFICATION IN BACKGROUND
+            // 4. AUTH VERIFICATION IN BACKGROUND
             const token = localStorage.getItem('karmapath_auth_token');
             if (token) {
                 try {
@@ -1251,12 +1484,12 @@ l-26 -53 -62 118 c-132 250 -149 287 -155 339 -9 79 12 139 68 195 64 64 127
                         localStorage.removeItem('karmapath_auth_token');
                     }
                 } catch (error) {
-                    isUserAuthenticated = true; // Fallback offline
+                    isUserAuthenticated = true; 
                     updateGreetingUI(); 
                 }
             }
 
-            // Foreground Time Check Fallback
+            // 5. FOREGROUND TIME CHECK (FALLBACK)
             setInterval(() => {
                 if (!notifPermissionGranted()) return;
                 const now = new Date(), hours = now.getHours(), dateString = now.toDateString();
