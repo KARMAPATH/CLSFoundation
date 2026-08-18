@@ -340,10 +340,6 @@
                     <a href="#donate" class="bg-cls-orange text-white px-6 py-2.5 rounded-md font-heading font-bold text-sm tracking-wide hover:bg-orange-600 transition-all btn-pulse flex items-center gap-2">
                         <i class="fas fa-shield-alt"></i> Protect a Child
                     </a>
-                    <button id="cls-notif-bell" onclick="clsEnableNotifications()" class="text-gray-300 hover:text-white transition-colors text-lg" title="Get notified about updates">
-                        <i class="fas fa-bell"></i>
-                        <span class="hidden">Get Updates</span>
-                    </button>
                 </div>
 
                 <!-- Mobile Menu Toggle -->
@@ -771,7 +767,7 @@
                 <!-- Founder -->
                 <div class="reveal tilt-card bg-white rounded-xl shadow-secure overflow-hidden border-t-4 border-cls-orange group hover:shadow-2xl">
                     <div class="h-48 overflow-hidden bg-gray-200">
-                        <img src="https://picsum.photos/seed/kamal-kumar/400/400" alt="Mr. Kamal Kumar" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <img src="Kamal Kumar.png" alt="Mr. Kamal Kumar" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
                     <div class="p-6">
                         <h4 class="font-heading font-bold text-lg text-cls-navy">Mr. Kamal Kumar</h4>
@@ -785,10 +781,10 @@
                 <!-- Founding Member -->
                 <div class="reveal reveal-delay-1 tilt-card bg-white rounded-xl shadow-secure overflow-hidden border-t-4 border-cls-green group hover:shadow-2xl">
                     <div class="h-48 overflow-hidden bg-gray-200">
-                        <img src="img1.jpeg" alt="Mrs. Vimal Saluja" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                        <img src="Vimal Saluja.png" alt="Mrs. Vimal Saluja" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                     </div>
                     <div class="p-6">
-                        <h4 class="font-heading font-bold text-lg text-cls-navy">Mrs. Vimal Saluja</h4>S
+                        <h4 class="font-heading font-bold text-lg text-cls-navy">Mrs. Vimal Saluja</h4>
                         <p class="text-cls-green font-bold text-xs uppercase tracking-wider mb-4">Founding Member</p>
                         <p class="text-gray-600 text-sm leading-relaxed">
                             20 years in the corporate sector, working toward girl-child rights. She believes girls are the very foundation of a nation's growth.
@@ -1112,60 +1108,6 @@
                 el.textContent = el.getAttribute('data-target') + (el.getAttribute('data-suffix') || '');
             });
         }
-
-        // --- SCHEDULED NOTIFICATIONS (own dedicated Google Sheet / Apps Script — same one Karmapath uses) ---
-        // Works whenever this page is open (foreground or backgrounded tab).
-        // It does NOT wake up a fully closed browser — that needs a separate push-server setup.
-        const NOTIF_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHOSwcUmk1s9DWWNzjVdMeoukh5Dt2iHfb4IqI5YLiNUWwkqr0aN8f_YB-QLoTgEQidw/exec";
-        const CLS_NOTIF_INTERVAL_MS = 60000;
-        let clsNotifPollHandle = null;
-
-        function clsNotifGranted() {
-            return ('Notification' in window) && Notification.permission === 'granted';
-        }
-
-        async function clsEnableNotifications() {
-            if (!('Notification' in window)) return;
-            const result = await Notification.requestPermission();
-            clsUpdateBell();
-            if (result === 'granted') startClsNotifPolling();
-        }
-
-        function clsUpdateBell() {
-            const btn = document.getElementById('cls-notif-bell');
-            if (!btn) return;
-            if (!('Notification' in window)) { btn.classList.add('hidden'); return; }
-            const granted = Notification.permission === 'granted';
-            btn.querySelector('span').innerText = granted ? 'Notifications On' : 'Get Updates';
-            btn.title = granted ? 'Notifications on' : 'Get notified about updates';
-            btn.querySelector('i').className = granted ? 'fas fa-bell text-cls-orange' : 'fas fa-bell';
-        }
-
-        function startClsNotifPolling() {
-            if (clsNotifPollHandle) return;
-            checkClsNotifications();
-            clsNotifPollHandle = setInterval(checkClsNotifications, CLS_NOTIF_INTERVAL_MS);
-        }
-
-        async function checkClsNotifications() {
-            if (!clsNotifGranted()) return;
-            if (!NOTIF_SCRIPT_URL || NOTIF_SCRIPT_URL.indexOf('PASTE_') === 0) return; // not configured yet
-            try {
-                const res = await fetch(NOTIF_SCRIPT_URL);
-                const data = await res.json();
-                const shown = JSON.parse(localStorage.getItem('cls_shown_notifs') || '[]');
-                (data.notifications || []).forEach(n => {
-                    if (!shown.includes(n.id)) {
-                        try { new Notification(n.title, { body: n.message, icon: 'cls-icon-192.png' }); } catch (e) {}
-                        shown.push(n.id);
-                    }
-                });
-                localStorage.setItem('cls_shown_notifs', JSON.stringify(shown.slice(-200)));
-            } catch (err) { /* offline — silently retry next interval */ }
-        }
-
-        clsUpdateBell();
-        if (clsNotifGranted()) { startClsNotifPolling(); }
     </script>
 </body>
 </html>
