@@ -1,0 +1,25 @@
+{
+  "name": "Cheshta Learning System Foundation",
+  "short_name": "CLS Foundation",
+  "description": "A World Free of Fear, For Every Child \u2014 self-defense, physical training, and holistic education for the most vulnerable in our society.",
+  "start_url": "https://cls24x7.com/",
+  "scope": "https://cls24x7.com/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A192F",
+  "theme_color": "#0A192F",
+  "icons": [
+    {
+      "src": "https://cls24x7.com/cls-icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cls24x7.com/cls-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
